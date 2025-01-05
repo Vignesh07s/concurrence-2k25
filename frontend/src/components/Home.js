@@ -92,24 +92,8 @@ const Home = () => {
       <Countdown />
       <HomeSchedule/>
 
-     
-
-      <div className="w-full  bg-customWhite pb-4">
-        <div className="text-center mb-8">
-          <p className="text-4xl font-extrabold text-red-600 font-serif">Past Events</p>
-          <p className="text-xl text-black">A glimpse of our journey so far</p>
-        </div>
-        <div className="flex justify-center items-center">
-          <div className="bg-white rounded-lg overflow-hidden shadow-md">
-            <img
-              src={galleryImages[currentImage]}
-              alt={`event-${currentImage + 1}`}
-              className="w-[34em] h-[22.75em] object-cover mx-auto" // Fixed width and height in em
-            />
-          </div>
-        </div>
-      </div>
-      <div className="w-full px-4 py-8">
+     {/* Dignitary Messages */}
+     <div className="w-full px-4 py-8">
         <div className="border-t-2 border-b-2 border-gray-400 py-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0 md:space-x-6">
             {/* Section Name on the Right */}
@@ -145,6 +129,25 @@ const Home = () => {
           </div>
         </div>
       </div>
+
+
+      {/* Past Event Glimpses */}
+      <div className="w-full  bg-customWhite pb-4">
+        <div className="text-center mb-8">
+          <p className="text-4xl font-extrabold text-red-600 font-serif">Past Events</p>
+          <p className="text-xl text-black">A glimpse of our journey so far</p>
+        </div>
+        <div className="flex justify-center items-center">
+          <div className="bg-white rounded-lg overflow-hidden shadow-md">
+            <img
+              src={galleryImages[currentImage]}
+              alt={`event-${currentImage + 1}`}
+              className="w-[34em] h-[22.75em] object-cover mx-auto" // Fixed width and height in em
+            />
+          </div>
+        </div>
+      </div>
+      
 
       <br></br>
       

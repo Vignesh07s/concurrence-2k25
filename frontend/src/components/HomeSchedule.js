@@ -41,6 +41,24 @@ const EventSchedule = () => {
       ],
     },
     {
+      day: "Day 4", // Changed order
+      date: "February 21, 2025",
+      events: [
+        {
+          time: "9:30 AM - 11:30 AM",
+          title: "Startup Showcase",
+          description: "Young Entrepreneurs",
+          image: "https://via.placeholder.com/50",
+        },
+        {
+          time: "12:00 PM - 3:00 PM",
+          title: "Design Thinking Workshop",
+          description: "Ms. Deepa\nDr. Rajeev",
+          image: "https://via.placeholder.com/50",
+        },
+      ],
+    },
+    {
       day: "Day 3",
       date: "February 20, 2025",
       events: [
@@ -59,25 +77,7 @@ const EventSchedule = () => {
       ],
     },
     {
-      day: "Day 4",
-      date: "February 21, 2025",
-      events: [
-        {
-          time: "9:30 AM - 11:30 AM",
-          title: "Startup Showcase",
-          description: "Young Entrepreneurs",
-          image: "https://via.placeholder.com/50",
-        },
-        {
-          time: "12:00 PM - 3:00 PM",
-          title: "Design Thinking Workshop",
-          description: "Ms. Deepa\nDr. Rajeev",
-          image: "https://via.placeholder.com/50",
-        },
-      ],
-    },
-    {
-      day: "Day 5",
+      day: "Day 5", // Changed order
       date: "February 22, 2025",
       events: [
         {
@@ -95,17 +95,17 @@ const EventSchedule = () => {
       ],
     },
   ];
-  
+
   return (
-    <div className="min-h-screen flex justify-center items-center bg-gray-100 p-6">
-      <div className="max-w-3xl w-full bg-white shadow-lg rounded-lg p-6">
+    <div className="min-h-screen flex justify-center items-center bg-gradient-to-b from-cyan-100 to-gray-200 p-6 p-6">
+      <div className="max-w-3xl w-full rounded-lg p-6">
         <h2 className="text-2xl font-bold text-gray-800 text-center">
           EVENT SCHEDULE
         </h2>
         <p className="text-gray-500 text-center mt-2">Here is our event schedule</p>
 
-        {/* Tabs */}
-        <div className="flex justify-center mt-6 space-x-4">
+        {/* Tabs for Day Selection */}
+        <div className="grid grid-cols-3 gap-4 mt-6 md:grid-cols-5 justify-center">
           {eventDays.map((day, index) => (
             <button
               key={index}
@@ -121,14 +121,12 @@ const EventSchedule = () => {
           ))}
         </div>
 
-        {/* Events */}
+        {/* Event Details */}
         <div className="mt-8">
           {eventDays.map((day, index) => (
             <div
               key={index}
-              className={`transition-all duration-300 ${
-                index === activeDay ? "block" : "hidden"
-              }`}
+              className={`transition-all duration-300 ${index === activeDay ? "block" : "hidden"}`}
             >
               <h3 className="text-lg font-semibold text-gray-700 mb-4 text-center">
                 {`${day.day} (${day.date}) Events`}
@@ -136,9 +134,9 @@ const EventSchedule = () => {
               {day.events.map((event, idx) => (
                 <div
                   key={idx}
-                  className="flex items-center bg-gray-50 p-4 rounded-lg shadow-md mb-4 hover:shadow-lg hover:bg-red-100 hover:scale-105 transition-all duration-300"
+                  className="flex flex-col md:flex-row items-center bg-gray-50 p-4 rounded-lg shadow-md mb-4 hover:shadow-lg hover:bg-red-100 hover:scale-105 transition-all duration-300"
                 >
-                  <div className="text-sm font-medium text-gray-600 w-28 text-center">
+                  <div className="text-sm font-medium text-gray-600 w-full md:w-28 text-center">
                     {event.time}
                   </div>
                   <img
@@ -146,10 +144,8 @@ const EventSchedule = () => {
                     alt={event.title}
                     className="w-12 h-12 rounded-full object-cover mx-4 hover:scale-110 transition-transform duration-300"
                   />
-                  <div>
-                    <h4 className="text-md font-semibold text-gray-800">
-                      {event.title}
-                    </h4>
+                  <div className="mt-2 md:mt-0 md:ml-4">
+                    <h4 className="text-md font-semibold text-gray-800">{event.title}</h4>
                     <p className="text-sm text-gray-500 whitespace-pre-line">
                       {event.description}
                     </p>

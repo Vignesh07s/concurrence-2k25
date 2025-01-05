@@ -46,7 +46,7 @@ const Countdown = () => {
       <div className="container relative z-10 mx-auto flex flex-col md:flex-row items-center justify-center gap-8 text-center">
         {/* Text Section */}
         <div className="text-center md:text-left">
-          <h2 className="text-xl sm:text-5xl font-bold text-yellow-400">
+          <h2 className="text-xl sm:text-5xl font-extrabold text-yellow-400">
             Countdown to the Big Tech Event<span className="hidden sm:inline"> 🚀</span>
           </h2>
         </div>
