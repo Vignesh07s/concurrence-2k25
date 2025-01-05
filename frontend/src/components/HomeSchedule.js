@@ -97,8 +97,8 @@ const EventSchedule = () => {
   ];
   
   return (
-    <div className="min-h-screen flex justify-center items-center p-6">
-      <div className="max-w-3xl w-full  shadow-lg rounded-lg p-6">
+    <div className="min-h-screen flex justify-center items-center bg-gray-100 p-6">
+      <div className="max-w-3xl w-full bg-white shadow-lg rounded-lg p-6">
         <h2 className="text-2xl font-bold text-gray-800 text-center">
           EVENT SCHEDULE
         </h2>

@@ -33,40 +33,60 @@ const Countdown = () => {
 
   return (
     <section
-      className="py-12 bg-blue-600 text-white min-h-[300px] flex items-center justify-center"
+      className="py-12 relative text-white min-h-[300px] flex items-center justify-center"
       style={{
         backgroundImage: "url('/images/counterbg.jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
       }}
     >
-      <div className="container mx-auto flex flex-col md:flex-row items-center justify-center gap-8 text-center">
+      {/* Background Overlay */}
+      <div className="absolute inset-0 bg-black opacity-60"></div>
+
+      <div className="container relative z-10 mx-auto flex flex-col md:flex-row items-center justify-center gap-8 text-center">
         {/* Text Section */}
         <div className="text-center md:text-left">
-          <h2 className="text-5xl sm:text-6xl font-bold">
-            Countdown
+          <h2 className="text-2xl sm:text-5xl font-bold text-yellow-400">
+            Countdown to the Big Tech Event!
+            <span className="hidden sm:inline"> 🚀</span>
           </h2>
-          <p className="mt-4 text-xl sm:text-2xl ">
-            Count every second to the big day and don't miss a moment of the excitement!
-          </p>
         </div>
 
+
         {/* Countdown Timer Section */}
-        <div className="flex gap-8 mt-6 md:mt-0 flex-wrap justify-center">
+        <div className="flex gap-6 sm:gap-8 mt-6 md:mt-0 flex-wrap justify-center">
           {/* Box for each time element */}
-          <div className="text-center bg-blue-800 p-4 rounded-lg shadow-lg w-24 sm:w-24">
-            <span className="block text-5xl font-bold ">{timeLeft.days}</span>
-            <span className="block text-lg text-red-600 font-bold">Days</span>
+          <div className="text-center bg-blue-800 p-4 rounded-lg shadow-lg w-20 sm:w-24 md:w-28">
+            <span className="block text-4xl sm:text-5xl font-bold text-yellow-400">
+              {timeLeft.days}
+            </span>
+            <span className="block text-sm sm:text-lg text-yellow-300 font-bold">
+              Days
+            </span>
           </div>
-          <div className="text-center bg-blue-800 p-4 rounded-lg shadow-lg w-24 sm:w-24">
-            <span className="block text-5xl font-bold">{timeLeft.hours}</span>
-            <span className="block text-lg text-red-600 font-bold">Hours</span>
+          <div className="text-center bg-blue-800 p-4 rounded-lg shadow-lg w-20 sm:w-24 md:w-28">
+            <span className="block text-4xl sm:text-5xl font-bold text-yellow-400">
+              {timeLeft.hours}
+            </span>
+            <span className="block text-sm sm:text-lg text-yellow-300 font-bold">
+              Hours
+            </span>
           </div>
-          <div className="text-center bg-blue-800 p-4 rounded-lg shadow-lg w-24 sm:w-24">
-            <span className="block text-5xl font-bold">{timeLeft.minutes}</span>
-            <span className="block text-lg text-red-600 font-bold">Minutes</span>
+          <div className="text-center bg-blue-800 p-4 rounded-lg shadow-lg w-20 sm:w-24 md:w-28">
+            <span className="block text-4xl sm:text-5xl font-bold text-yellow-400">
+              {timeLeft.minutes}
+            </span>
+            <span className="block text-sm sm:text-lg text-yellow-300 font-bold">
+              Minutes
+            </span>
           </div>
-          <div className="text-center bg-blue-800 p-4 rounded-lg shadow-lg w-24 sm:w-24">
-            <span className="block text-5xl font-bold">{timeLeft.seconds}</span>
-            <span className="block text-lg text-red-600 font-bold">Seconds</span>
+          <div className="text-center bg-blue-800 p-4 rounded-lg shadow-lg w-20 sm:w-24 md:w-28">
+            <span className="block text-4xl sm:text-5xl font-bold text-yellow-400">
+              {timeLeft.seconds}
+            </span>
+            <span className="block text-sm sm:text-lg text-yellow-300 font-bold">
+              Seconds
+            </span>
           </div>
         </div>
       </div>
