@@ -46,49 +46,48 @@ const Countdown = () => {
       <div className="container relative z-10 mx-auto flex flex-col md:flex-row items-center justify-center gap-8 text-center">
         {/* Text Section */}
         <div className="text-center md:text-left">
-          <h2 className="text-2xl sm:text-5xl font-bold text-yellow-400">
-            Countdown to the Big Tech Event!
-            <span className="hidden sm:inline"> 🚀</span>
+          <h2 className="text-xl sm:text-5xl font-bold text-yellow-400">
+            Countdown to the Big Tech Event<span className="hidden sm:inline"> 🚀</span>
           </h2>
         </div>
 
-
         {/* Countdown Timer Section */}
-        <div className="flex gap-6 sm:gap-8 mt-6 md:mt-0 flex-wrap justify-center">
+        <div className="flex gap-3 sm:gap-6 mt-6 md:mt-0 flex-wrap justify-center">
           {/* Box for each time element */}
-          <div className="text-center bg-blue-800 p-4 rounded-lg shadow-lg w-20 sm:w-24 md:w-28">
-            <span className="block text-4xl sm:text-5xl font-bold text-yellow-400">
+          <div className="text-center bg-blue-800 p-3 rounded-lg shadow-lg w-16 sm:w-24 md:w-28">
+            <span className="block text-3xl sm:text-5xl font-bold text-yellow-400">
               {timeLeft.days}
             </span>
-            <span className="block text-sm sm:text-lg text-yellow-300 font-bold">
+            <span className="block text-xs sm:text-lg text-yellow-300 font-bold">
               Days
             </span>
           </div>
-          <div className="text-center bg-blue-800 p-4 rounded-lg shadow-lg w-20 sm:w-24 md:w-28">
-            <span className="block text-4xl sm:text-5xl font-bold text-yellow-400">
+          <div className="text-center bg-blue-800 p-3 rounded-lg shadow-lg w-16 sm:w-24 md:w-28">
+            <span className="block text-3xl sm:text-5xl font-bold text-yellow-400">
               {timeLeft.hours}
             </span>
-            <span className="block text-sm sm:text-lg text-yellow-300 font-bold">
+            <span className="block text-xs sm:text-lg text-yellow-300 font-bold">
               Hours
             </span>
           </div>
-          <div className="text-center bg-blue-800 p-4 rounded-lg shadow-lg w-20 sm:w-24 md:w-28">
-            <span className="block text-4xl sm:text-5xl font-bold text-yellow-400">
+          <div className="text-center bg-blue-800 p-3 rounded-lg shadow-lg w-16 sm:w-24 md:w-28">
+            <span className="block text-3xl sm:text-5xl font-bold text-yellow-400">
               {timeLeft.minutes}
             </span>
-            <span className="block text-sm sm:text-lg text-yellow-300 font-bold">
+            <span className="block text-xs sm:text-lg text-yellow-300 font-bold">
               Minutes
             </span>
           </div>
-          <div className="text-center bg-blue-800 p-4 rounded-lg shadow-lg w-20 sm:w-24 md:w-28">
-            <span className="block text-4xl sm:text-5xl font-bold text-yellow-400">
+          <div className="text-center bg-blue-800 p-3 rounded-lg shadow-lg w-16 sm:w-24 md:w-28">
+            <span className="block text-3xl sm:text-5xl font-bold text-yellow-400">
               {timeLeft.seconds}
             </span>
-            <span className="block text-sm sm:text-lg text-yellow-300 font-bold">
+            <span className="block text-xs sm:text-lg text-yellow-300 font-bold">
               Seconds
             </span>
           </div>
         </div>
+
       </div>
     </section>
   );
