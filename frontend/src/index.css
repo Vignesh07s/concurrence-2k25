@@ -1,35 +1,17 @@
+/* Import Slick Carousel styles */
+@import "~slick-carousel/slick/slick.css";
+@import "~slick-carousel/slick/slick-theme.css";
+
+/* Tailwind setup */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-
-/* Custom fade-in animation */
-@keyframes slideInRight {
-  0% {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-  100% {
-    transform: translateX(0);
-    opacity: 1;
-  }
+/* Optional: Style adjustments for the carousel (e.g., hover effects) */
+.carousel-slide {
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
-
-@keyframes slideOutLeft {
-  0% {
-    transform: translateX(0);
-    opacity: 1;
-  }
-  100% {
-    transform: translateX(-100%);
-    opacity: 0;
-  }
-}
-
-.animate-slideInRight {
-  animation: slideInRight 1s ease-out;
-}
-
-.animate-slideOutLeft {
-  animation: slideOutLeft 1s ease-in;
+.carousel-slide:hover {
+  transform: scale(1.05); /* Slight zoom-in effect */
+  box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.3); /* 3D shadow effect */
 }

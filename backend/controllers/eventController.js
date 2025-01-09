@@ -7,13 +7,15 @@ const createEvent = async (req, res) => {
         description,
         rulesAndGuidelines,
         rounds,
-        date,  // Destructuring 'date' from the request body
+        date,
         startTime,
         endTime,
         location,
         registrationFee,
         prizes,
-        coordinators
+        maxParticipants,
+        coordinators,
+        image,
     } = req.body;
 
     try {
@@ -21,15 +23,17 @@ const createEvent = async (req, res) => {
         if (
             !eventName ||
             !description ||
+            !rulesAndGuidelines ||
+            !rounds ||
             !date ||
             !startTime ||
             !endTime ||
             !location ||
             !registrationFee ||
             !prizes ||
+            !maxParticipants ||
             !coordinators ||
-            !rulesAndGuidelines ||
-            !rounds
+            !image
         ) {
             return res.status(400).json({ message: 'All required fields must be provided.' });
         }
@@ -79,13 +83,15 @@ const createEvent = async (req, res) => {
             description,
             rulesAndGuidelines: rulesAndGuidelines || [],
             rounds: rounds || [],
-            date: eventDate,  // Use `eventDate` instead of `date`
+            date: eventDate, 
             startTime,
             endTime,
             location,
             registrationFee,
             prizes,
-            coordinators
+            maxParticipants,
+            image,
+            coordinators,
         });
 
         await newEvent.save();
@@ -97,10 +103,11 @@ const createEvent = async (req, res) => {
     }
 };
 
+
 const getEvents = async (req, res) => {
     try {
         // Fetch all events, only selecting the required fields
-        const events = await Event.find({}, 'eventName date startTime location');
+        const events = await Event.find({}, 'eventName date startTime endTime location image');
         
         if (!events.length) {
             return res.status(404).json({ message: 'No events found.' });
@@ -134,5 +141,28 @@ const getEvent = async (req, res) => {
     }
 };
 
+const registrationCount = async (req, res) => {
+    const { eventName } = req.params;
+    try {
+        // Find the event by eventName, but don't populate participants
+        const event = await Event.findOne({ eventName }, 'participants');
+        console.log('Fetched Event:', event);
 
-module.exports = { createEvent, getEvents, getEvent };
+
+        // If the event is not found, return a 404 error
+        if (!event) {
+            return res.status(404).json({ message: 'Event not found.' });
+        }
+
+        // Send only the registration count
+        res.status(200).json({ registrationCount: event.participants.length });
+    } catch (error) {
+        console.error('Error fetching registration count:', error);
+        res.status(500).json({ message: 'Error fetching registration count', error });
+    }
+};
+
+
+
+
+module.exports = { createEvent, getEvents, getEvent, registrationCount };

@@ -11,6 +11,9 @@ const eventSchema = new mongoose.Schema({
     location: { type: String, required: true },
     registrationFee: { type: Number, required: true },
     prizes: { type: String, required: true },
+    maxParticipants: { type: Number, required: true },
+    registrationCount: { type: Number, default: 0 },
+    image: { type: String, required: true },
     coordinators: [{
         name: { type: String, required: true },
         role: { type: String, required: true },

@@ -20,6 +20,18 @@ const EventSchedule = () => {
           description: "Dr. K. Narshimulu\nMr. K. R Harinath",
           image: "https://via.placeholder.com/50",
         },
+        {
+          time: "10:00 AM - 11:00 AM",
+          title: "Inauguration",
+          description: "Chief members\nConveners",
+          image: "https://via.placeholder.com/50",
+        },
+        {
+          time: "11:00 AM - 4:30 PM",
+          title: "Coding Contest",
+          description: "Dr. K. Narshimulu\nMr. K. R Harinath",
+          image: "https://via.placeholder.com/50",
+        },
       ],
     },
     {
@@ -41,24 +53,6 @@ const EventSchedule = () => {
       ],
     },
     {
-      day: "Day 4", // Changed order
-      date: "February 21, 2025",
-      events: [
-        {
-          time: "9:30 AM - 11:30 AM",
-          title: "Startup Showcase",
-          description: "Young Entrepreneurs",
-          image: "https://via.placeholder.com/50",
-        },
-        {
-          time: "12:00 PM - 3:00 PM",
-          title: "Design Thinking Workshop",
-          description: "Ms. Deepa\nDr. Rajeev",
-          image: "https://via.placeholder.com/50",
-        },
-      ],
-    },
-    {
       day: "Day 3",
       date: "February 20, 2025",
       events: [
@@ -72,6 +66,24 @@ const EventSchedule = () => {
           time: "1:30 PM - 4:00 PM",
           title: "Networking Session",
           description: "Professionals & Students",
+          image: "https://via.placeholder.com/50",
+        },
+      ],
+    },
+    {
+      day: "Day 4", // Changed order
+      date: "February 21, 2025",
+      events: [
+        {
+          time: "9:30 AM - 11:30 AM",
+          title: "Startup Showcase",
+          description: "Young Entrepreneurs",
+          image: "https://via.placeholder.com/50",
+        },
+        {
+          time: "12:00 PM - 3:00 PM",
+          title: "Design Thinking Workshop",
+          description: "Ms. Deepa\nDr. Rajeev",
           image: "https://via.placeholder.com/50",
         },
       ],
@@ -97,22 +109,21 @@ const EventSchedule = () => {
   ];
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-gradient-to-b from-cyan-100 to-gray-200 p-6 p-6">
-      <div className="max-w-3xl w-full rounded-lg p-6">
-        <h2 className="text-2xl font-bold text-gray-800 text-center">
+    <div className="flex justify-center items-center bg-gradient-to-b from-gray-100 to-cyan-100 pt-3">
+      <div className="max-w-3xl w-full rounded-lg">
+        <h2 className="text-3xl font-bold text-gray-800 text-center pb-4">
           EVENT SCHEDULE
         </h2>
-        <p className="text-gray-500 text-center mt-2">Here is our event schedule</p>
 
         {/* Tabs for Day Selection */}
-        <div className="grid grid-cols-3 gap-4 mt-6 md:grid-cols-5 justify-center">
+        <div className="grid grid-cols-3 gap-4 md:grid-cols-5 justify-center">
           {eventDays.map((day, index) => (
             <button
               key={index}
               className={`px-4 py-2 rounded-full text-white transition-all duration-300 ${
                 index === activeDay
                   ? "bg-red-500 hover:bg-red-600"
-                  : "bg-blue-800 hover:bg-blue-900"
+                  : "bg-blue-400 hover:bg-blue-800"
               }`}
               onClick={() => setActiveDay(index)}
             >

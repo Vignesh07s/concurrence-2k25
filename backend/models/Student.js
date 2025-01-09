@@ -9,6 +9,7 @@ const studentSchema = new mongoose.Schema({
     required: true,
     match: /^[6-9]\d{9}$/, // Ensures the phone number is a valid Indian mobile number
   },
+  gender: { type: String, required: true },
   yearSem: { type: String, required: true },
   college: { type: String, required: true },
   department: { type: String, required: true },
@@ -16,6 +17,7 @@ const studentSchema = new mongoose.Schema({
     {
       eventId: { type: mongoose.Schema.Types.ObjectId, ref: 'Event', required: true }, // Event reference
       transactionId: { type: String, required: true }, // Transaction ID for this event
+      ticketId: { type: String, required: true }, // Ticket ID for this event
     },
   ],
 });

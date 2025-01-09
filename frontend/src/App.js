@@ -8,6 +8,8 @@ import EventDetails from "./components/EventDetails";
 import Gallery from "./components/Gallery";
 import EventSchedule from "./components/EventSchedule";
 import Contact from "./components/Contact";
+import Carousel from "./components/Carousel";
+import About from "./components/About";
 
 export default function App() {
   
@@ -24,6 +26,8 @@ export default function App() {
             <Route path="/gallery" element={<Gallery/>} />
             <Route path="/event-schedule" element={<EventSchedule/>} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/carousel" element={<Carousel />} />
+            <Route path="/about" element={<About />} />
           </Routes>
       </Router>
 

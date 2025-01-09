@@ -47,13 +47,15 @@ function EventsPage() {
       <h1 className="text-3xl font-bold text-center text-blue-600 dark:text-blue-300 mb-6">
         Our Events
       </h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {events.map((event) => (
           <EventCard
-            key={event.eventName} // Use eventName as key
+            key={event.eventName}
+            image={event.image}
             eventName={event.eventName}
-            date={event.date} // Display the formatted date
-            time={event.startTime}
+            date={event.date}
+            startTime={event.startTime}
+            endTime={event.endTime}
             location={event.location}
           />
         ))}

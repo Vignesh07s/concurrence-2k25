@@ -6,6 +6,7 @@ const RegistrationModal = ({ closeModal, eventName }) => {
     registrationId: '',
     phoneNumber: '',
     email: '',
+    gender: '',
     year: '',
     semester: '',
     college: '',
@@ -30,6 +31,7 @@ const RegistrationModal = ({ closeModal, eventName }) => {
       const payload = {
         name: formData.name,
         email: formData.email,
+        gender: formData.gender,
         registrationId: formData.registrationId.toUpperCase(),
         yearSem: formData.year + "-" + formData.semester,
         phoneNumber: formData.phoneNumber,
@@ -65,7 +67,6 @@ const RegistrationModal = ({ closeModal, eventName }) => {
         transactionId: formData.transactionId,
         event: eventName.replace("-", " "),
       };
-      console.log(payload);
       const response = await fetch('http://localhost:5000/api/v1/register/confirm', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -85,13 +86,13 @@ const RegistrationModal = ({ closeModal, eventName }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 sm:p-6 md:p-8 lg:p-10 backdrop-blur-sm">
       {loading && (
         <div id="preloder" className="fixed inset-0 flex justify-center items-center bg-gray-100 bg-opacity-75 z-50">
           <div className="loader border-t-4 border-blue-500 rounded-full w-16 h-16 animate-spin"></div>
         </div>
       )}
-      <div className="bg-white p-6 rounded-lg shadow-lg w-[400px] relative">
+      <div className="p-4 sm:p-6 md:p-8 lg:p-10  bg-white rounded-lg shadow-lg w-[400px] sm:w-[80%] md:w-[60%] lg:w-[50%] max-h-[90vh] overflow-auto relative my-4">
         <button
           onClick={closeModal}
           className="absolute top-3 right-3 text-gray-500 hover:text-gray-700 text-2xl font-bold"
@@ -158,6 +159,21 @@ const RegistrationModal = ({ closeModal, eventName }) => {
                   placeholder="Enter your email address"
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-500"
                 />
+              </div>
+              <div>
+                <label className="block text-gray-700 font-medium">Gender</label>
+                <select
+                  name="gender"
+                  value={formData.gender}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-500"
+                >
+                  <option value="" disabled>Select your gender</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
+                </select>
               </div>
               {/* Year & Semester */}
               <div className="grid grid-cols-2 gap-4">

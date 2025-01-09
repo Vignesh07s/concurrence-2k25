@@ -3,26 +3,15 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
-      keyframes: {
-        marquee: {
-          "0%": { transform: "translateX(100%)" },
-          "100%": { transform: "translateX(-100%)" },
-        },
-      },
-      colors: {
-        customWhite: '#f6f7fd', // Example custom color
-        customBlue: '#1e90ff', // Another custom color
+      boxShadow: {
+        '3d': '0px 8px 30px rgba(0, 0, 0, 0.2)', // Custom shadow for carousel images
       },
       animation: {
-        marquee: "marquee 10s linear infinite",
+        marquee: "marquee 10s linear infinite", // Optional marquee animation
       },
-      backdropBlur: {
-        // Add custom blur levels
-        xs: '2px',   // Example: very slight blur
-        sm: '4px',   // Slight blur
-        md: '8px',   // Medium blur
-        lg: '12px',  // Strong blur
-        xl: '16px',  // Very strong blur
+      colors: {
+        customWhite: '#f6f7fd', // Example custom color for styling
+        customBlue: '#1e90ff', // Example custom color for hover effects
       },
     },
   },

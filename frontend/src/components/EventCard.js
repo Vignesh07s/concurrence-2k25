@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function EventCard({ date, time, location, eventName }) {
+function EventCard({ image, eventName, date, startTime, endTime, location }) {
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -18,7 +18,7 @@ function EventCard({ date, time, location, eventName }) {
       {/* Event Image */}
       <div className="h-48 overflow-hidden">
         <img
-          src="/webDesigning.jpg" // Static image for all events
+          src={image}
           alt={`${eventName}`}
           className="w-full h-full object-cover transition-transform duration-300"
         />
@@ -45,7 +45,7 @@ function EventCard({ date, time, location, eventName }) {
               <line x1="8" y1="2" x2="8" y2="6" />
               <line x1="3" y1="10" x2="21" y2="10" />
             </svg>
-            <span>{`${date} ${time ? `| ${time}` : ''}`}</span>
+            <span>{`${date} ${startTime ? `| ${startTime} - ${endTime}` : ''}`}</span>
           </div>
 
           {/* Location */}
