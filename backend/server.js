@@ -14,16 +14,34 @@ connectDB();
 const app = express();
 
 // Middleware
+const allowedOrigins = ['https://your-frontend-url.vercel.app'];
 app.use(cors());
+// app.use(cors({
+//     origin: function (origin, callback) {
+//         if (!origin || allowedOrigins.includes(origin)) {
+//             callback(null, true);
+//         } else {
+//             callback(new Error('Not allowed by CORS'));
+//         }
+//     },
+// }));
 app.use(bodyParser.json());
 
-// Routes
-app.use('/api/v1/register', require('./routes/registrationRoutes')); // Registration validation routes
-app.use('/api/v1/events', require('./routes/eventRoutes')); // Event routes
+// Registration and Route routes
+app.use('/api/v1/register', require('./routes/registrationRoutes'));
+app.use('/api/v1/events', require('./routes/eventRoutes'));
 
-// Root route
+// Test route
 app.get('/', (req, res) => {
     res.send('Welcome to the Event Registration API');
+});
+
+// Error-handling middleware
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(err.status || 500).json({
+        error: err.message || 'Something went wrong!',
+    });
 });
 
 // Start the server

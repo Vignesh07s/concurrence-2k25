@@ -10,7 +10,7 @@ function EventsPage() {
     // Fetch all events from the backend
     const fetchEvents = async () => {
       try {
-        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/events/getEvents`);
+        const response = await fetch("http://localhost:5000/api/v1/events/getEvents");
         const data = await response.json();
 
         // Format the date to DD-MM-YYYY
