@@ -80,19 +80,18 @@ const confirmRegistration = async (req, res) => {
     const { registrationId, transactionId, event } = req.body;
 
     const session = await mongoose.startSession();
-    session.startTransaction();
+    
 
     try {
+        session.startTransaction();
         // Validate input and fetch event/student
         if (!registrationId || !transactionId || !event) {
             return res.status(400).json({ message: 'All fields are required' });
         }
 
-        const [eventDoc, existingTransaction, student] = await Promise.all([
-            Event.findOne({ eventName: { $regex: new RegExp(`^${event}$`, 'i') } }),
-            Transaction.findOne({ transactionId }),
-            Student.findOne({ registrationId }),
-        ]);
+        const eventDoc = await Event.findOne({ eventName: { $regex: new RegExp(`^${event}$`, 'i') } });
+        const existingTransaction = await Transaction.findOne({ transactionId });
+        const student = await Student.findOne({ registrationId });
 
         if (!eventDoc) throw new Error('Event not found');
         if (existingTransaction) throw new Error('Duplicate Transaction');
@@ -105,11 +104,9 @@ const confirmRegistration = async (req, res) => {
         eventDoc.registrationCount += 1;
         const transaction = new Transaction({ transactionId, studentId: student._id, eventId: eventDoc._id, amount: eventDoc.registrationFee });
 
-        await Promise.all([
-            student.save({ session }),
-            eventDoc.save({ session }),
-            transaction.save({ session }),
-        ]);
+        student.save({ session }),
+        eventDoc.save({ session }),
+        transaction.save({ session }),
 
         await session.commitTransaction();
 

@@ -57,7 +57,7 @@ const RegistrationModal = ({ closeModal, eventName }) => {
     }
   };
 
-  const handleSubmit = async (e) => {
+const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage('');
     setLoading(true);

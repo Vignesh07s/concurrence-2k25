@@ -15,7 +15,12 @@ const app = express();
 
 // Middleware
 const allowedOrigins = ['https://your-frontend-url.vercel.app'];
-app.use(cors());
+// app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:3000', // Replace with your frontend's URL
+    methods: ['GET', 'POST'],
+    credentials: true,
+  }));
 // app.use(cors({
 //     origin: function (origin, callback) {
 //         if (!origin || allowedOrigins.includes(origin)) {
