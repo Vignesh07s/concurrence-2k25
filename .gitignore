@@ -14,9 +14,6 @@ node_modules
 # production
 /build
 
-# console logs
-logs
-
 # misc
 .DS_Store
 .env.local
