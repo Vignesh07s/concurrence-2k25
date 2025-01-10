@@ -67,7 +67,11 @@ const handleSubmit = async (e) => {
         transactionId: formData.transactionId,
         event: eventName.replace("-", " "),
       };
+<<<<<<< HEAD
       const response = await fetch("https://concurrence-2k25-server.vercel.app/api/v1/register/confirm", {
+=======
+      const response = await fetch("https://concurrence-2k25-backend.vercel.app/api/v1/register/confirm", {
+>>>>>>> c0a4bd2bbe6deeffaf163773107ed66916c19e9a
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
