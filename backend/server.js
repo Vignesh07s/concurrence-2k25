@@ -15,7 +15,7 @@ const app = express();
 
 
 // Middleware
-const allowedOrigins = ['https://concurrence-2k25.vercel.app'];
+const allowedOrigins = ['https://concurrence-2k25.vercel.app', 'http://localhost:3000'];
 
 app.use(cors({
   origin: function (origin, callback) {
