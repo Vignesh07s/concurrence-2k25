@@ -2,7 +2,6 @@ const Student = require('../models/Student');
 const Event = require('../models/Event');
 const Transaction = require('../models/Transaction');
 const mongoose = require('mongoose');
-const puppeteer = require('puppeteer');
 const sgMail = require('@sendgrid/mail');
 
 // Set the SendGrid API key
@@ -107,23 +106,19 @@ const confirmRegistration = async (req, res) => {
         const transaction = new Transaction({ transactionId, studentId: student._id, eventId: eventDoc._id, amount: eventDoc.registrationFee });
 
         await student.save({ session });
-        await eventDoc.save({ session });
+        await eventDoc.save({ session });   
         await transaction.save({ session });
 
 
         await session.commitTransaction();
 
-        const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox'] });
-
-        // Generate the event ticket PDF
-        const pdfBuffer = await generateEventTicket(student, eventDoc, ticketId, browser);
-        await browser.close();
-
-        // Send email with the PDF attachment
+        // Send email to the student
         const emailSubject = `Registration Confirmation for ${eventDoc.eventName}`;
         const emailText = `Dear ${student.name},\n\nYou have successfully registered for the ${eventDoc.eventName}. Your ticket ID is: ${ticketId}.\n\nThank you for registering!\n\nBest regards,\nThe Event Team`;
 
-        await sendEmail(student.email, emailSubject, emailText, pdfBuffer, `${ticketId}.pdf`);
+        // Send the email
+        await sendEmail(student.email, emailSubject, emailText);
+
 
         res.status(201).json({ message: 'Student registered successfully', student });
 
@@ -136,54 +131,14 @@ const confirmRegistration = async (req, res) => {
     }
 };
 
-// Function to generate the event ticket (PDF as buffer)
-const generateEventTicket = async (student, eventDoc, ticketId, browser) => {
-    const htmlContent = `
-    <html>
-    <head>
-        <style>
-            body { font-family: Arial, sans-serif; margin: 20px; }
-            h1 { color: #333; }
-            p { font-size: 14px; color: #555; }
-            .details { margin-top: 20px; }
-            .details span { font-weight: bold; }
-        </style>
-    </head>
-    <body>
-        <h1>Event Ticket</h1>
-        <p>Thank you for registering for <strong>${eventDoc.eventName}</strong>.</p>
-        <div class="details">
-            <p><span>Name:</span> ${student.name}</p>
-            <p><span>Ticket ID:</span> ${ticketId}</p>
-        </div>
-        <p>We look forward to seeing you at the event!</p>
-        <p>Regards,<br>RIPPLE 2K25 Team</p>
-    </body>
-    </html>
-    `;
 
-    const page = await browser.newPage();
-    await page.setContent(htmlContent);
-    const pdfBuffer = await page.pdf({ format: 'A4' });
-
-    return pdfBuffer;
-};
-
-
-const sendEmail = async (to, subject, text, attachmentBuffer, attachmentFilename) => {
+// Send email function using SendGrid
+const sendEmail = async (to, subject, text) => {
     const msg = {
         to: to,
         from: process.env.EMAIL,
         subject: subject,
         text: text,
-        attachments: [
-            {
-                content: attachmentBuffer.toString('base64'),  // Convert PDF buffer to base64
-                filename: attachmentFilename,
-                type: 'application/pdf',
-                disposition: 'attachment',
-            },
-        ],
     };
 
     try {
@@ -193,6 +148,5 @@ const sendEmail = async (to, subject, text, attachmentBuffer, attachmentFilename
         throw new Error('Failed to send email');
     }
 };
-
 
 module.exports = { validateStudent, confirmRegistration };
