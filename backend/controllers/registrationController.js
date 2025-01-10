@@ -1,10 +1,11 @@
 const Student = require('../models/Student');
 const Event = require('../models/Event');
 const Transaction = require('../models/Transaction');
-const nodemailer = require('nodemailer');
 const mongoose = require('mongoose');
-const puppeteer = require('puppeteer');
-const fs = require('fs');
+const sgMail = require('@sendgrid/mail');
+
+// Set the SendGrid API key
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 // Validate if the student exists and is registered for the event
 const validateStudent = async (req, res) => {
@@ -104,15 +105,21 @@ const confirmRegistration = async (req, res) => {
         eventDoc.registrationCount += 1;
         const transaction = new Transaction({ transactionId, studentId: student._id, eventId: eventDoc._id, amount: eventDoc.registrationFee });
 
-        await student.save({ session }),
-            await eventDoc.save({ session }),
-            await transaction.save({ session }),
-
-            await session.commitTransaction();
+        await student.save({ session });
+        await eventDoc.save({ session });   
+        await transaction.save({ session });
 
 
+        await session.commitTransaction();
 
-        
+        // Send email to the student
+        const emailSubject = `Registration Confirmation for ${eventDoc.eventName}`;
+        const emailText = `Dear ${student.name},\n\nYou have successfully registered for the ${eventDoc.eventName}. Your ticket ID is: ${ticketId}.\n\nThank you for registering!\n\nBest regards,\nThe Event Team`;
+
+        // Send the email
+        await sendEmail(student.email, emailSubject, emailText);
+
+
         res.status(201).json({ message: 'Student registered successfully', student });
 
     } catch (error) {
@@ -123,6 +130,27 @@ const confirmRegistration = async (req, res) => {
         session.endSession();
     }
 };
+
+// Configure SendGrid API Key
+ // Replace with your actual API key
+
+// Send email function using SendGrid
+const sendEmail = async (to, subject, text) => {
+    const msg = {
+        to: to,
+        from: process.env.EMAIL,
+        subject: subject,
+        text: text,
+    };
+
+    try {
+        await sgMail.send(msg);
+    } catch (error) {
+        console.error('Error sending email:', error);
+        throw new Error('Failed to send email');
+    }
+};
+
 
 
 
