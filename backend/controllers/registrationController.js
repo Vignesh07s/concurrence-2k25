@@ -280,7 +280,7 @@ const sendConfirmationEmail = async (student, eventDoc, eventTicket, paymentRece
         }
     });
     const mailOptions = {
-        from: 'vigneshwarareddys@gmail.com', // Replace with your verified email
+        from: process.env.EMAIL,
         to: student.email,
         subject: 'RIPPLE 2K25 Registration Confirmation',
         html: `
