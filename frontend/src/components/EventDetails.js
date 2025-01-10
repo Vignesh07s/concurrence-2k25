@@ -67,27 +67,26 @@ function EventDetails() {
   }
 
   return (
-    <div className="bg-gradient-to-r bg-blue-100 min-h-screen pt-2 px-6 sm:px-8">
+    <div className="bg-gradient-to-r bg-blue-100 min-h-screen pb-2 sm:pt-2 px-6 sm:px-8">
       <div className="max-w-screen-xl mx-auto">
-        <div className="md:bg-white p-6 py-3 rounded-lg md:shadow-lg">
+        <div className="md:bg-white p-0 sm:p-6 sm:py-3 rounded-lg md:shadow-lg">
           {/* Event Name */}
           <h1 className="text-4xl font-bold text-blue-700 text-center mb-3">{event.eventName}</h1>
           <hr className="border-t-2 border-blue-200 my-4" />
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-0">
             {/* First Column */}
-            <div className="space-y-6 w-full mx-auto">
+            <div className="space-y-6 mx-auto">
               {/* Image */}
               <img
                 src={event.image}
                 alt={event.eventName}
-                className="w-full h-80 object-cover rounded-lg shadow-md"
+                height={300}
+                width={300}
+                className=" object-cover rounded-lg shadow-sm shadow-black"
               />
               {/* Location, Date, and Registration Fee */}
               <div className="text-gray-700">
-                <p>
-                  <i className="fas fa-map-marker-alt mr-2"></i>
-                  <strong>Location:</strong> {event.location}
-                </p>
+                
                 {/* Date and Time */}
                 <div className="flex items-center">
                   <svg
@@ -108,9 +107,33 @@ function EventDetails() {
                   <span>{`${new Date(event.date).toLocaleDateString('en-GB')} ${`| ${event.startTime} - ${event.endTime}`}`}</span>
                 </div>
                 <p>
+                  <i className="fas fa-map-marker-alt mr-2 pr-2"></i>
+                  {event.location}
+                </p>
+                <p>
                   <i className="fas fa-wallet text-green-500 mr-2"></i>
                   <strong>Registration Fee:</strong> ₹{event.registrationFee}
                 </p>
+              </div>
+              {/* Register Button */}
+              <div className="mt-3 text-center hidden sm:block">
+                {event.registrationCount >= event.maxParticipants ? (
+                  <button
+                    className="px-6 py-3 bg-gray-400 text-white rounded-lg shadow-md cursor-not-allowed"
+                    aria-label="Registration Closed"
+                    disabled
+                  >
+                    Registration Closed
+                  </button>
+                ) : (
+                  <button
+                    onClick={openModal}
+                    className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-md"
+                    aria-label="Register for the event"
+                  >
+                    Register Now
+                  </button>
+                )}
               </div>
 
             </div>
@@ -162,7 +185,7 @@ function EventDetails() {
             </div>
           </div>
           {/* Register Button */}
-          <div className="mt-3 text-center">
+          <div className="mt-3 text-center sm:hidden">
             {event.registrationCount >= event.maxParticipants ? (
               <button
                 className="px-6 py-3 bg-gray-400 text-white rounded-lg shadow-md cursor-not-allowed"

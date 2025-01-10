@@ -80,9 +80,7 @@ const validateStudent = async (req, res) => {
 // Confirm registration and proceed with student registration
 const confirmRegistration = async (req, res) => {
     const { registrationId, transactionId, event } = req.body;
-
     const session = await mongoose.startSession();
-
 
     try {
         session.startTransaction();
@@ -90,7 +88,6 @@ const confirmRegistration = async (req, res) => {
         if (!registrationId || !transactionId || !event) {
             return res.status(400).json({ message: 'All fields are required' });
         }
-
         const eventDoc = await Event.findOne({ eventName: { $regex: new RegExp(`^${event}$`, 'i') } });
         const existingTransaction = await Transaction.findOne({ transactionId });
         const student = await Student.findOne({ registrationId });
@@ -110,21 +107,14 @@ const confirmRegistration = async (req, res) => {
         await eventDoc.save({ session });
         await transaction.save({ session });
 
-
         await session.commitTransaction();
         res.status(201).json({ message: 'Student registered successfully', student });
 
-        // Generate the event ticket PDF
-        const pdfBuffer = await generateEventTicket(student, eventDoc, ticketId);
+        const paymentReceipt = await generatePaymentReceipt(student, eventDoc, transaction);
 
-        // Send email with the PDF attachment
-        const emailSubject = `Registration Confirmation for ${eventDoc.eventName}`;
-        const emailText = `Dear ${student.name},\n\nYou have successfully registered for the ${eventDoc.eventName}. Your ticket ID is: ${ticketId}.\n\nThank you for registering!\n\nBest regards,\nThe Event Team`;
+        const eventTicket = await generateEventTicket(student, eventDoc, ticketId);
 
-        await sendEmail(student.email, emailSubject, emailText, pdfBuffer, `${ticketId}.pdf`);
-
-        
-
+        await sendEmail(student, eventDoc, paymentReceipt, eventTicket);
     } catch (error) {
         await session.abortTransaction();
         console.error('Error confirming registration:', error);
@@ -134,7 +124,78 @@ const confirmRegistration = async (req, res) => {
     }
 };
 
-// Function to generate the event ticket (PDF as buffer)
+// Function to generate the payment receipt
+const generatePaymentReceipt = async (student, eventDoc, transaction) => {
+    const formattedDate = new Date(transaction.createdAt).toString().split('GMT')[0].trim();
+    const htmlContent = `
+    <html>
+    <head>
+        <style>
+            body { font-family: Arial, sans-serif; margin: 20px; }
+            h1 { color: #333; text-align: center; }
+            .header img { max-width: 100%; height: auto; margin-bottom: 20px; }
+            p { font-size: 14px; color: #555; }
+            .details { margin-top: 20px; }
+            .details span { font-weight: bold; }
+            .footer { margin-top: 30px; font-size: 12px; color: #777; text-align: center; }
+            .table-container { margin-top: 20px; }
+            table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+            th, td { border: 1px solid #ccc; padding: 10px; text-align: left; }
+            th { background-color: #f4f4f4; font-weight: bold; }
+        </style>
+    </head>
+    <body>
+        <!-- Image at the top -->
+        <div class="header">
+            <img src="https://res.cloudinary.com/dvlqrld7w/image/upload/v1736397468/jswwej08j9aeua4lh4zf.jpg" alt="Event Header">
+        </div>
+
+        <h1>Payment Receipt</h1>
+
+        <div class="table-container">
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <td>${student.name}</td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>${student.email}</td>
+                </tr>
+                <tr>
+                    <th>Phone Number</th>
+                    <td>${student.phoneNumber}</td>
+                </tr>
+                <tr>
+                    <th>Registration ID</th>
+                    <td>${student.registrationId}</td>
+                </tr>
+                <tr>
+                    <th>Transaction ID</td>
+                    <td>${transaction.transactionId}</td>
+                </tr>
+                <tr>
+                    <th>Payment Date</th>
+                    <td>${formattedDate}</td>
+                </tr>
+                <tr>
+                    <th>Event Name</th>
+                    <td>${eventDoc.eventName}</td>
+                </tr>
+            </table>
+        </div>
+
+        <p class="footer">Regards,<br>CONCURRENCE 2K25 Team</p>
+    </body>
+    </html>
+    `;
+    const options = { format: 'A4' };
+    const file = { content: htmlContent };
+    const pdfBuffer = await pdf.generatePdf(file, options);
+    return pdfBuffer;
+};
+
+// Function to generate the event ticket
 const generateEventTicket = async (student, eventDoc, ticketId) => {
     const htmlContent = `
     <html>
@@ -167,19 +228,31 @@ const generateEventTicket = async (student, eventDoc, ticketId) => {
 };
 
 
-const sendEmail = async (to, subject, text, attachmentBuffer, attachmentFilename) => {
+const sendEmail = async (student, event, paymentReceipt, eventTicket) => {
     const msg = {
-        to: to,
+        to: student.email,
         from: process.env.EMAIL,
-        subject: subject,
-        text: text,
+        subject: 'CONCURRENCE 2K25 Registration Confirmation',
+        html:`
+        <h1>Registration Successful!</h1>
+        <p>Dear ${student.name},</p>
+        <p>Thank you for registering for the event <strong>${event.eventName}</strong>.</p>
+        <p>Your event ticket is attached below.</p>
+        <p>Regards,<br>RIPPLE 2K25 Team</p>
+        `,
         attachments: [
             {
-                content: attachmentBuffer.toString('base64'),  // Convert PDF buffer to base64
-                filename: attachmentFilename,
+                content: paymentReceipt.toString('base64'),
+                filename: `PaymentReceipt_${student.registrationId}.pdf`,
                 type: 'application/pdf',
                 disposition: 'attachment',
             },
+            {
+                content: eventTicket.toString('base64'),
+                filename: `EventTicket_${student.registrationId}.pdf`,
+                type: 'application/pdf',
+                disposition: 'attachment',
+            }
         ],
     };
 
