@@ -112,6 +112,7 @@ const confirmRegistration = async (req, res) => {
 
 
         await session.commitTransaction();
+        res.status(201).json({ message: 'Student registered successfully', student });
 
         // Generate the event ticket PDF
         const pdfBuffer = await generateEventTicket(student, eventDoc, ticketId);
@@ -122,7 +123,7 @@ const confirmRegistration = async (req, res) => {
 
         await sendEmail(student.email, emailSubject, emailText, pdfBuffer, `${ticketId}.pdf`);
 
-        res.status(201).json({ message: 'Student registered successfully', student });
+        
 
     } catch (error) {
         await session.abortTransaction();
