@@ -13,20 +13,11 @@ connectDB();
 // Initialize the app
 const app = express();
 
-
-// Middleware
-const allowedOrigins = ['https://concurrence-2k25.vercel.app', 'http://localhost:3000'];
-
 app.use(cors({
-  origin: function (origin, callback) {
-    // Allow requests with no origin (like mobile apps or curl requests)
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
+    origin: "https://concurrence-2k25.vercel.app/",
+    credentials: true,
 }));
+
 app.use(bodyParser.json());
 
 // Registration and Route routes
@@ -36,14 +27,6 @@ app.use('/api/v1/events', require('./routes/eventRoutes'));
 // Test route
 app.get('/', (req, res) => {
     res.send('Welcome to the Event Registration API');
-});
-
-// Error-handling middleware
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(err.status || 500).json({
-        error: err.message || 'Something went wrong!',
-    });
 });
 
 // Start the server
