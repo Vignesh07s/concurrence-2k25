@@ -1,8 +1,6 @@
 const Event = require('../models/Event');
 const moment = require('moment');
-const logger = require('../config/logger'); // Assuming you have a logger set up
 
-// Create Event
 const createEvent = async (req, res) => {
     const {
         eventName,
@@ -21,8 +19,6 @@ const createEvent = async (req, res) => {
     } = req.body;
 
     try {
-        logger.info('Creating new event:', { eventName });
-
         // Basic validation for required fields
         if (
             !eventName ||
@@ -100,19 +96,16 @@ const createEvent = async (req, res) => {
 
         await newEvent.save();
 
-        logger.info('Event created successfully:', { eventName });
         res.status(201).json({ message: 'Event created successfully', event: newEvent });
     } catch (error) {
-        logger.error('Error creating event:', { error: error.message });
+        console.error('Error creating event:', error);
         res.status(500).json({ message: 'Error creating event', error });
     }
 };
 
-// Get Events
+
 const getEvents = async (req, res) => {
     try {
-        logger.info('Fetching all events.');
-
         // Fetch all events, only selecting the required fields
         const events = await Event.find({}, 'eventName date startTime endTime location image');
         
@@ -120,21 +113,18 @@ const getEvents = async (req, res) => {
             return res.status(404).json({ message: 'No events found.' });
         }
 
-        logger.info('Successfully fetched events.');
         // Send the fetched events as a response
         res.status(200).json(events);
     } catch (error) {
-        logger.error('Error fetching events:', { error: error.message });
+        console.error('Error fetching events:', error);
         res.status(500).json({ message: 'Error fetching events', error });
     }
 };
 
-// Get event by name
+
 const getEvent = async (req, res) => {
     const { eventName } = req.params;
     try {
-        logger.info('Fetching details for event:', { eventName });
-
         // Find the event by eventName and populate all fields
         const event = await Event.findOne({ eventName });  // Use findOne here
 
@@ -143,21 +133,17 @@ const getEvent = async (req, res) => {
             return res.status(404).json({ message: 'Event not found.' });
         }
 
-        logger.info('Event details fetched successfully:', { eventName });
         // Send the fetched event details as a response
         res.status(200).json(event);
     } catch (error) {
-        logger.error('Error fetching event details:', { error: error.message });
+        console.error('Error fetching event details:', error);
         res.status(500).json({ message: 'Error fetching event details', error });
     }
 };
 
-// Registration count for event
 const registrationCount = async (req, res) => {
     const { eventName } = req.params;
     try {
-        logger.info('Fetching registration count for event:', { eventName });
-
         // Use MongoDB aggregation to get the registration count
         const event = await Event.aggregate([
             { $match: { eventName } },
@@ -169,13 +155,16 @@ const registrationCount = async (req, res) => {
             return res.status(404).json({ message: 'Event not found.' });
         }
 
-        logger.info('Registration count fetched successfully for event:', { eventName });
         // Send only the registration count
         res.status(200).json({ registrationCount: event[0].registrationCount });
     } catch (error) {
-        logger.error('Error fetching registration count:', { error: error.message });
+        console.error('Error fetching registration count:', error);
         res.status(500).json({ message: 'Error fetching registration count', error });
     }
 };
+
+
+
+
 
 module.exports = { createEvent, getEvents, getEvent, registrationCount };

@@ -5,22 +5,6 @@ const nodemailer = require('nodemailer');
 const mongoose = require('mongoose');
 const puppeteer = require('puppeteer');
 const fs = require('fs');
-const winston = require('winston');
-
-// Set up winston logger
-const logger = winston.createLogger({
-    level: 'info',
-    format: winston.format.combine(
-        winston.format.timestamp(),
-        winston.format.printf(({ timestamp, level, message }) => {
-            return `${timestamp} [${level}]: ${message}`;
-        })
-    ),
-    transports: [
-        new winston.transports.Console(),
-        new winston.transports.File({ filename: 'logs/combined.log' })
-    ]
-});
 
 // Validate if the student exists and is registered for the event
 const validateStudent = async (req, res) => {
@@ -28,21 +12,18 @@ const validateStudent = async (req, res) => {
     try {
         // Step 1: Validate input
         if (!name || !email || !registrationId || !college || !department || !event || !gender) {
-            logger.error('Validation failed: Missing required fields');
             return res.status(400).json({ message: 'All fields are required' });
         }
 
         // Step 2: Check if the event exists
         const eventDoc = await Event.findOne({ eventName: { $regex: new RegExp(`^${event}$`, 'i') } });
         if (!eventDoc) {
-            logger.error('Event not found');
             return res.status(404).json({ message: 'Event not found' });
         }
 
         // Validate phone number and year-sem format
         const phoneRegex = /^[6-9]\d{9}$/; // Indian mobile number validation
         if (!phoneRegex.test(phoneNumber)) {
-            logger.error('Invalid phone number format');
             return res.status(400).json({
                 message: 'Invalid phone number format',
                 errorCode: 'INVALID_PHONE'
@@ -51,7 +32,6 @@ const validateStudent = async (req, res) => {
 
         const yearSemRegex = /^(I|II|III|IV)-(I|II)$/; // Format: Roman numerals (e.g., "III-I")
         if (!yearSemRegex.test(yearSem)) {
-            logger.error('Invalid year-semester format');
             return res.status(400).json({ message: 'Invalid year-semester format. Use "I-IV" for year and "I-II" for semester.' });
         }
 
@@ -65,12 +45,10 @@ const validateStudent = async (req, res) => {
             );
 
             if (isAlreadyRegistered) {
-                logger.info(`Student ${registrationId} is already registered for the event ${event}`);
                 return res.status(400).json({ message: 'Student already registered for this event' });
             }
 
             // Proceed to payment process
-            logger.info(`Student ${registrationId} validated successfully for event ${event}`);
             return res.status(200).json({ message: 'Student can proceed to payment', student });
         } else {
             // Create and add the student to the collection
@@ -89,11 +67,10 @@ const validateStudent = async (req, res) => {
             await student.save();
 
             // Proceed to payment process
-            logger.info(`Student ${registrationId} created and can proceed to payment`);
             return res.status(200).json({ message: 'Student created and can proceed to payment', student });
         }
     } catch (error) {
-        logger.error(`Error validating student: ${error.message}`);
+        console.error('Error validating student:', error);
         res.status(500).json({ message: 'Error validating student', error });
     }
 };
@@ -103,12 +80,12 @@ const confirmRegistration = async (req, res) => {
     const { registrationId, transactionId, event } = req.body;
 
     const session = await mongoose.startSession();
+    
 
     try {
         session.startTransaction();
         // Validate input and fetch event/student
         if (!registrationId || !transactionId || !event) {
-            logger.error('Missing required fields for confirmation');
             return res.status(400).json({ message: 'All fields are required' });
         }
 
@@ -127,29 +104,28 @@ const confirmRegistration = async (req, res) => {
         eventDoc.registrationCount += 1;
         const transaction = new Transaction({ transactionId, studentId: student._id, eventId: eventDoc._id, amount: eventDoc.registrationFee });
 
-        await student.save({ session });
-        await eventDoc.save({ session });
-        await transaction.save({ session });
+        await student.save({ session }),
+        await eventDoc.save({ session }),
+        await transaction.save({ session }),
 
         await session.commitTransaction();
 
-        logger.info(`Student ${registrationId} successfully registered for event ${event}`);
         res.status(201).json({ message: 'Student registered successfully', student });
 
-        const browser = await puppeteer.launch({ headless: true });
-
+        const browser = await puppeteer.launch({ headless: true })
+        // Generate PDFs concurrently
         let paymentReceipt, eventTicket;
         try {
             paymentReceipt = await generatePaymentReceipt(student, eventDoc, transaction, browser);
         } catch (error) {
-            logger.error('Error generating payment receipt');
+            console.error('Error generating payment receipt:', error);
             throw new Error('Error generating payment receipt');
         }
 
         try {
             eventTicket = await generateEventTicket(student, eventDoc, ticketId, browser);
         } catch (error) {
-            logger.error('Error generating event ticket');
+            console.error('Error generating event ticket:', error);
             throw new Error('Error generating event ticket');
         }
 
@@ -158,15 +134,170 @@ const confirmRegistration = async (req, res) => {
         // Send email
         await sendConfirmationEmail(student, eventDoc, eventTicket, paymentReceipt);
 
+
+
     } catch (error) {
         await session.abortTransaction();
-        logger.error(`Error confirming registration: ${error.message}`);
+        console.error('Error confirming registration:', error);
         res.status(500).json({ message: 'Error confirming registration', error });
     } finally {
         session.endSession();
     }
 };
 
-// Other functions like generatePaymentReceipt, generateEventTicket, and sendConfirmationEmail remain unchanged...
+
+
+const generatePaymentReceipt = async (student, eventDoc, transaction, browser) => {
+    // Format the date to remove the timezone
+    const formattedDate = new Date(transaction.createdAt)
+        .toString() // Converts to "Wed Jan 08 2025 14:53:59 GMT+0530 (India Standard Time)"
+        .split('GMT')[0] // Removes "GMT+0530 (India Standard Time)"
+        .trim(); // Removes trailing spaces
+
+    const htmlContent = `
+    <html>
+    <head>
+        <style>
+            body { font-family: Arial, sans-serif; margin: 20px; }
+            h1 { color: #333; text-align: center; }
+            .header img { max-width: 100%; height: auto; margin-bottom: 20px; }
+            p { font-size: 14px; color: #555; }
+            .details { margin-top: 20px; }
+            .details span { font-weight: bold; }
+            .footer { margin-top: 30px; font-size: 12px; color: #777; text-align: center; }
+            .table-container { margin-top: 20px; }
+            table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+            th, td { border: 1px solid #ccc; padding: 10px; text-align: left; }
+            th { background-color: #f4f4f4; font-weight: bold; }
+        </style>
+    </head>
+    <body>
+        <!-- Image at the top -->
+        <div class="header">
+            <img src="https://res.cloudinary.com/dvlqrld7w/image/upload/v1736397468/jswwej08j9aeua4lh4zf.jpg" alt="Event Header">
+        </div>
+
+        <h1>Payment Receipt</h1>
+
+        <div class="table-container">
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <td>${student.name}</td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>${student.email}</td>
+                </tr>
+                <tr>
+                    <th>Phone Number</th>
+                    <td>${student.phoneNumber}</td>
+                </tr>
+                <tr>
+                    <th>Registration ID</th>
+                    <td>${student.registrationId}</td>
+                </tr>
+                <tr>
+                    <th>Transaction ID</td>
+                    <td>${transaction.transactionId}</td>
+                </tr>
+                <tr>
+                    <th>Payment Date</th>
+                    <td>${formattedDate}</td>
+                </tr>
+                <tr>
+                    <th>Event Name</th>
+                    <td>${eventDoc.eventName}</td>
+                </tr>
+            </table>
+        </div>
+
+        <p class="footer">Regards,<br>CONCURRENCE 2K25 Team</p>
+    </body>
+    </html>
+    `;
+    const page = await browser.newPage();
+    await page.setContent(htmlContent, { waitUntil: "networkidle0" });
+
+    // Generate the PDF as a buffer
+    const pdfBuffer = await page.pdf({ format: "A4" });
+
+    return pdfBuffer;
+};
+
+
+// Function to generate the event ticket (PDF as buffer)
+const generateEventTicket = async (student, eventDoc, ticketId, browser) => {
+    const htmlContent = `
+    <html>
+    <head>
+        <style>
+            body { font-family: Arial, sans-serif; margin: 20px; }
+            h1 { color: #333; }
+            p { font-size: 14px; color: #555; }
+            .details { margin-top: 20px; }
+            .details span { font-weight: bold; }
+        </style>
+    </head>
+    <body>
+        <h1>Event Ticket</h1>
+        <p>Thank you for registering for <strong>${eventDoc.eventName}</strong>.</p>
+        <div class="details">
+            <p><span>Name:</span> ${student.name}</p>
+            <p><span>Ticket ID:</span> ${ticketId}</p>
+        </div>
+        <p>We look forward to seeing you at the event!</p>
+        <p>Regards,<br>RIPPLE 2K25 Team</p>
+    </body>
+    </html>
+    `;
+
+    const page = await browser.newPage();
+    await page.setContent(htmlContent);
+    const pdfBuffer = await page.pdf({ format: 'A4' });
+
+    return pdfBuffer;
+};
+
+// Function to send confirmation email
+const sendConfirmationEmail = async (student, eventDoc, eventTicket, paymentReceipt) => {
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: process.env.EMAIL,
+            pass: process.env.EMAIL_PASSWORD,
+        },
+    });
+
+    const mailOptions = {
+        from: process.env.EMAIL,
+        to: student.email,
+        subject: 'RIPPLE 2K25 Registration Confirmation',
+        html: `
+        <h1>Registration Successful!</h1>
+        <p>Dear ${student.name},</p>
+        <p>Thank you for registering for the event <strong>${eventDoc.eventName}</strong>.</p>
+        <p>Your event ticket is attached below.</p>
+        <p>Regards,<br>RIPPLE 2K25 Team</p>
+        `,
+        attachments: [
+            {
+                filename: `PaymentReceipt_${student.registrationId}.pdf`,
+                content: paymentReceipt,
+            },
+            {
+                filename: `Ticket_${eventDoc.eventName}_${student.registrationId}.pdf`,
+                content: eventTicket,
+            },
+        ],
+    };
+
+    try {
+        await transporter.sendMail(mailOptions);
+        console.log('Confirmation email sent successfully!');
+    } catch (error) {
+        console.error('Error sending email:', error);
+    }
+};
 
 module.exports = { validateStudent, confirmRegistration };
