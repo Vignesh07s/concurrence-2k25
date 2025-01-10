@@ -14,7 +14,7 @@ connectDB();
 const app = express();
 
 app.use(cors({
-    origin: "https://concurrence-2k25.vercel.app/",
+    origin: ['http://localhost:3000', 'https://concurrence-2k25.vercel.app/'],
     credentials: true,
 }));
 
