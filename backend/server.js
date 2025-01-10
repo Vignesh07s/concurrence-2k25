@@ -15,7 +15,7 @@ const app = express();
 
 app.use(cors({
     origin: ['http://localhost:3000', 'https://concurrence-2k25.vercel.app/'],
-    credentials: true,
+    methods: ['GET', 'POST'],
 }));
 
 app.use(bodyParser.json());
