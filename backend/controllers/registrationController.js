@@ -104,9 +104,9 @@ const confirmRegistration = async (req, res) => {
         eventDoc.registrationCount += 1;
         const transaction = new Transaction({ transactionId, studentId: student._id, eventId: eventDoc._id, amount: eventDoc.registrationFee });
 
-        student.save({ session }),
-        eventDoc.save({ session }),
-        transaction.save({ session }),
+        await student.save({ session }),
+        await eventDoc.save({ session }),
+        await transaction.save({ session }),
 
         await session.commitTransaction();
 

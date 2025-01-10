@@ -15,7 +15,7 @@ function EventDetails() {
     decodedEventName.replace("-", ' ');
     const fetchEventDetails = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/v1/events/getEvent/${decodedEventName}`);
+        const response = await fetch(`https://concurrence-2k25-backend.vercel.app/api/v1/events/getEvent/${decodedEventName}`);
         if (!response.ok) {
           throw new Error('Event not found');
         }

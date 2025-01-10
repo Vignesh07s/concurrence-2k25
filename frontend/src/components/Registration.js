@@ -39,7 +39,7 @@ const RegistrationModal = ({ closeModal, eventName }) => {
         department: formData.department,
         event: eventName.replace("-", " "),
       };
-      const response = await fetch("http://localhost:5000/api/v1/register/validate", {
+      const response = await fetch("https://concurrence-2k25-backend.vercel.app/api/v1/register/validate", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
@@ -67,7 +67,7 @@ const handleSubmit = async (e) => {
         transactionId: formData.transactionId,
         event: eventName.replace("-", " "),
       };
-      const response = await fetch("http://localhost:5000/api/v1/register/confirm", {
+      const response = await fetch("https://concurrence-2k25-backend.vercel.app/api/v1/register/confirm", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
