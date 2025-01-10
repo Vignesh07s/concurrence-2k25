@@ -110,7 +110,7 @@ const confirmRegistration = async (req, res) => {
 
             await session.commitTransaction();
 
-        res.status(201).json({ message: 'Student registered successfully', student });
+
 
         const browser = await puppeteer.launch({ headless: true })
         // Generate PDFs concurrently
@@ -134,7 +134,7 @@ const confirmRegistration = async (req, res) => {
         // Send email
         await sendConfirmationEmail(student, eventDoc, eventTicket, paymentReceipt);
 
-
+        res.status(201).json({ message: 'Student registered successfully', student });
 
     } catch (error) {
         await session.abortTransaction();
