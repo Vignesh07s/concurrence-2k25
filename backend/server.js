@@ -13,18 +13,20 @@ connectDB();
 // Initialize the app
 const app = express();
 
+
 // Middleware
-const allowedOrigins = ['https://your-frontend-url.vercel.app'];
-app.use(cors());
-// app.use(cors({
-//     origin: function (origin, callback) {
-//         if (!origin || allowedOrigins.includes(origin)) {
-//             callback(null, true);
-//         } else {
-//             callback(new Error('Not allowed by CORS'));
-//         }
-//     },
-// }));
+const allowedOrigins = ['https://concurrence-2k25.vercel.app'];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+}));
 app.use(bodyParser.json());
 
 // Registration and Route routes
