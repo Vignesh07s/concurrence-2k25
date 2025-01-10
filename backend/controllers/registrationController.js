@@ -80,7 +80,7 @@ const confirmRegistration = async (req, res) => {
     const { registrationId, transactionId, event } = req.body;
 
     const session = await mongoose.startSession();
-    
+
 
     try {
         session.startTransaction();
@@ -105,10 +105,10 @@ const confirmRegistration = async (req, res) => {
         const transaction = new Transaction({ transactionId, studentId: student._id, eventId: eventDoc._id, amount: eventDoc.registrationFee });
 
         await student.save({ session }),
-        await eventDoc.save({ session }),
-        await transaction.save({ session }),
+            await eventDoc.save({ session }),
+            await transaction.save({ session }),
 
-        await session.commitTransaction();
+            await session.commitTransaction();
 
         res.status(201).json({ message: 'Student registered successfully', student });
 
@@ -262,15 +262,25 @@ const generateEventTicket = async (student, eventDoc, ticketId, browser) => {
 // Function to send confirmation email
 const sendConfirmationEmail = async (student, eventDoc, eventTicket, paymentReceipt) => {
     const transporter = nodemailer.createTransport({
-        service: 'gmail',
+        host: 'smtp.sendgrid.net',
+        port: 465, // Use 587 if 465 doesn't work
+        secure: true, // true for port 465, false for port 587
         auth: {
-            user: process.env.EMAIL,
-            pass: process.env.EMAIL_PASSWORD,
+            user: 'apikey', // This is the SendGrid username for SMTP
+            pass: process.env.SENDGRID_API_KEY, // Use the API key as the password
         },
     });
 
+    // Verify SMTP connection
+    transporter.verify((error, success) => {
+        if (error) {
+            console.error('SMTP Connection Error:', error);
+        } else {
+            console.log('SMTP Server is ready to send emails');
+        }
+    });
     const mailOptions = {
-        from: process.env.EMAIL,
+        from: 'vigneshwarareddys@gmail.com', // Replace with your verified email
         to: student.email,
         subject: 'RIPPLE 2K25 Registration Confirmation',
         html: `
