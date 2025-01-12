@@ -39,7 +39,7 @@ const Carousel = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 relative">
+    <div className="container mx-auto px-4 py-8 relative overflow-hidden">
       {/* Slider */}
       <Slider ref={sliderRef} {...settings}>
         {images.map((image, index) => (
@@ -48,7 +48,7 @@ const Carousel = () => {
               <img
                 src={image}
                 alt={`Slide ${index + 1}`}
-                className="object-cover w-full h-64"
+                className="object-cover max-w-full h-64"
               />
             </div>
           </div>

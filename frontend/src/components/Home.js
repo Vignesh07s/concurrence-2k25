@@ -4,6 +4,7 @@ import "../index.css";
 import Countdown from "./CountDown"
 import HomeSchedule from './HomeSchedule';
 import Carousel from './Carousel';
+import Footer from './Footer';
 const messages = [
   {
     name: "Dr. M. Santhiramudu",
@@ -135,8 +136,17 @@ const Home = () => {
           </p>
         </div>
 
-        <Carousel/>
+        <Carousel />
       </div>
+      <Footer/>
+
+
+
+
+
+
+
+
     </div>
 
   );
