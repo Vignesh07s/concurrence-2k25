@@ -1,7 +1,24 @@
-import React from "react";
+import { React, useEffect, useState } from "react";
+import io from "socket.io-client";
 
 export default function TotalRegistrations() {
-  const totalRegistrations = 1234; // Hardcoded value for now
+
+  const [totalRegistrations, setTotalRegistrations] = useState(0);
+
+  useEffect(() => {
+
+    const socket = io(process.env.REACT_APP_API_URL);
+
+    // Listen for 'updateRegistrations' event from the server
+    socket.on("updateRegistrations", (count) => {
+      setTotalRegistrations(count);
+    });
+
+    // Cleanup the socket connection when the component is unmounted
+    return () => {
+      socket.off("updateRegistrations");
+    };
+  }, []);
 
   return (
     <div className="fixed bottom-4 right-4 flex items-center justify-center z-50 ">

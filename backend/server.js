@@ -2,6 +2,8 @@ const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const http = require('http');
+const socketIo = require('socket.io');
 const connectDB = require('./config/db');
 
 // Load environment variables
@@ -12,6 +14,8 @@ connectDB();
 
 // Initialize the app
 const app = express();
+const server = http.createServer(app);
+const io = socketIo(server);
 
 app.use(cors({
     origin: ['http://localhost:3000', 'https://concurrence-2k25.vercel.app'],

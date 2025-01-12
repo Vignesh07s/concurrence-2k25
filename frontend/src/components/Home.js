@@ -135,18 +135,10 @@ const Home = () => {
             A glimpse of our journey so far
           </p>
         </div>
-
         <Carousel />
       </div>
-      <Footer/>
 
-
-
-
-
-
-
-
+      <Footer />
     </div>
 
   );

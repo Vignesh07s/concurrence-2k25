@@ -4,6 +4,7 @@ const Transaction = require('../models/Transaction');
 const mongoose = require('mongoose');
 const pdf = require('html-pdf-node');
 const sgMail = require('@sendgrid/mail');
+const { io } = require('../server');
 
 // Set the SendGrid API key
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
@@ -108,6 +109,11 @@ const confirmRegistration = async (req, res) => {
         await transaction.save({ session });
 
         await session.commitTransaction();
+
+        // Emit updated registration count
+        const totalRegistrations = await Student.countDocuments({});
+        io.emit('updateRegistrations', totalRegistrations);
+        
         res.status(201).json({ message: 'Student registered successfully', student });
 
         const paymentReceipt = await generatePaymentReceipt(student, eventDoc, transaction);
