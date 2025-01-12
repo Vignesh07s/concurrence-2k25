@@ -15,14 +15,21 @@ connectDB();
 // Initialize the app
 const app = express();
 const server = http.createServer(app);
-const io = socketIo(server);
+const io = require('socket.io')(server, {
+    cors: {
+      origin: ['http://localhost:5000', 'https://concurrence-2k25.vercel.app'],
+      methods: ['GET', 'POST'],
+      allowedHeaders: ['Content-Type'],
+      credentials: true
+    }
+  });
 
 app.use(cors({
     origin: ['http://localhost:3000', 'https://concurrence-2k25.vercel.app'],
     methods: ['GET', 'POST'],
 }));
 
-app.use(bodyParser.json());
+app.use(express.json());
 
 // Registration and Route routes
 app.use('/api/v1/register', require('./routes/registrationRoutes'));
