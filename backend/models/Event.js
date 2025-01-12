@@ -14,6 +14,7 @@ const eventSchema = new mongoose.Schema({
     maxParticipants: { type: Number, required: true },
     registrationCount: { type: Number, default: 0 },
     image: { type: String, required: true },
+    qrimage: { type: String, required: true },
     coordinators: [{
         name: { type: String, required: true },
         role: { type: String, required: true },

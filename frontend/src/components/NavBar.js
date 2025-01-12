@@ -10,20 +10,14 @@ export default function NavBar() {
         setIsMenuOpen(!isMenuOpen);  // Toggle the menu state on button click
     };
 
-    // Initialize darkMode state from localStorage, default to false if not found
-    
-
     useEffect(() => {
-        // Set the class for dark mode on the root element (html)
         if (darkMode) {
             document.documentElement.classList.add("dark");
         } else {
             document.documentElement.classList.remove("dark");
         }
-
-        // Persist the dark mode setting to localStorage whenever it changes
         localStorage.setItem("darkMode", darkMode);
-    }, [darkMode]); // This effect runs every time darkMode changes
+    }, [darkMode]);
 
     const toggleDarkMode = () => {
         setDarkMode(!darkMode);
@@ -32,12 +26,19 @@ export default function NavBar() {
     return (
         <header className="bg-blue-600 text-white sticky top-0 z-50 shadow-lg dark:bg-gray-800 dark:text-white">
             <nav className="container mx-auto flex justify-between items-center p-4">
-                <div className="text-lg font-bold text-white">Ripple 2k25</div>
+                <div>
+                    <Link to="/">
+                        <img
+                            src="https://res.cloudinary.com/dvlqrld7w/image/upload/v1736579186/rhlwstkp8wvq55psgknu.png"
+                            alt="Ripple 2K25 Logo"
+                            className="h-8 w-8 object-contain"
+                        />
+                    </Link>
+                </div>
 
                 {/* Desktop menu */}
                 <ul className="hidden sm:flex space-x-6 text-lg">
-                    <li className='pr-3'>
-                        {/* Dark Mode Toggle Button */}
+                    <li className="pr-3">
                         <button
                             onClick={toggleDarkMode}
                             className="fixed bg-gray-300 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-full shadow-lg hover:bg-gray-400 dark:hover:bg-gray-600 transition z-60"
@@ -54,10 +55,10 @@ export default function NavBar() {
                     <li><Link to="/contact" className="hover:text-gray-300 dark:hover:text-gray-400">Contact</Link></li>
                 </ul>
 
-                {/* Hamburger icon (mobile menu button) */}
+                {/* Hamburger icon */}
                 <button
                     className="sm:hidden flex flex-col justify-center items-center space-y-1"
-                    onClick={toggleMenu}  // Toggle menu on click
+                    onClick={toggleMenu}
                 >
                     <div className="w-6 h-1 bg-white dark:bg-gray-200"></div>
                     <div className="w-6 h-1 bg-white dark:bg-gray-200"></div>
@@ -65,25 +66,75 @@ export default function NavBar() {
                 </button>
             </nav>
 
-            {/* Mobile menu with blur effect and sidebar */}
+            {/* Mobile menu */}
             {isMenuOpen && (
                 <>
-                    {/* Background blur overlay */}
                     <div
                         className="fixed inset-0 bg-black opacity-50 backdrop-blur-md z-40"
-                        onClick={toggleMenu}  // Close the menu if the background is clicked
+                        onClick={toggleMenu}
                     ></div>
+                    <div className="fixed top-0 left-0 w-3/5 sm:w-2/5 bg-blue-600 text-white z-50 shadow-xl transform transition-transform duration-300 dark:bg-gray-800 h-full">
+                        {/* Close Button */}
+                        <button
+                            className="text-white text-2xl font-bold w-full text-left m-3"
+                            onClick={toggleMenu}
+                            aria-label="Close Menu"
+                        >
+                            ✖️
+                        </button>
 
-                    {/* Sidebar menu */}
-                    <div className="fixed top-0 right-0 w-3/5 sm:w-2/5 h-full bg-gradient-to-b from-indigo-600 via-purple-700 to-blue-800 text-white z-40 p-6 space-y-6 rounded-l-3xl shadow-xl transform transition-all duration-300 dark:bg-gradient-to-b dark:from-gray-700 dark:via-gray-800 dark:to-black">
-                        <ul>
-                            <li><a href="/" className="text-xl font-semibold hover:text-gray-300 dark:hover:text-gray-400 transition duration-200">Home</a></li>
-                            <li><a href="/about" className="text-xl font-semibold hover:text-gray-300 dark:hover:text-gray-400 transition duration-200">About</a></li>
-                            <li><a href="/events" className="text-xl font-semibold hover:text-gray-300 dark:hover:text-gray-400 transition duration-200">Events</a></li>
-                            <li><a href="/register" className="text-xl font-semibold hover:text-gray-300 dark:hover:text-gray-400 transition duration-200">Register</a></li>
-                            <li><a href="/contact" className="text-xl font-semibold hover:text-gray-300 dark:hover:text-gray-400 transition duration-200">Contact</a></li>
+                        {/* Navigation Links */}
+
+                        <ul className="space-y-4">
+                            <li>
+                                <Link to="/" className="block text-xl font-semibold hover:text-gray-300 dark:hover:text-gray-400 pl-3">
+                                    Home
+                                </Link>
+                                <hr className="my-2 border-gray-400 dark:border-gray-600" />
+                            </li>
+                            <li>
+                                <Link to="/about" className="block text-xl font-semibold hover:text-gray-300 dark:hover:text-gray-400 pl-3">
+                                    About
+                                </Link>
+                                <hr className="my-2 border-gray-400 dark:border-gray-600" />
+                            </li>
+                            <li>
+                                <Link to="/events" className="block text-xl font-semibold hover:text-gray-300 dark:hover:text-gray-400 pl-3">
+                                    Events
+                                </Link>
+                                <hr className="my-2 border-gray-400 dark:border-gray-600" />
+                            </li>
+                            <li>
+                                <Link to="/event-schedule" className="block text-xl font-semibold hover:text-gray-300 dark:hover:text-gray-400 pl-3">
+                                    Schedule
+                                </Link>
+                                <hr className="my-2 border-gray-400 dark:border-gray-600" />
+                            </li>
+                            <li>
+                                <Link to="/gallery" className="block text-xl font-semibold hover:text-gray-300 dark:hover:text-gray-400 pl-3">
+                                    Gallery
+                                </Link>
+                                <hr className="my-2 border-gray-400 dark:border-gray-600" />
+                            </li>
+                            <li>
+                                <Link to="/contact" className="block text-xl font-semibold hover:text-gray-300 dark:hover:text-gray-400 pl-3">
+                                    Contact
+                                </Link>
+                                <hr className="my-2 border-gray-400 dark:border-gray-600" />
+                            </li>
                         </ul>
+
+                        {/* Dark Mode Toggle */}
+                        <button
+                            onClick={toggleDarkMode}
+                            className="bg-gray-300 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-full shadow-lg hover:bg-gray-400 dark:hover:bg-gray-600 transition p-3 ml-3"
+                        >
+                            {darkMode ? "☀️" : "🌙"}
+                        </button>
                     </div>
+
+
+
                 </>
             )}
         </header>

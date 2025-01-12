@@ -1,6 +1,23 @@
 import React from 'react';
 
 const Contact = () => {
+    const eventCoordinators = [
+        { event: 'Hackathon', coordinators: [
+            { name: 'John Doe', role: 'Coordinator', email: 'john@example.com', phone: '+1234567890' },
+            { name: 'Jane Smith', role: 'Coordinator', email: 'jane@example.com', phone: '+0987654321' },
+        ] },
+        { event: 'Technical Quiz', coordinators: [
+            { name: 'Sam Wilson', role: 'Coordinator', email: 'sam@example.com', phone: '+1122334455' },
+            { name: 'Alex Turner', role: 'Coordinator', email: 'alex@example.com', phone: '+5544332211' },
+        ] },
+        // Add other events similarly
+    ];
+
+    const overallCoordinators = [
+        { name: 'Event Head', role: 'Overall Coordinator', email: 'head@example.com', phone: '+1230987654' },
+        { name: 'Event Co-Head', role: 'Co-Overall Coordinator', email: 'cohead@example.com', phone: '+4321098765' },
+    ];
+
     return (
         <>
             {/* Header Section */}
@@ -47,6 +64,44 @@ const Contact = () => {
                 </div>
             </section>
 
+            {/* Event Coordinators */}
+            <section className="py-12 bg-gray-100">
+                <div className="container mx-auto px-6">
+                    <h2 className="text-3xl font-bold text-center text-blue-600 mb-8">Event Coordinators</h2>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {eventCoordinators.map((event, index) => (
+                            <div key={index} className="bg-white shadow-lg rounded-lg p-6 text-center">
+                                <h4 className="font-bold text-lg">{event.event}</h4>
+                                {event.coordinators.map((coordinator, idx) => (
+                                    <div key={idx} className="mt-4">
+                                        <p>{coordinator.name} ({coordinator.role})</p>
+                                        <p>📧 <a href={`mailto:${coordinator.email}`} className="text-blue-500">{coordinator.email}</a></p>
+                                        <p>📞 <a href={`tel:${coordinator.phone}`} className="text-blue-500">{coordinator.phone}</a></p>
+                                    </div>
+                                ))}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* Overall Event Coordinators */}
+            <section className="py-12 bg-gray-50">
+                <div className="container mx-auto px-6">
+                    <h2 className="text-3xl font-bold text-center text-blue-600 mb-8">Overall Event Coordinators</h2>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8">
+                        {overallCoordinators.map((coordinator, index) => (
+                            <div key={index} className="bg-white shadow-lg rounded-lg p-6 text-center">
+                                <h4 className="font-bold text-lg">{coordinator.role}</h4>
+                                <p>{coordinator.name}</p>
+                                <p>📧 <a href={`mailto:${coordinator.email}`} className="text-blue-500">{coordinator.email}</a></p>
+                                <p>📞 <a href={`tel:${coordinator.phone}`} className="text-blue-500">{coordinator.phone}</a></p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
             {/* Contact Form */}
             <section className="py-16 bg-white">
                 <div className="container mx-auto px-6">
@@ -87,31 +142,6 @@ const Contact = () => {
                 </div>
             </section>
 
-            {/* Key Contacts */}
-            <section className="py-16 bg-gray-100">
-                <div className="container mx-auto px-6">
-                    <h2 className="text-3xl font-bold text-center text-blue-600 mb-8">Key Contacts</h2>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                        <div className="bg-white shadow-lg rounded-lg p-6 text-center">
-                            <h4 className="font-bold text-lg">Head Coordinator</h4>
-                            <p>Your Name</p>
-                            <p>📞 +91-9876543210</p>
-                            <p>📧 ripple2k25@cse.rgmcet.edu</p>
-                        </div>
-                        <div className="bg-white shadow-lg rounded-lg p-6 text-center">
-                            <h4 className="font-bold text-lg">Sponsorship Inquiries</h4>
-                            <p>Coordinator Name</p>
-                            <p>📞 +91-9876543222</p>
-                        </div>
-                        <div className="bg-white shadow-lg rounded-lg p-6 text-center">
-                            <h4 className="font-bold text-lg">Technical Support</h4>
-                            <p>Coordinator Name</p>
-                            <p>📞 +91-9876543233</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
             {/* Google Maps Integration */}
             <section className="py-16">
                 <div className="container mx-auto px-6">
@@ -132,7 +162,7 @@ const Contact = () => {
 
             {/* Footer */}
             <footer className="py-8 bg-blue-600 text-white text-center">
-                <p>&copy; {new Date().getFullYear()} RIPPLE 2K25 | Organized by CSE Department</p>
+                <p>&copy; {new Date().getFullYear()} RIPPLE 2K25 | All Rights Reserved</p>
             </footer>
         </>
     );

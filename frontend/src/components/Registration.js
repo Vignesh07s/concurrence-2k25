@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const RegistrationModal = ({ closeModal, eventName }) => {
+const RegistrationModal = ({ closeModal, eventName, qrimg }) => {
   const [formData, setFormData] = useState({
     name: '',
     registrationId: '',
@@ -275,7 +275,7 @@ const handleSubmit = async (e) => {
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="flex justify-center mb-4">
                 <img
-                  src="/QR.jpeg"
+                  src={qrimg}
                   alt="QR Code"
                   className="w-32 h-32"
                 />

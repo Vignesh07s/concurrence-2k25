@@ -212,7 +212,7 @@ function EventDetails() {
       </div>
 
       {/* Registration Modal */}
-      {isModalOpen && <RegistrationModal closeModal={closeModal} eventName={eventName} />
+      {isModalOpen && <RegistrationModal closeModal={closeModal} eventName={eventName} qrimg={event.qrimage}/>
       }
     </div>
   );
