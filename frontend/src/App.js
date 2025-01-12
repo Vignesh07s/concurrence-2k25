@@ -11,6 +11,7 @@ import Contact from "./components/Contact";
 import Carousel from "./components/Carousel";
 import About from "./components/About";
 import TotalRegistrations from "./components/TotalRegistrations";
+import { Analytics } from '@vercel/analytics/react';
 
 export default function App() {
   const LocationAwareRegistrations = () => {
@@ -37,6 +38,7 @@ export default function App() {
           <Route path="/about" element={<About />} />
         </Routes>
         <LocationAwareRegistrations />
+        <Analytics/>
       </Router>
     </div>
   );
