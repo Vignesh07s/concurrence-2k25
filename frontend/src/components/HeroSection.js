@@ -18,7 +18,7 @@ const HeroSection = () => {
       {/* Content */}
       <div className="relative z-10 text-center px-4 sm:px-6 md:px-10">
         {/* Title */}
-        <h1 className="text-4xl sm:text-6xl lg:text-8xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-cyan-400 brightness-110 contrast-125">
+        <h1 className="text-4xl sm:text-6xl lg:text-8xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-cyan-400 shadow-2xl brightness-110 contrast-125">
           RIPPLE 2K25
         </h1>
         {/* Subtitle */}
