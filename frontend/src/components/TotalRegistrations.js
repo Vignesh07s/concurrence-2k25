@@ -1,27 +1,30 @@
-import { React, useEffect, useState } from "react";
+import { React, useState, useEffect } from "react";
 import io from "socket.io-client";
 
 export default function TotalRegistrations() {
-
   const [totalRegistrations, setTotalRegistrations] = useState(0);
 
   useEffect(() => {
-
+    // Connect to the WebSocket server
     const socket = io(process.env.REACT_APP_API_URL);
 
-    // Listen for 'updateRegistrations' event from the server
-    socket.on("updateRegistrations", (count) => {
+    // Listen for the 'updatedRegistrationCount' event from the server
+    socket.on("updatedRegistrationCount", (count) => {
       setTotalRegistrations(count);
     });
 
-    // Cleanup the socket connection when the component is unmounted
+    socket.on("disconnect", () => {
+      console.log("Disconnected from WebSocket server");
+    });
+
+    // Cleanup WebSocket connection on component unmount
     return () => {
-      socket.off("updateRegistrations");
+      socket.disconnect();
     };
   }, []);
 
   return (
-    <div className="fixed bottom-4 right-4 flex items-center justify-center z-50 ">
+    <div className="fixed bottom-4 right-4 flex items-center justify-center z-50">
       <div className="bg-gradient-to-r from-pink-500 to-cyan-400 relative w-20 h-20 sm:w-24 sm:h-24 rounded-full shadow-lg flex items-center justify-center">
         <span className="text-sm sm:text-2xl">{totalRegistrations}</span>
         <div

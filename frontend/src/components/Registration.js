@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { io } from 'socket.io-client';
 
 const RegistrationModal = ({ closeModal, eventName, qrimg }) => {
   const [formData, setFormData] = useState({
@@ -18,6 +19,22 @@ const RegistrationModal = ({ closeModal, eventName, qrimg }) => {
   const [errorMessage, setErrorMessage] = useState('');
   const [isSuccessShow, setIsSuccessShow] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [socket, setSocket] = useState(null);
+
+  useEffect(() => {
+    // Connect to the WebSocket server
+    const newSocket = io(process.env.REACT_APP_API_URL);
+    setSocket(newSocket);
+
+    newSocket.on("disconnect", () => {
+      console.log("Disconnected from WebSocket server");
+    });
+
+    // Cleanup WebSocket connection on component unmount
+    return () => {
+      newSocket.disconnect();
+    };
+  }, []);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -57,7 +74,7 @@ const RegistrationModal = ({ closeModal, eventName, qrimg }) => {
     }
   };
 
-const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage('');
     setLoading(true);
@@ -74,6 +91,11 @@ const handleSubmit = async (e) => {
       });
       const data = await response.json();
       if (response.ok) {
+        // Emit the "NewRegistration" event without sending registration data
+        if (socket) {
+          socket.emit('NewRegistration');
+        }
+
         setIsSuccessShow(true);
       } else {
         setErrorMessage(data.message || 'Confirmation failed.');

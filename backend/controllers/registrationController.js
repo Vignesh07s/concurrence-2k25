@@ -1,10 +1,8 @@
 const Student = require('../models/Student');
 const Event = require('../models/Event');
 const Transaction = require('../models/Transaction');
-const mongoose = require('mongoose');
 const pdf = require('html-pdf-node');
 const sgMail = require('@sendgrid/mail');
-const { io } = require('../server');
 
 // Set the SendGrid API key
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
@@ -70,7 +68,7 @@ const validateStudent = async (req, res) => {
             await student.save();
 
             // Proceed to payment process
-            return res.status(200).json({ message: 'Student created and can proceed to payment', student });
+            return res.status(201).send();
         }
     } catch (error) {
         console.error('Error validating student:', error);
@@ -94,7 +92,10 @@ const confirmRegistration = async (req, res) => {
         const student = await Student.findOne({ registrationId });
 
         if (!eventDoc) throw new Error('Event not found');
-        if (existingTransaction) throw new Error('Duplicate Transaction');
+        if (existingTransaction) {
+            return res.status(400).json({ message: 'Duplicate transaction detected', errorCode: 'DUPLICATE_TRANSACTION' });
+        }
+        
         if (!student) throw new Error('Student not found');
 
         // Update student, event, and save transaction
@@ -110,17 +111,21 @@ const confirmRegistration = async (req, res) => {
 
         await session.commitTransaction();
 
-        // Emit updated registration count
-        const totalRegistrations = await Student.countDocuments({});
-        io.emit('updateRegistrations', totalRegistrations);
-        
-        res.status(201).json({ message: 'Student registered successfully', student });
+        res.status(201).send();
 
         const paymentReceipt = await generatePaymentReceipt(student, eventDoc, transaction);
 
         const eventTicket = await generateEventTicket(student, eventDoc, ticketId);
 
-        await sendEmail(student, eventDoc, paymentReceipt, eventTicket);
+        try {
+            await sendEmail(student, eventDoc, paymentReceipt, eventTicket);
+        } catch (error) {
+            console.error('Error in sending email:', error);
+            res.status(500).json({ message: 'Registration confirmed, but we encountered an issue sending the email.' });
+        }
+        
+
+
     } catch (error) {
         await session.abortTransaction();
         console.error('Error confirming registration:', error);
@@ -239,7 +244,7 @@ const sendEmail = async (student, event, paymentReceipt, eventTicket) => {
         to: student.email,
         from: process.env.EMAIL,
         subject: 'CONCURRENCE 2K25 Registration Confirmation',
-        html:`
+        html: `
         <h1>Registration Successful!</h1>
         <p>Dear ${student.name},</p>
         <p>Thank you for registering for the event <strong>${event.eventName}</strong>.</p>
@@ -268,6 +273,7 @@ const sendEmail = async (student, event, paymentReceipt, eventTicket) => {
         console.error('Error sending email:', error);
         throw new Error('Failed to send email');
     }
+
 };
 
 
