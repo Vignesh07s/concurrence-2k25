@@ -3,6 +3,7 @@ const Event = require('../models/Event');
 const Transaction = require('../models/Transaction');
 const pdf = require('html-pdf-node');
 const sgMail = require('@sendgrid/mail');
+const mongoose = require('mongoose');
 
 // Set the SendGrid API key
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
