@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Select from 'react-select';
 
 const RegistrationModal = ({ closeModal, eventName, qrimg }) => {
   const [formData, setFormData] = useState({
@@ -19,8 +20,38 @@ const RegistrationModal = ({ closeModal, eventName, qrimg }) => {
   const [isSuccessShow, setIsSuccessShow] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const colleges = [
+    { value: 'RGMCET', label: 'RGMCET' },
+    { value: 'IIT Bombay', label: 'IIT Bombay' },
+    { value: 'IIT Delhi', label: 'IIT Delhi' },
+    { value: 'NIT Warangal', label: 'NIT Warangal' },
+    { value: 'Anna University', label: 'Anna University' },
+    { value: 'JNTU Hyderabad', label: 'JNTU Hyderabad' },
+  ];
+
+  const departments = [
+    { value: 'CSE', label: 'Computer Science and Engineering' },
+    { value: 'CSE DS', label: 'CSE - Data Science' },
+    { value: 'CSE BS', label: 'CSE - Business Systems' },
+    { value: 'CSE AI-ML', label: 'CSE - Artificial Intelligence & Machine Learning' },
+    { value: 'CSE CS', label: 'CSE - Cyber Security' },
+    { value: 'ECE', label: 'Electronics and Communication Engineering' },
+    { value: 'EEE', label: 'Electrical and Electronics Engineering' },
+    { value: 'ME', label: 'Mechanical Engineering' },
+    { value: 'CE', label: 'Civil Engineering' },
+  ];
+
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleCollegeChange = (selectedOption) => {
+    setFormData({ ...formData, college: selectedOption });
+  };
+
+  const handleDepartmentChange = (selectedOption) => {
+    setFormData({ ...formData, department: selectedOption });
   };
 
   const handleProceedToPayment = async (e) => {
@@ -57,7 +88,7 @@ const RegistrationModal = ({ closeModal, eventName, qrimg }) => {
     }
   };
 
-const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage('');
     setLoading(true);
@@ -209,48 +240,41 @@ const handleSubmit = async (e) => {
                 </div>
               </div>
               {/* College */}
-              <div>
-                <label className="block text-gray-700 font-medium">College</label>
-                <select
-                  name="college"
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700">College</label>
+                <Select
+                  options={colleges}
                   value={formData.college}
-                  onChange={handleChange}
+                  onChange={handleCollegeChange}
+                  placeholder="Select your college"
+                  isSearchable
                   required
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-500"
-                >
-                  <option value="" disabled>Select your college</option>
-                  <option value="RGMCET, Nandyal">RGMCET, Nandyal</option>
-                  <option value="SREC, Nandyal">SREC, Nandyal</option>
-                  <option value="SVREC, Nandyal">SVREC, Nandyal</option>
-                  <option value="GPREC, Kurnool">GPREC, Kurnool</option>
-                  <option value="GPCET, Kurnool">GPCET, Kurnool</option>
-                  <option value="KVSRIT, Nandyal">KVSRIT, Nandyal</option>
-                  <option value="Ashoka Womens Engineering College">Ashoka Women's Engineering College</option>
-                  <option value="Other">Other</option>
-                </select>
+                  styles={{
+                    control: (baseStyles) => ({
+                      ...baseStyles,
+                      cursor: 'text' // Change cursor to text (I-beam)
+                    }),
+                  }}
+                />
               </div>
 
-              {/* Branch */}
+              {/* Department */}
               <div>
                 <label className="block text-gray-700 font-medium">Branch</label>
-                <select
-                  name="department"
+                <Select
+                  options={departments}
                   value={formData.department}
-                  onChange={handleChange}
+                  onChange={handleDepartmentChange}
+                  placeholder="Select your department"
+                  isSearchable
                   required
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-500"
-                >
-                  <option value="" disabled>Select your branch</option>
-                  <option value="CSE">Computer Science and Engineering</option>
-                  <option value="CSE DS">CSE - Data Science</option>
-                  <option value="CSE BS">CSE - Business Systems</option>
-                  <option value="CSE AI-ML">CSE - Artificial Intelligence & Machine Learning</option>
-                  <option value="CSE CS">CSE - Cyber Security</option>
-                  <option value="ECE">Electronics and Communication Engineering</option>
-                  <option value="EEE">Electrical and Electronics Engineering</option>
-                  <option value="ME">Mechanical Engineering</option>
-                  <option value="CE">Civil Engineering</option>
-                </select>
+                  styles={{
+                    control: (baseStyles) => ({
+                      ...baseStyles,
+                      cursor: 'text' // Change cursor to text (I-beam)
+                    }),
+                  }}
+                />
               </div>
               <div className="mt-6 flex justify-center">
                 <button

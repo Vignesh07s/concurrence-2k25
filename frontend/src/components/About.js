@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 
 const About = () => {
   return (
-    <div className="bg-gradient-to-b from-indigo-100 to-purple-200">
+    <div className="bg-gradient-to-b from-indigo-100 to-purple-200 dark:from-black dark:to-black
+">
       <section className="container mx-auto px-4 py-8">
 
         {/* CONCURRENCE 2K25 */}
@@ -15,24 +16,24 @@ const About = () => {
           <h3 className="font-bold text-2xl text-green-700 mt-6">
             Objectives of this Program :
           </h3>
-          <ul className="list-disc pl-6 text-gray-600 mt-4 text-base sm:text-xl">
+          <ul className="list-disc pl-6 text-gray-700 dark:text-white mt-4 text-base sm:text-xl">
             <li>
-              <strong>Knowledge Dissemination:</strong> Events provide a platform for sharing knowledge, research, and innovative ideas.
+              <strong className="dark:hidden">Knowledge Dissemination:</strong> Events provide a platform for sharing knowledge, research, and innovative ideas.
             </li>
             <li>
-              <strong>Skill Enhancement:</strong> Workshops and coding contests encourage problem-solving, creativity, and collaboration.
+              <strong className="dark:hidden">Skill Enhancement:</strong> Workshops and coding contests encourage problem-solving, creativity, and collaboration.
             </li>
             <li>
-              <strong>Networking:</strong> Events connect students, professionals, and experts to exchange ideas and build relationships.
+              <strong className="dark:hidden">Networking:</strong> Events connect students, professionals, and experts to exchange ideas and build relationships.
             </li>
             <li>
-              <strong>Inspiration and Motivation:</strong> Talks by successful individuals inspire participants to pursue their goals.
+              <strong className="dark:hidden">Inspiration and Motivation:</strong> Talks by successful individuals inspire participants to pursue their goals.
             </li>
           </ul>
           <h3 className="font-bold text-2xl text-green-700 mt-8">
             Target Audience:
           </h3>
-          <ul className="list-disc pl-6 text-gray-600 mt-4 text-base sm:text-xl">
+          <ul className="list-disc pl-6 text-gray-700 dark:text-white mt-4 text-base sm:text-xl">
             <li>Students from engineering and science disciplines.</li>
             <li>Tech enthusiasts and budding entrepreneurs.</li>
             <li>Innovators and creative thinkers.</li>
@@ -40,7 +41,7 @@ const About = () => {
           <h3 className="font-bold text-2xl text-green-700 mt-8">
             Perks for Participants:
           </h3>
-          <ul className="list-disc pl-6 text-gray-600 mt-4 text-base sm:text-xl">
+          <ul className="list-disc pl-6 text-gray-700 dark:text-white mt-4 text-base sm:text-xl">
             <li>Certificates of Participation for all attendees.</li>
             <li>Exciting cash prizes, trophies, and goodies for contest winners.</li>
             <li>Networking opportunities with industry leaders and experts.</li>
@@ -54,7 +55,7 @@ const About = () => {
           <h3 className="font-bold text-2xl text-green-700 mt-8">
             List of Events :
           </h3>
-          <ul className="list-decimal pl-6 text-gray-600 mt-4 text-base sm:text-xl">
+          <ul className="list-decimal pl-6 text-gray-700 dark:text-white mt-4 text-base sm:text-xl">
             <li>Coding Contest</li>
             <li>Technical Quiz</li>
             <li>Web Designing</li>
@@ -77,7 +78,7 @@ const About = () => {
             <h3 className="font-bold text-2xl text-green-700">
               Vision :
             </h3>
-            <ul className="list-disc pl-6 mt-4">
+            <ul className="list-disc pl-6 mt-4 text-gray-700 dark:text-white">
               <li>Empower students with cutting-edge technologies.</li>
               <li>Train students as entrepreneurs to address societal needs.</li>
               <li>Develop smart applications for rural communities.</li>
@@ -85,7 +86,7 @@ const About = () => {
             <h3 className="font-bold text-2xl text-green-700 mt-8">
               Mission :
             </h3>
-            <ul className="list-disc pl-6 mt-4">
+            <ul className="list-disc pl-6 mt-4 text-gray-700 dark:text-white">
               <li>Offer undergraduate, postgraduate, and research programs in collaboration with industry.</li>
               <li>Foster innovation and research through focused groups.</li>
               <li>Expose students to the latest tools for societal applications.</li>
@@ -105,14 +106,14 @@ const About = () => {
             <h3 className="font-bold text-2xl text-green-700">
               Vision :
             </h3>
-            <ul className="list-disc pl-6 mt-4">
+            <ul className="list-disc pl-6 mt-4 text-gray-700 dark:text-white">
               <li>Develop a rural-based college into an institute of global standards.</li>
               <li>Inculcate value-based education for peace and progress.</li>
             </ul>
             <h3 className="font-bold text-2xl text-green-700 mt-8">
               Mission :
             </h3>
-            <ul className="list-disc pl-6 mt-4">
+            <ul className="list-disc pl-6 mt-4 text-gray-700 dark:text-white">
               <li>Build strong undergraduate programs with world-class infrastructure.</li>
               <li>Establish postgraduate programs in cutting-edge technologies.</li>
               <li>Encourage research and foster entrepreneurship.</li>

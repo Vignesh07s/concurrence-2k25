@@ -5,6 +5,7 @@ import Countdown from "./CountDown"
 import HomeSchedule from './HomeSchedule';
 import Carousel from './Carousel';
 import Footer from './Footer';
+import WebTeam from './WebTeam';
 const messages = [
   {
     name: "Dr. M. Santhiramudu",
@@ -81,23 +82,23 @@ const Home = () => {
       <HomeSchedule />
 
       {/* Dignitary Messages */}
-      <div className="w-full px-4 py-4 sm:py-8 bg-gradient-to-b from-purple-100 to-blue-100">
+      <div className="w-full px-4 py-4 sm:py-8 bg-gradient-to-b from-cyan-100 to-gray-100 dark:from-gray-800 dark:to-gray-900">
         <div className="flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0 md:space-x-6">
           {/* Mobile Title */}
           <div className="block md:hidden text-center">
-            <p className="text-xl sm:text-2xl font-bold text-black">Dignitary Messages</p>
+            <p className="text-xl sm:text-2xl font-bold text-black dark:text-gray-200">Dignitary Messages</p>
           </div>
 
           {/* PC Title */}
           <div className="hidden md:flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0 md:space-x-6">
-            <div className="font-semibold text-black flex-shrink-0 ml-8 text-center md:text-left">
+            <div className="font-semibold text-black dark:text-gray-200 flex-shrink-0 ml-8 text-center md:text-left">
               <p className="text-3xl sm:text-4xl lg:text-5xl">Dignitary</p>
               <p className="text-xl sm:text-2xl lg:text-3xl">Messages</p>
             </div>
           </div>
 
           {/* Vertical Line */}
-          <div className="border-r-2 border-black h-32 hidden md:block"></div>
+          <div className="border-r-2 border-black dark:border-gray-600 h-32 hidden md:block"></div>
 
           {/* Message Content */}
           <div className="flex justify-center items-stretch space-x-6 w-full fade-in">
@@ -106,20 +107,20 @@ const Home = () => {
               <img
                 src={messages[currentMessage].image}
                 alt={messages[currentMessage].name}
-                className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-xl border-2 border-black"
+                className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-xl border-2 border-black dark:border-gray-600"
               />
             </div>
 
             {/* Text Column */}
             <div className="flex flex-col justify-between space-y-4 h-full">
-              <p className="italic text-sm font-semibold sm:text-base md:text-lg text-blue-900">
+              <p className="italic text-sm font-semibold sm:text-base md:text-lg text-blue-900 dark:text-gray-300">
                 {messages[currentMessage].message}
               </p>
               <div className="flex flex-col items-end space-y-1">
-                <p className="text-sm sm:text-base md:text-2xl text-indigo-500">
+                <p className="text-sm sm:text-base md:text-2xl text-indigo-500 dark:text-indigo-400">
                   {messages[currentMessage].name}
                 </p>
-                <p className="text-xs sm:text-sm md:text-base text-indigo-500">
+                <p className="text-xs sm:text-sm md:text-base text-indigo-500 dark:text-indigo-400">
                   {messages[currentMessage].designation}
                 </p>
               </div>
@@ -128,17 +129,19 @@ const Home = () => {
         </div>
       </div>
 
+
       {/* Past Event Glimpses */}
-      <div className="w-full bg-customWhite py-8">
+      <div className="w-full bg-gradient-to-b from-gray-100 to-cyan-100 py-8 dark:from-gray-900 dark:to-gray-800">
         <div className="text-center mb-8">
-          <p className="text-xl sm:text-4xl lg:text-5xl font-extrabold text-red-600 font-serif">
+          <p className="text-xl sm:text-4xl lg:text-5xl font-extrabold text-red-600 font-serif dark:text-red-400">
             A glimpse of our journey so far
           </p>
         </div>
-        <Carousel/>
+        <Carousel />
       </div>
 
-      <Footer/>
+      <WebTeam />
+      {/* <Footer /> */}
     </div>
 
   );

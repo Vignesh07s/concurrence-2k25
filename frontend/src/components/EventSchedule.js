@@ -140,36 +140,48 @@ const EventSchedule = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto py-10 px-4">
-      <h1 className="text-4xl text-white font-bold text-center mb-8">Event Schedule</h1>
-      <button onClick={downloadSchedulePDF} className="bg-green-700 text-white px-4 py-2 rounded mb-6">
-        Download Event Schedule PDF
-      </button>
-      <div>
-        {scheduleData.map((day, index) => (
-          <div key={index} className="mb-6">
-            <h2 className="text-4xl text-white font-semibold mb-2">{day.date}</h2>
-             {/* Thick Line after Day Title */}
-            <div className="border-t-4 border-white-900 mb-4"></div>
-            <div className=" border-gray-400">
-              {/* Group events by time */}
-              {Object.keys(groupEventsByTime(day.events)).map((time, i) => (
-                <div key={i} className="py-4 border-b border-gray-300">
-                  <p className="text-sm text-gray-600">{time}</p>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
-                    {/* Display each event that occurs at the same time in a grid */}
-                    {groupEventsByTime(day.events)[time].map((event, j) => (
-                      <div key={j} className="bg-white p-4 rounded-lg shadow-md border">
-                        <h3 className="text-lg font-bold text-gray-800">{event.title}</h3>
-                        <p className="text-sm text-gray-500">{event.location}</p>
-                      </div>
-                    ))}
+    <div className='bg-gray-400'>
+      <div className="max-w-4xl mx-auto py-10 px-4">
+        <h1 className="text-4xl font-bold text-center mb-8 text-black dark:text-white">Event Schedule</h1>
+        <button
+          onClick={downloadSchedulePDF}
+          className="bg-green-700 text-black dark:text-white px-4 py-2 rounded mb-6"
+        >
+          Download Event Schedule PDF
+        </button>
+        <div>
+          {scheduleData.map((day, index) => (
+            <div key={index} className="mb-6">
+              <h2 className="text-4xl font-semibold mb-2 text-black dark:text-white">{day.date}</h2>
+              {/* Thick Line after Day Title */}
+              <div className="border-t-4 border-black dark:border-gray-700 mb-4"></div>
+              <div className="border-gray-400 dark:border-gray-700">
+                {/* Group events by time */}
+                {Object.keys(groupEventsByTime(day.events)).map((time, i) => (
+                  <div key={i} className="py-4 border-b border-gray-300 dark:border-gray-600">
+                    <p className="text-sm text-gray-600 dark:text-gray-300">{time}</p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+                      {/* Display each event that occurs at the same time in a grid */}
+                      {groupEventsByTime(day.events)[time].map((event, j) => (
+                        <div
+                          key={j}
+                          className=" p-4 rounded-lg shadow-md border bg-gray-300 dark:bg-gray-800 dark:border-gray-600"
+                        >
+                          <h3 className="text-lg font-bold text-gray-800 dark:text-white">
+                            {event.title}
+                          </h3>
+                          <p className="text-sm text-gray-500 dark:text-gray-400">
+                            {event.location}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );

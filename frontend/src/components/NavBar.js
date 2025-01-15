@@ -25,16 +25,20 @@ export default function NavBar() {
 
     return (
         <header className="bg-blue-600 text-white sticky top-0 z-50 shadow-lg dark:bg-gray-800 dark:text-white">
-            <nav className="container mx-auto flex justify-between items-center p-4">
-                <div>
+            <nav className="container mx-auto flex justify-between items-center px-4 py-2">
+                <div className="flex items-center space-x-2">
                     <Link to="/">
                         <img
                             src="https://res.cloudinary.com/dvlqrld7w/image/upload/v1736579186/rhlwstkp8wvq55psgknu.png"
                             alt="Ripple 2K25 Logo"
-                            className="h-8 w-8 object-contain"
+                            className="h-10 w-10 object-contain rounded-full shadow-lg hover:shadow-xl transition duration-300"
                         />
                     </Link>
+                    <span className="text-xl font-bold text-white dark:text-gray-200">
+                        RIPPLE 2K25
+                    </span>
                 </div>
+
 
                 {/* Desktop menu */}
                 <ul className="hidden sm:flex space-x-6 text-lg">

@@ -12,7 +12,7 @@ const EventSchedule = () => {
           time: "10:00 AM - 11:00 AM",
           title: "Inauguration",
           description: "Chief members\nConveners",
-          image: "https://via.placeholder.com/50",
+          image: "https://res.cloudinary.com/dvlqrld7w/image/upload/v1736847272/inauguration_qdzudm.jpg",
         },
         {
           time: "11:00 AM - 4:30 PM",
@@ -109,9 +109,9 @@ const EventSchedule = () => {
   ];
 
   return (
-    <div className="flex justify-center items-center bg-gradient-to-b from-gray-100 to-cyan-100 pt-3">
+    <div className="flex justify-center items-center bg-gradient-to-b from-gray-100 to-cyan-100 dark:from-gray-900 dark:to-gray-800 pt-3">
       <div className="max-w-3xl w-full rounded-lg">
-        <h2 className="text-3xl font-bold text-gray-800 text-center pb-4">
+        <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-200 text-center pb-4">
           EVENT SCHEDULE
         </h2>
 
@@ -122,8 +122,8 @@ const EventSchedule = () => {
               key={index}
               className={`px-4 py-2 rounded-full text-white transition-all duration-300 ${
                 index === activeDay
-                  ? "bg-red-500 hover:bg-red-600"
-                  : "bg-blue-400 hover:bg-blue-800"
+                  ? "bg-green-500 hover:bg-green-600 dark:bg-green-600 dark:hover:bg-green-700"
+                  : "bg-blue-400 hover:bg-blue-800 dark:bg-blue-700 dark:hover:bg-blue-900"
               }`}
               onClick={() => setActiveDay(index)}
             >
@@ -139,15 +139,15 @@ const EventSchedule = () => {
               key={index}
               className={`transition-all duration-300 ${index === activeDay ? "block" : "hidden"}`}
             >
-              <h3 className="text-lg font-semibold text-gray-700 mb-4 text-center">
+              <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-4 text-center">
                 {`${day.day} (${day.date}) Events`}
               </h3>
               {day.events.map((event, idx) => (
                 <div
                   key={idx}
-                  className="flex flex-col md:flex-row items-center bg-gray-50 p-4 rounded-lg shadow-md mb-4 hover:shadow-lg hover:bg-red-100 hover:scale-105 transition-all duration-300"
+                  className="flex flex-col md:flex-row items-center bg-gray-50 dark:bg-gray-800 p-4 rounded-lg shadow-md mb-4 hover:shadow-lg hover:bg-red-100 dark:hover:bg-green-800 hover:scale-105 transition-all duration-300"
                 >
-                  <div className="text-sm font-medium text-gray-600 w-full md:w-28 text-center">
+                  <div className="text-sm font-medium text-gray-600 dark:text-gray-400 w-full md:w-28 text-center">
                     {event.time}
                   </div>
                   <img
@@ -156,8 +156,8 @@ const EventSchedule = () => {
                     className="w-12 h-12 rounded-full object-cover mx-4 hover:scale-110 transition-transform duration-300"
                   />
                   <div className="mt-2 md:mt-0 md:ml-4">
-                    <h4 className="text-md font-semibold text-gray-800">{event.title}</h4>
-                    <p className="text-sm text-gray-500 whitespace-pre-line">
+                    <h4 className="text-md font-semibold text-gray-800 dark:text-gray-200">{event.title}</h4>
+                    <p className="text-sm text-gray-500 dark:text-gray-400 whitespace-pre-line">
                       {event.description}
                     </p>
                   </div>
