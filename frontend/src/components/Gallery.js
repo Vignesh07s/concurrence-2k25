@@ -1,150 +1,172 @@
-import React, { useState, useEffect } from 'react';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
+import React, { useState, useEffect, useRef } from "react";
 
-const EventGallery = () => {
-  const [loading, setLoading] = useState(true);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
-  const events = [
-    { title: 'Ripple 2k24 - Welcome', date: '2nd April, 2024', location: 'College Auditorium', image: 'images/event1.jpg' },
-    { title: 'Prize Distribution - Ripple 2k24', date: '4th April, 2024', location: 'Main Hall', image: 'images/event2.jpg' },
-    { title: 'Team behind Ripple 2k24', date: '4th April, 2023', location: 'Conference Room', image: 'images/event3.jpg' },
-    { title: 'Ripple 2k23 - Welcome', date: '17th March, 2023', location: 'Open Ground', image: 'images/event4.jpg' },
-    { title: 'CSE Faculty Behind Ripple 2k23 Success', date: '17th March, 2023', location: 'Faculty Lounge', image: 'images/event5.jpg' },
-  ];
+const Gallery = () => {
+  // State to store images from Cloudinary
+  const [images, setImages] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(null);
+  const imgRefs = useRef([]);
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 2000);
+    // Function to fetch images from Cloudinary
+    const fetchImages = async () => {
+      try {
+        const response = await fetch(
+          `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_CLOUD_NAME}/resources/image?prefix=Gallery/&type=upload&api_key=${process.env.REACT_APP_CLOUDINARY_API_KEY}&api_secret=${process.env.REACT_APP_CLOUDINARY_API_SECRET}`
+        );
+        const data = await response.json();
 
-    // Initialize AOS
-    AOS.init({
-      duration: 1000, // Duration of animation in ms
-      offset: 200,    // Distance to trigger animation
-      once: true,     // Run animation only once
-    });
+        // Extract the image URLs from the API response
+        if (data.resources) {
+          const imageUrls = data.resources.map((resource) => resource.secure_url);
+          setImages(imageUrls); // Store the image URLs in state
+        }
+      } catch (error) {
+        console.error("Error fetching images:", error);
+      }
+    };
 
-    return () => clearTimeout(timer);
+    fetchImages();
   }, []);
 
-  const openModal = (index) => {
-    setCurrentImageIndex(index);
-    setIsModalOpen(true);
+  useEffect(() => {
+    const options = {
+      root: null, // use the viewport as the root
+      rootMargin: "0px",
+      threshold: 0.1, // 10% of the image should be visible
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.src = entry.target.dataset.src;
+          observer.unobserve(entry.target); // stop observing once image is loaded
+        }
+      });
+    }, options);
+
+    imgRefs.current.forEach((img) => {
+      observer.observe(img);
+    });
+
+    return () => observer.disconnect();
+  }, [images]);
+
+  // Open the image in full view
+  const handleImageClick = (index) => {
+    setCurrentIndex(index);
   };
 
-  const closeModal = () => setIsModalOpen(false);
-
-  const goToPrevious = () => {
-    const prevIndex = (currentImageIndex - 1 + events.length) % events.length;
-    setCurrentImageIndex(prevIndex);
+  // Close the full view
+  const handleClose = () => {
+    setCurrentIndex(null);
   };
 
-  const goToNext = () => {
-    const nextIndex = (currentImageIndex + 1) % events.length;
-    setCurrentImageIndex(nextIndex);
+  // Navigate to the next image
+  const handleNext = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
   };
 
-  return loading ? (
-    <div id="preloader" className="fixed inset-0 flex justify-center items-center bg-gray-100">
-      <div className="loader border-t-4 border-blue-500 rounded-full w-16 h-16 animate-spin" aria-label="Loading"></div>
-    </div>
-  ) : (
-    <>
-      <section className="breadcrumb-sections py-8 bg-blue-800 text-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center">
-            <h2 className="text-3xl font-bold">Event Glimpses</h2>
-          </div>
-        </div>
-      </section>
+  // Navigate to the previous image
+  const handlePrev = () => {
+    setCurrentIndex((prevIndex) =>
+      (prevIndex - 1 + images.length) % images.length
+    );
+  };
 
-      <section className="event-gallery-section py-16">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {events.map((event, index) => (
-              <div
-                key={index}
-                className="event-item bg-cover bg-center h-96 rounded-lg overflow-hidden relative cursor-pointer"
-                style={{ backgroundImage: `url('${event.image}')` }}
-                data-aos="fade-up"
-                onClick={() => openModal(index)}
-              >
-                <div className="event-tag bg-gradient-to-r from-blue-500 to-green-500 text-white py-1 px-3 inline-block rounded absolute top-4 left-4">
-                  {event.location}
-                </div>
-                <div className="event-text p-4 bg-black bg-opacity-50 text-white rounded-b-lg absolute bottom-0 w-full">
-                  <h6 className="font-semibold text-lg">{event.title}</h6>
-                  <span className="text-sm text-gray-300">
-                    <i className="fas fa-clock"></i> {event.date}
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+  return (
+    <div className="container mx-auto py-10 px-4">
+      {/* Grid Gallery */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {images.map((image, index) => (
+          <img
+            key={index}
+            ref={(el) => (imgRefs.current[index] = el)} // Add ref to each image
+            data-src={image} // Store the image URL in data-src for lazy loading
+            alt={`Img ${index + 1}`}
+            onClick={() => handleImageClick(index)}
+            loading="lazy" // Use native lazy loading
+            className="w-full h-52 object-cover rounded-lg shadow-lg cursor-pointer"
+          />
+        ))}
+      </div>
 
-      {isModalOpen && (
+      {/* Full-Screen View */}
+      {currentIndex !== null && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50"
-          onClick={closeModal}
+          className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50"
+          onClick={handleClose} // Handle click on the overlay
         >
-          <div className="relative max-w-4xl mx-auto w-full ">
-            <button
-              className="absolute top-2 right-2 text-black text-2xl font-bold"
-              onClick={(e) => {
-                e.stopPropagation();
-                closeModal();
-              }}
-            >
-              &times;
-            </button>
-            <img
-              src={events[currentImageIndex].image}
-              alt={events[currentImageIndex].title}
-              className="max-h-[80vh] w-auto mx-auto"
-            />
-            <button
-              className="absolute top-1/2 left-4 transform -translate-y-1/2 text-white text-2xl font-extrabold bg-black bg-opacity-50 p-3 rounded-full"
-              onClick={(e) => {
-                e.stopPropagation();
-                goToPrevious();
-              }}
-            >
-              &#8249;
-            </button>
-            <button
-              className="absolute top-1/2 right-4 transform -translate-y-1/2 text-white text-2xl font-extrabold bg-black bg-opacity-50 p-3 rounded-full"
-              onClick={(e) => {
-                e.stopPropagation();
-                goToNext();
-              }}
-            >
-              &#8250;
-            </button>
+          {/* Close Button */}
+          <button
+            onClick={handleClose}
+            className="absolute top-4 right-4 text-white text-2xl z-50"
+          >
+            &times;
+          </button>
 
+          {/* Main Image */}
+          <div
+            className="relative"
+            onClick={(e) => e.stopPropagation()} // Prevent closing when clicking on the image or buttons
+          >
+            <img
+              src={images[currentIndex]}
+              alt={`Img ${currentIndex + 1}`}
+              className="sm:max-w-full max-h-[75vh] object-cover rounded-lg shadow-lg px-2"
+            />
+
+            {/* Navigation Buttons below the image */}
+            <div className="flex justify-center items-center space-x-6 w-full mt-4">
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handlePrev();
+                }}
+                className="bg-gray-700 text-white p-3 rounded-full shadow-lg hover:bg-gray-600 flex items-center justify-center"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15 19l-7-7 7-7"
+                  />
+                </svg>
+              </button>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleNext();
+                }}
+                className="bg-gray-700 text-white p-3 rounded-full shadow-lg hover:bg-gray-600 flex items-center justify-center"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
       )}
-
-      <footer className="footer-section py-8 bg-blue-800 text-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center">
-            <div className="ft-logo">
-              <a href='/home' className="text-xl font-bold">RIPPLE 2K25</a>
-              <p className="text-sm mt-2">Organized by Computer Science and Engineering</p>
-            </div>
-            <div className="copyright-text mt-4">
-              <p>
-                Copyright &copy; {2025} All rights reserved | Made by CSE
-              </p>
-            </div>
-          </div>
-        </div>
-      </footer>
-    </>
+    </div>
   );
 };
 
-export default EventGallery;
+export default Gallery;

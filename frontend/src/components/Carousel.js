@@ -22,6 +22,7 @@ const Carousel = () => {
     centerPadding: "0",
     autoplay: true, // Enable autoplay
     autoplaySpeed: 3000,
+    arrows: false,
     responsive: [
       {
         breakpoint: 1024,
@@ -39,7 +40,7 @@ const Carousel = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 relative">
+    <div className="container mx-auto px-4 py-8 relative overflow-hidden">
       {/* Slider */}
       <Slider ref={sliderRef} {...settings}>
         {images.map((image, index) => (

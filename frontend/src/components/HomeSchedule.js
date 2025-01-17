@@ -153,7 +153,7 @@ const EventSchedule = () => {
                   <img
                     src={event.image}
                     alt={event.title}
-                    className="w-12 h-12 rounded-full object-cover mx-4 hover:scale-110 transition-transform duration-300"
+                    className="w-12 h-12 rounded-full object-cover mx-4"
                   />
                   <div className="mt-2 md:mt-0 md:ml-4">
                     <h4 className="text-md font-semibold text-gray-800 dark:text-gray-200">{event.title}</h4>

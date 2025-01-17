@@ -15,16 +15,16 @@ const studentData = [
         name: "Pippalla Bharath Kumar Reddy",
         email: "bpippalla@gmail.com",
         phone: "7569716620",
-        image: "/path-to-image2.jpg",
+        image: "https://res.cloudinary.com/dvlqrld7w/image/upload/v1737045942/WhatsApp_Image_2025-01-16_at_08.19.40_f5c7f8bf_a47k3p.jpg",
         linkedin: "https://www.linkedin.com/in/bharath-kumar-reddy-pippalla-08a32b235",
-        github: "https://github.com/janesmith",
+        github: "https://github.com/bharathreddy9999/",
         instagram: "https://www.instagram.com/bharath_reddy9999/",
     },
     {
         name: "K. PUJITH KUMAR REDDY",
         email: "pujithkalluru@gmail.com",
         phone: "8328221830",
-        image: "/path-to-image2.jpg",
+        image: "https://res.cloudinary.com/dvlqrld7w/image/upload/v1737045918/WhatsApp_Image_2025-01-16_at_07.04.15_d5919f1b_vr7u8x.jpg",
         linkedin: "https://www.linkedin.com/in/pujith-kumar-reddy-kalluru-41b635255",
         github: "https://github.com/PUJITHKUMARREDDY",
         instagram: "https://www.instagram.com/_pujith.kumar_reddy?igsh=MXEycXJjc2EzM2x0Mw==",
@@ -33,7 +33,7 @@ const studentData = [
 
 const StudentCard = ({ student }) => (
     <div className="bg-white dark:bg-gray-800 shadow-lg rounded-lg p-6 flex flex-col sm:flex-row items-center sm:items-start max-w-lg mx-auto hover:shadow-md hover:dark:shadow-pink-600 hover:shadow-blue-400 transition duration-300 ease-in-out hover:scale-105">
-        
+
         <div className="w-full sm:w-1/3 flex justify-center items-center mb-4 sm:mb-0">
             <img
                 src={student.image}
@@ -41,14 +41,16 @@ const StudentCard = ({ student }) => (
                 className="w-52 max-w-[140px] h-36 rounded-lg"
             />
         </div>
-        
+
         <div className="w-full sm:w-2/3 sm:pl-8 text-center sm:text-left">
             <h3 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">
                 {student.name}
             </h3>
             <p className="text-sm text-gray-600 dark:text-gray-400 flex items-center justify-center sm:justify-start">
-                <i className="fas fa-envelope mr-2 text-pink-500"></i>
-                {student.email}
+                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="15" height="15" viewBox="0 0 48 48">
+                    <path fill="#4caf50" d="M45,16.2l-5,2.75l-5,4.75L35,40h7c1.657,0,3-1.343,3-3V16.2z"></path><path fill="#1e88e5" d="M3,16.2l3.614,1.71L13,23.7V40H6c-1.657,0-3-1.343-3-3V16.2z"></path><polygon fill="#e53935" points="35,11.2 24,19.45 13,11.2 12,17 13,23.7 24,31.95 35,23.7 36,17"></polygon><path fill="#c62828" d="M3,12.298V16.2l10,7.5V11.2L9.876,8.859C9.132,8.301,8.228,8,7.298,8h0C4.924,8,3,9.924,3,12.298z"></path><path fill="#fbc02d" d="M45,12.298V16.2l-10,7.5V11.2l3.124-2.341C38.868,8.301,39.772,8,40.702,8h0 C43.076,8,45,9.924,45,12.298z"></path>
+                </svg>
+                <span className="ml-2">{student.email}</span>
             </p>
             <p className="text-sm text-gray-600 dark:text-gray-400 flex items-center justify-center sm:justify-start">
                 <i className="fas fa-phone mr-2 text-blue-500"></i>
