@@ -86,7 +86,7 @@ function EventDetails() {
               />
               {/* Location, Date, and Registration Fee */}
               <div className="text-gray-700">
-                
+
                 {/* Date and Time */}
                 <div className="flex items-center">
                   <svg
@@ -115,6 +115,21 @@ function EventDetails() {
                   <strong>Registration Fee:</strong> ₹{event.registrationFee}
                 </p>
               </div>
+              {/* Template (For Poster or Paper Presentation) */}
+              {(event.eventName === 'Poster Presentation' || event.eventName === 'Paper Presentation') && (
+                <div className="mt-4">
+                  <a
+                    href="https://res.cloudinary.com/dvlqrld7w/image/upload/v1737142395/Poster_Demo_ybqvbo.jpg"
+                    target='_blank'
+                    download="Poster_Template"
+                  >
+                    Click here for reference
+                  </a>
+                </div>
+              )}
+
+
+
               {/* Register Button */}
               <div className="mt-3 text-center hidden sm:block">
                 {event.registrationCount >= event.maxParticipants ? (
@@ -212,7 +227,7 @@ function EventDetails() {
       </div>
 
       {/* Registration Modal */}
-      {isModalOpen && <RegistrationModal closeModal={closeModal} eventName={eventName} qrimg={event.qrimage}/>
+      {isModalOpen && <RegistrationModal closeModal={closeModal} eventName={eventName} qrimg={event.qrimage} />
       }
     </div>
   );
