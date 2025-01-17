@@ -66,8 +66,8 @@ const RegistrationModal = ({ closeModal, eventName, qrimg }) => {
         registrationId: formData.registrationId.toUpperCase(),
         yearSem: formData.year + "-" + formData.semester,
         phoneNumber: formData.phoneNumber,
-        college: formData.college,
-        department: formData.department,
+        college: formData.college.value,
+        department: formData.department.value,
         event: eventName.replace("-", " "),
       };
       const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/register/validate`, {

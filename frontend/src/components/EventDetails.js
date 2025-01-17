@@ -177,7 +177,7 @@ function EventDetails() {
                 <ul className="list-none text-gray-600">
                   {event.coordinators.map((coordinator, index) => (
                     <li key={index}>
-                      <strong>{coordinator.name}</strong> ({coordinator.role}) - Contact: {coordinator.contact}
+                      <strong>{coordinator.name}</strong> - Contact: {coordinator.contact}
                     </li>
                   ))}
                 </ul>

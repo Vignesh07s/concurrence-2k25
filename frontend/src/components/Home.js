@@ -141,7 +141,7 @@ const Home = () => {
       </div>
 
       <WebTeam />
-      {/* <Footer /> */}
+      <Footer />
     </div>
 
   );

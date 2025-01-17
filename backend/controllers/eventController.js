@@ -16,6 +16,7 @@ const createEvent = async (req, res) => {
         maxParticipants,
         coordinators,
         image,
+        qrimage
     } = req.body;
 
     try {
@@ -33,7 +34,8 @@ const createEvent = async (req, res) => {
             !prizes ||
             !maxParticipants ||
             !coordinators ||
-            !image
+            !image ||
+            !qrimage
         ) {
             return res.status(400).json({ message: 'All required fields must be provided.' });
         }
@@ -91,6 +93,7 @@ const createEvent = async (req, res) => {
             prizes,
             maxParticipants,
             image,
+            qrimage,
             coordinators,
         });
 
