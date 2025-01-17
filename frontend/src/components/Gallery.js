@@ -6,25 +6,25 @@ const Gallery = () => {
   const [currentIndex, setCurrentIndex] = useState(null);
   const imgRefs = useRef([]);
 
-  useEffect(() => {
-    // Function to fetch images from Cloudinary
-    const fetchImages = async () => {
-      try {
-        const response = await fetch(
-          `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_CLOUD_NAME}/resources/image?prefix=Gallery/&type=upload&api_key=${process.env.REACT_APP_CLOUDINARY_API_KEY}&api_secret=${process.env.REACT_APP_CLOUDINARY_API_SECRET}`
-        );
-        const data = await response.json();
+  const [loading, setLoading] = useState(true);
 
-        // Extract the image URLs from the API response
-        if (data.resources) {
-          const imageUrls = data.resources.map((resource) => resource.secure_url);
-          setImages(imageUrls); // Store the image URLs in state
-        }
-      } catch (error) {
-        console.error("Error fetching images:", error);
+  const fetchImages = async () => {
+    try {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/gallery`);
+      const data = await response.json();
+  
+      if (Array.isArray(data)) {
+        setImages(data); // Directly set image URLs array
       }
-    };
+    } catch (error) {
+      console.error("Error fetching images:", error);
+    } finally {
+      setLoading(false); // Ensure loading is set to false when fetch finishes
+    }
+  };
+  
 
+  useEffect(() => {
     fetchImages();
   }, []);
 
@@ -75,20 +75,23 @@ const Gallery = () => {
 
   return (
     <div className="container mx-auto py-10 px-4">
-      {/* Grid Gallery */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {images.map((image, index) => (
-          <img
-            key={index}
-            ref={(el) => (imgRefs.current[index] = el)} // Add ref to each image
-            data-src={image} // Store the image URL in data-src for lazy loading
-            alt={`Img ${index + 1}`}
-            onClick={() => handleImageClick(index)}
-            loading="lazy" // Use native lazy loading
-            className="w-full h-52 object-cover rounded-lg shadow-lg cursor-pointer"
-          />
-        ))}
-      </div>
+      {loading ? (
+        <div>Loading...</div> // A simple loading message
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {images.map((image, index) => (
+            <img
+              key={index}
+              ref={(el) => (imgRefs.current[index] = el)} // Add ref to each image
+              data-src={image} // Store the image URL in data-src for lazy loading
+              alt={`Img ${index + 1}`}
+              onClick={() => handleImageClick(index)}
+              loading="lazy" // Use native lazy loading
+              className="w-full h-52 object-cover rounded-lg shadow-lg cursor-pointer"
+            />
+          ))}
+        </div>
+      )}
 
       {/* Full-Screen View */}
       {currentIndex !== null && (
