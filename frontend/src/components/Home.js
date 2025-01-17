@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import HeroSection from "./HeroSection"
 import "../index.css";
 import Countdown from "./CountDown"
-import HomeSchedule from './HomeSchedule';
+import Schedule from './Schedule';
 import Carousel from './Carousel';
 import Footer from './Footer';
 import WebTeam from './WebTeam';
@@ -79,7 +79,7 @@ const Home = () => {
 
       <HeroSection />
       <Countdown />
-      <HomeSchedule />
+      <Schedule />
 
       {/* Dignitary Messages */}
       <div className="w-full px-4 py-4 sm:py-8 bg-gradient-to-b from-cyan-100 to-gray-100 dark:from-gray-800 dark:to-gray-900">

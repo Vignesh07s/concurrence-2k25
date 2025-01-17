@@ -5,7 +5,7 @@ import Home from "./components/Home";
 import Events from "./components/EventsPage";
 import NotFound from "./components/NotFound";
 import EventDetails from "./components/EventDetails";
-import HomeSchedule from "./components/HomeSchedule";
+import Schedule from "./components/Schedule";
 import Gallery from "./components/Gallery";
 import Contact from "./components/Contact";
 import About from "./components/About";
@@ -24,7 +24,7 @@ export default function App() {
             <Route path="/events/:eventName" element={<EventDetails />} />
             <Route path="*" element={<NotFound />} />
             <Route path="/gallery" element={<Gallery/>} />
-            <Route path="/event-schedule" element={<HomeSchedule/>} />
+            <Route path="/schedule" element={<Schedule/>} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/about" element={<About />} />
           </Routes>
