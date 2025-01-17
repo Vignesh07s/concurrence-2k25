@@ -64,8 +64,8 @@ const createEvent = async (req, res) => {
 
         // Validate coordinators
         for (const coordinator of coordinators) {
-            if (!coordinator.name || !coordinator.role || !coordinator.contact) {
-                return res.status(400).json({ message: 'Each coordinator must have a name, role, and contact.' });
+            if (!coordinator.name || !coordinator.contact) {
+                return res.status(400).json({ message: 'Each coordinator must have a name and contact.' });
             }
         }
 

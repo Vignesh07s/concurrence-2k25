@@ -17,7 +17,6 @@ const eventSchema = new mongoose.Schema({
     qrimage: { type: String, required: true },
     coordinators: [{
         name: { type: String, required: true },
-        role: { type: String, required: true },
         contact: { type: String, required: true }
     }],
     participants: [{
