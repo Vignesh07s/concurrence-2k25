@@ -114,19 +114,34 @@ function EventDetails() {
                   <i className="fas fa-wallet text-green-500 mr-2"></i>
                   <strong>Registration Fee:</strong> ₹{event.registrationFee}
                 </p>
+                {/* Template (For Poster or Paper Presentation) */}
+                {(event.eventName === 'Poster Presentation') && (
+                  <div className="mt-2">
+                    <a
+                      href="https://drive.google.com/file/d/1y3LYD29X2GyAX4dpeNC8fEwyhr6twTKu/view?usp=drive_link"
+                      target='_blank'
+                      rel='noreferrer'
+                      className='underline text-blue-500'
+                    >
+                      Click here for reference
+                    </a>
+                  </div>
+                )}
+                {/* Template (For Poster or Paper Presentation) */}
+                {(event.eventName === 'Paper Presentation') && (
+                  <div className="mt-2">
+                    <a
+                      href="https://drive.google.com/drive/folders/1BEcIoBt_zK4nDBQ2ZDrE-I65z1lkSRxB?usp=drive_link"
+                      target='_blank'
+                      rel='noreferrer'
+                      className='underline text-blue-500'
+                    >
+                      Click here for reference
+                    </a>
+                  </div>
+                )}
               </div>
-              {/* Template (For Poster or Paper Presentation) */}
-              {(event.eventName === 'Poster Presentation' || event.eventName === 'Paper Presentation') && (
-                <div className="mt-4">
-                  <a
-                    href="https://res.cloudinary.com/dvlqrld7w/image/upload/v1737142395/Poster_Demo_ybqvbo.jpg"
-                    target='_blank'
-                    download="Poster_Template"
-                  >
-                    Click here for reference
-                  </a>
-                </div>
-              )}
+
 
 
 
