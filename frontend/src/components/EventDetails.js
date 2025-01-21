@@ -199,7 +199,7 @@ function EventDetails() {
               {/* Prizes */}
               <div>
                 <h3 className="text-xl font-bold text-blue-700 mb-2">Prizes</h3>
-                <p className="text-gray-600">{event.prizes}</p>
+                <p className="text-gray-600">TBA</p>
               </div>
               {/* Coordinators */}
               <div>
