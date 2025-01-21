@@ -180,7 +180,12 @@ function EventDetails() {
                 <h3 className="text-xl font-bold text-blue-700 mb-2">Rules & Guidelines</h3>
                 <ul className="text-gray-600 space-y-1">
                   {event.rulesAndGuidelines.map((item, index) => (
-                    <li key={index}>{item}</li>
+                    <li key={index} className="flex items-start">
+                    <span className="text-blue-500 mr-2">
+                      <i className="fas fa-check"></i>
+                    </span>
+                    <span>{item}</span>
+                  </li>
                   ))}
                 </ul>
               </div>
