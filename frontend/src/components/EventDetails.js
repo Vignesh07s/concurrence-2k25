@@ -158,10 +158,11 @@ function EventDetails() {
                 ) : (
                   <button
                     onClick={openModal}
-                    className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-md"
+                    className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-md cursor-not-allowed"
                     aria-label="Register for the event"
+                    disabled={true}
                   >
-                    Register Now
+                    Register starts tomorrow
                   </button>
                 )}
               </div>
@@ -232,10 +233,11 @@ function EventDetails() {
             ) : (
               <button
                 onClick={openModal}
-                className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-md"
+                className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-md cursor-not-allowed"
                 aria-label="Register for the event"
+                disabled={true}
               >
-                Register Now
+                Register starts tomorrow
               </button>
             )}
           </div>
