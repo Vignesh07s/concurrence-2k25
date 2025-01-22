@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import RegistrationModal from './Registration';
 import { Link, useParams } from 'react-router-dom';
+import RegistrationModal from './Registration';
+import PaperSubmissionModal from './PaperSubmissionModal';
 
 function EventDetails() {
   const { eventName } = useParams(); // Extract eventName from the URL
@@ -8,6 +9,11 @@ function EventDetails() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isPaperModalOpen, setIsPaperModalOpen] = useState(false);
+
+  const paperModal = () => {
+    setIsPaperModalOpen(true);
+  };
 
   // Fetch event details based on eventName
   useEffect(() => {
@@ -39,6 +45,7 @@ function EventDetails() {
   // Close Modal
   const closeModal = () => {
     setIsModalOpen(false);
+    setIsPaperModalOpen(false);
   };
 
   if (loading) {
@@ -147,24 +154,41 @@ function EventDetails() {
 
               {/* Register Button */}
               <div className="mt-3 text-center hidden sm:block">
-                {event.registrationCount >= event.maxParticipants ? (
-                  <button
-                    className="px-6 py-3 bg-gray-400 text-white rounded-lg shadow-md cursor-not-allowed"
-                    aria-label="Registration Closed"
-                    disabled
-                  >
-                    Registration Closed
-                  </button>
+                {/* For Paper Presentation */}
+                {event.eventName === 'Paper Presentation' ? (
+                  <div className="mt-4">
+                    <button
+                      onClick={paperModal}
+                      className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-md"
+                      aria-label="Register for the event"
+                    >
+                      Submit Paper
+                    </button>
+                  </div>
                 ) : (
-                  <button
-                    onClick={openModal}
-                    className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-md cursor-not-allowed"
-                    aria-label="Register for the event"
-                    disabled={true}
-                  >
-                    Register starts tomorrow
-                  </button>
+                  // Default Register Button for other events
+                  <div className="mt-3 text-center">
+                    {event.registrationCount >= event.maxParticipants ? (
+                      <button
+                        className="px-6 py-3 bg-gray-400 text-white rounded-lg shadow-md cursor-not-allowed"
+                        aria-label="Registration Closed"
+                        disabled
+                      >
+                        Registration Closed
+                      </button>
+                    ) : (
+                      <button
+                        onClick={openModal}
+                        className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-md cursor-not-allowed"
+                        aria-label="Register for the event"
+                        disabled={true}
+                      >
+                        Registration starts at 3pm today
+                      </button>
+                    )}
+                  </div>
                 )}
+
               </div>
 
             </div>
@@ -182,11 +206,11 @@ function EventDetails() {
                 <ul className="text-gray-600 space-y-1">
                   {event.rulesAndGuidelines.map((item, index) => (
                     <li key={index} className="flex items-start">
-                    <span className="text-blue-500 mr-2">
-                      <i className="fas fa-check"></i>
-                    </span>
-                    <span>{item}</span>
-                  </li>
+                      <span className="text-blue-500 mr-2">
+                        <i className="fas fa-check"></i>
+                      </span>
+                      <span>{item}</span>
+                    </li>
                   ))}
                 </ul>
               </div>
@@ -222,24 +246,41 @@ function EventDetails() {
           </div>
           {/* Register Button */}
           <div className="mt-3 text-center sm:hidden">
-            {event.registrationCount >= event.maxParticipants ? (
-              <button
-                className="px-6 py-3 bg-gray-400 text-white rounded-lg shadow-md cursor-not-allowed"
-                aria-label="Registration Closed"
-                disabled
-              >
-                Registration Closed
-              </button>
+            {/* For Paper Presentation */}
+            {event.eventName === 'Paper Presentation' ? (
+              <div className="mt-4">
+                <button
+                  onClick={paperModal}
+                  className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-md"
+                  aria-label="Register for the event"
+                >
+                  Submit Paper
+                </button>
+              </div>
             ) : (
-              <button
-                onClick={openModal}
-                className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-md cursor-not-allowed"
-                aria-label="Register for the event"
-                disabled={true}
-              >
-                Register starts tomorrow
-              </button>
+              // Default Register Button for other events
+              <div className="mt-3 text-center">
+                {event.registrationCount >= event.maxParticipants ? (
+                  <button
+                    className="px-6 py-3 bg-gray-400 text-white rounded-lg shadow-md cursor-not-allowed"
+                    aria-label="Registration Closed"
+                    disabled
+                  >
+                    Registration Closed
+                  </button>
+                ) : (
+                  <button
+                    onClick={openModal}
+                    className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-md cursor-not-allowed"
+                    aria-label="Register for the event"
+                    disabled={true}
+                  >
+                    Registration starts at 3pm today
+                  </button>
+                )}
+              </div>
             )}
+
           </div>
 
 
@@ -251,6 +292,10 @@ function EventDetails() {
       {/* Registration Modal */}
       {isModalOpen && <RegistrationModal closeModal={closeModal} eventName={eventName} qrimg={event.qrimage} />
       }
+
+      {/* Paper Submission Modal */}
+      {isPaperModalOpen && <PaperSubmissionModal closeModal={closeModal} />}
+        
     </div>
   );
 };

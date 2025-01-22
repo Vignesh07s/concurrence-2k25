@@ -21,24 +21,39 @@ const RegistrationModal = ({ closeModal, eventName, qrimg }) => {
   const [loading, setLoading] = useState(false);
 
   const colleges = [
-    { value: 'RGMCET', label: 'RGMCET' },
-    { value: 'IIT Bombay', label: 'IIT Bombay' },
-    { value: 'IIT Delhi', label: 'IIT Delhi' },
-    { value: 'NIT Warangal', label: 'NIT Warangal' },
-    { value: 'Anna University', label: 'Anna University' },
-    { value: 'JNTU Hyderabad', label: 'JNTU Hyderabad' },
+    { value: "ALITS", label: "Anantha Lakshmi Institute of Technology and Sciences (ALITS)"},
+    { value: "Ashoka Women's Engineering College", label: "Ashoka Women's Engineering College"},
+    { value: "BRNK", label: "Brindavan Institute of Technology and Science (BRNK)"},
+    { value: "CBIT", label: "Chaitanya Bharathi Institute of Technology (CBIT)"},
+    { value: 'KVSRIT', label: 'Dr.K.V.Subba Reddy Institute of Technology (KVSRIT)' },
+    { value: 'GPREC', label: 'G Pulla Reddy Engineering College (GPREC)' },
+    { value: 'GPCET', label: 'G. Pullaiah College of Engineering and Technology (GPCET)' },
+    { value: "GATE", label: "GATES Institute of Technology (GATE)"},
+    { value: "GITAMW", label: "Gouthami Institute of Technology and Management for Women (GITAMW)"},
+    { value: "KSRMCE", label: "KSRM College Of Engineering (KSRMCE)"},
+    { value: 'RGMCET', label: 'Rajeev Gandhi Memorial College of Engineering and Technology (RGMCET)' },
+    { value: "RECW", label: "Ravindra College of Engineering for Women (RECW)"},
+    { value: "Rayalaseema University", label: "Rayalaseema University"},
+    { value: "RUCE", label: "Rayalaseema University college of Engineering (RUCE)"},
+    { value: "CVRT", label: "SIR C.V RAMAN INSTITUTE OF TECHNOLOGY SCIENCES (CVRT)"},
+    { value: 'SVREC', label: 'SVR Engineering College (SVREC)' },
+    { value: "SSSE", label: "Sanskrithi School of Engineering (SSSE)"},
+    { value: 'SREC', label: 'Santhiram Engineering College (SREC)' },
+    { value: "SKUCET", label: "Sri Krishnadevaraya University College of Engineering and Technology (SKUCET)"},
+    { value: "SRIT", label: "Srinivasa Ramanujan Institute of Technology (SRIT)"},
+    { value: "TEC", label: "Tadipatri Engineering College (TEC)"},
   ];
 
   const departments = [
-    { value: 'CSE', label: 'Computer Science and Engineering' },
-    { value: 'CSE DS', label: 'CSE - Data Science' },
-    { value: 'CSE BS', label: 'CSE - Business Systems' },
-    { value: 'CSE AI-ML', label: 'CSE - Artificial Intelligence & Machine Learning' },
-    { value: 'CSE CS', label: 'CSE - Cyber Security' },
-    { value: 'ECE', label: 'Electronics and Communication Engineering' },
-    { value: 'EEE', label: 'Electrical and Electronics Engineering' },
-    { value: 'ME', label: 'Mechanical Engineering' },
-    { value: 'CE', label: 'Civil Engineering' },
+    { value: 'CSE', label: 'Computer Science and Engineering (CSE)' },
+    { value: 'CSE AI-ML', label: 'CSE - Artificial Intelligence & Machine Learning (CSE AI-ML)' },
+    { value: 'CSE BS', label: 'CSE - Business Systems (CSE BS)' },
+    { value: 'CSE CS', label: 'CSE - Cyber Security (CSE CS)' },
+    { value: 'CSE DS', label: 'CSE - Data Science (CSE DS)' },
+    { value: 'CE', label: 'Civil Engineering (CE)' },
+    { value: 'ECE', label: 'Electronics and Communication Engineering (ECE)' },
+    { value: 'EEE', label: 'Electrical and Electronics Engineering (EEE)' },
+    { value: 'ME', label: 'Mechanical Engineering (ME)' },
   ];
 
 
@@ -187,7 +202,7 @@ const RegistrationModal = ({ closeModal, eventName, qrimg }) => {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  placeholder="Enter your email address"
+                  placeholder="Enter email address for communication"
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-500"
                 />
               </div>

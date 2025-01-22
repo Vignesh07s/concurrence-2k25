@@ -3,10 +3,8 @@ const Event = require('../models/Event');
 const Transaction = require('../models/Transaction');
 const mongoose = require('mongoose');
 const pdf = require('html-pdf-node');
-const sgMail = require('@sendgrid/mail');
+const nodemailer = require('nodemailer');
 
-// Set the SendGrid API key
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 // Validate if the student exists and is registered for the event
 const validateStudent = async (req, res) => {
@@ -228,17 +226,25 @@ const generateEventTicket = async (student, eventDoc, ticketId) => {
 };
 
 
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: process.env.EMAIL,  // Your Gmail email address
+        pass: process.env.EMAIL_PASSWORD,  // Your Gmail password or App Password if 2FA is enabled
+    },
+});
+
 const sendEmail = async (student, event, paymentReceipt, eventTicket) => {
-    const msg = {
+    const mailOptions = {
         to: student.email,
         from: process.env.EMAIL,
         subject: 'CONCURRENCE 2K25 Registration Confirmation',
-        html:`
-        <h1>Registration Successful!</h1>
-        <p>Dear ${student.name},</p>
-        <p>Thank you for registering for the event <strong>${event.eventName}</strong>.</p>
-        <p>Your event ticket is attached below.</p>
-        <p>Regards,<br>RIPPLE 2K25 Team</p>
+        html: `
+            <h1>Registration Successful!</h1>
+            <p>Dear ${student.name},</p>
+            <p>Thank you for registering for the event <strong>${event.eventName}</strong>.</p>
+            <p>Your event ticket is attached below.</p>
+            <p>Regards,<br>RIPPLE 2K25 Team</p>
         `,
         attachments: [
             {
@@ -256,8 +262,11 @@ const sendEmail = async (student, event, paymentReceipt, eventTicket) => {
         ],
     };
 
+
     try {
-        await sgMail.send(msg);
+        // Send email with Nodemailer
+        await transporter.sendMail(mailOptions);
+        console.log('Email sent successfully');
     } catch (error) {
         console.error('Error sending email:', error);
         throw new Error('Failed to send email');
