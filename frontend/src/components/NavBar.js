@@ -77,10 +77,10 @@ export default function NavBar() {
                         className="fixed inset-0 bg-black opacity-50 backdrop-blur-md z-40"
                         onClick={toggleMenu}
                     ></div>
-                    <div className="fixed top-0 left-0 w-3/5 sm:w-2/5 bg-blue-600 text-white z-50 shadow-xl transform transition-transform duration-300 dark:bg-gray-800 h-full">
+                    <div className="fixed top-0 right-0 w-3/5 sm:w-2/5 bg-blue-600 text-white z-50 shadow-xl transform transition-transform duration-300 dark:bg-gray-800 h-full">
                         {/* Close Button */}
                         <button
-                            className="text-white text-2xl font-bold w-full text-left m-3"
+                            className="text-white text-2xl font-bold w-full text-right p-3"
                             onClick={toggleMenu}
                             aria-label="Close Menu"
                         >
@@ -125,7 +125,7 @@ export default function NavBar() {
                                     Contact
                                 </Link>
                                 <hr className="my-2 border-gray-400 dark:border-gray-600" />
-                            </li> 
+                            </li> */}
                         </ul>
 
                         {/* Dark Mode Toggle */}
