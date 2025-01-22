@@ -114,7 +114,7 @@ export default function NavBar() {
                                 </Link>
                                 <hr className="my-2 border-gray-400 dark:border-gray-600" />
                             </li>
-                            {/* <li>
+                             <li>
                                 <Link to="/gallery" className="block text-xl font-semibold hover:text-gray-300 dark:hover:text-gray-400 pl-3">
                                     Gallery
                                 </Link>
@@ -125,7 +125,7 @@ export default function NavBar() {
                                     Contact
                                 </Link>
                                 <hr className="my-2 border-gray-400 dark:border-gray-600" />
-                            </li> */}
+                            </li> 
                         </ul>
 
                         {/* Dark Mode Toggle */}
