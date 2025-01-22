@@ -183,7 +183,7 @@ function EventDetails() {
                         aria-label="Register for the event"
                         disabled={true}
                       >
-                        Registration starts at 3pm today
+                        Registration starts at 6pm today
                       </button>
                     )}
                   </div>
@@ -275,7 +275,7 @@ function EventDetails() {
                     aria-label="Register for the event"
                     disabled={true}
                   >
-                    Registration starts at 3pm today
+                    Registration starts at 6pm today
                   </button>
                 )}
               </div>
