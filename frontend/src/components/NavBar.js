@@ -55,8 +55,8 @@ export default function NavBar() {
                     <li><a href="/about" className="hover:text-gray-300 dark:hover:text-gray-400">About</a></li>
                     <li><Link to="/events" className="hover:text-gray-300 dark:hover:text-gray-400">Events</Link></li>
                     <li><Link to="/schedule" className="hover:text-gray-300 dark:hover:text-gray-400">Schedule</Link></li>
-                    {/* <li><Link to="/gallery" className="hover:text-gray-300 dark:hover:text-gray-400">Gallery</Link></li>
-                    <li><Link to="/contact" className="hover:text-gray-300 dark:hover:text-gray-400">Contact</Link></li> */}
+                    <li><Link to="/gallery" className="hover:text-gray-300 dark:hover:text-gray-400">Gallery</Link></li>
+                    {/* <li><Link to="/contact" className="hover:text-gray-300 dark:hover:text-gray-400">Contact</Link></li> */}
                 </ul>
 
                 {/* Hamburger icon */}
@@ -114,13 +114,13 @@ export default function NavBar() {
                                 </Link>
                                 <hr className="my-2 border-gray-400 dark:border-gray-600" />
                             </li>
-                            {/* <li>
+                            <li>
                                 <Link to="/gallery" className="block text-xl font-semibold hover:text-gray-300 dark:hover:text-gray-400 pl-3">
                                     Gallery
                                 </Link>
                                 <hr className="my-2 border-gray-400 dark:border-gray-600" />
                             </li>
-                            <li>
+                            {/* <li>
                                 <Link to="/contact" className="block text-xl font-semibold hover:text-gray-300 dark:hover:text-gray-400 pl-3">
                                     Contact
                                 </Link>
