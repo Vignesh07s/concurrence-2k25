@@ -125,7 +125,7 @@ export default function NavBar() {
                                     Contact
                                 </Link>
                                 <hr className="my-2 border-gray-400 dark:border-gray-600" />
-                            </li> */}
+                            </li> 
                         </ul>
 
                         {/* Dark Mode Toggle */}
