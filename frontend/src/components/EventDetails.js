@@ -215,17 +215,19 @@ function EventDetails() {
                 </ul>
               </div>
               {/* Event Rounds */}
-              <div>
-                <h3 className="text-xl font-bold text-blue-700 mb-2">Event Rounds</h3>
-                <ul className="text-gray-600 space-y-1">
-                  {event.rounds.map((round, index) => (
-                    <li key={index}>
-                      <span className="mr-2 text-green-500">🎯</span>
-                      {round}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              {event.rounds.length > 0 && (
+                <div>
+                  <h3 className="text-xl font-bold text-blue-700 mb-2">Event Rounds</h3>
+                  <ul className="text-gray-600 space-y-1">
+                    {event.rounds.map((round, index) => (
+                      <li key={index}>
+                        <span className="mr-2 text-green-500">🎯</span>
+                        {round}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
               {/* Prizes */}
               <div>
                 <h3 className="text-xl font-bold text-blue-700 mb-2">Prizes</h3>
@@ -295,7 +297,7 @@ function EventDetails() {
 
       {/* Paper Submission Modal */}
       {isPaperModalOpen && <PaperSubmissionModal closeModal={closeModal} />}
-        
+
     </div>
   );
 };
