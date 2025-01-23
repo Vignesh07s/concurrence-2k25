@@ -6,6 +6,7 @@ const pdf = require('html-pdf-node');
 const nodemailer = require('nodemailer');
 const fs = require('fs');
 const path = require('path');
+const qrcode = require('qrcode');
 
 // Validate if the student exists and is registered for the event
 const validateStudent = async (req, res) => {
@@ -108,16 +109,19 @@ const confirmRegistration = async (req, res) => {
         }).format(new Date());
 
         // Update student, event, and save transaction
-        const ticketId = `${eventDoc.eventName.slice(0, 3).toUpperCase()}-${student.registrationId.slice(0, 2)}`;
+        const eventPrefix = eventDoc.eventName.toUpperCase().slice(0, 3);
+        const regIdPrefix = student.registrationId.slice(0, 2);
+        const paddedCount = String(eventDoc.registrationCount + 1).padStart(3, '0'); // Zero-padding
+        const ticketId = `${eventPrefix}-${regIdPrefix}${paddedCount}`; // Optional: Add a random string here
         student.events.push({ eventId: eventDoc._id, transactionId, ticketId });
         eventDoc.participants.push(student._id);
         eventDoc.registrationCount += 1;
-        const transaction = new Transaction({ 
-            transactionId, 
-            studentId: student._id, 
-            eventId: eventDoc._id, 
-            amount: eventDoc.registrationFee, 
-            paymentScreenshotUrl, 
+        const transaction = new Transaction({
+            transactionId,
+            studentId: student._id,
+            eventId: eventDoc._id,
+            amount: eventDoc.registrationFee,
+            paymentScreenshotUrl,
             createdAt: formattedDate,
         });
 
@@ -132,7 +136,7 @@ const confirmRegistration = async (req, res) => {
 
         const eventTicket = await generateEventTicket(student, eventDoc, ticketId);
 
-        await sendEmail(student, eventDoc, paymentReceipt, eventTicket);
+        await sendEmail(student, eventDoc, paymentReceipt, eventTicket, ticketId);
     } catch (error) {
         await session.abortTransaction();
         console.error('Error confirming registration:', error);
@@ -144,7 +148,7 @@ const confirmRegistration = async (req, res) => {
 
 // Function to generate the payment receipt
 const generatePaymentReceipt = async (student, eventDoc, transaction) => {
-    
+
     const htmlContent = `
     <html>
     <head>
@@ -213,37 +217,103 @@ const generatePaymentReceipt = async (student, eventDoc, transaction) => {
     return pdfBuffer;
 };
 
+const formatEventDate = (dateString) => {
+    const eventDate = new Date(dateString);
+
+    // Format as "Month Date, Year"
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return eventDate.toLocaleDateString('en-US', options);
+};
+
+
 // Function to generate the event ticket
 const generateEventTicket = async (student, eventDoc, ticketId) => {
-    const htmlContent = `
-    <html>
-    <head>
-        <style>
-            body { font-family: Arial, sans-serif; margin: 20px; }
-            h1 { color: #333; }
-            p { font-size: 14px; color: #555; }
-            .details { margin-top: 20px; }
-            .details span { font-weight: bold; }
-        </style>
-    </head>
-    <body>
-        <h1>Event Ticket</h1>
-        <p>Thank you for registering for <strong>${eventDoc.eventName}</strong>.</p>
-        <div class="details">
-            <p><span>Name:</span> ${student.name}</p>
-            <p><span>Ticket ID:</span> ${ticketId}</p>
-        </div>
-        <p>We look forward to seeing you at the event!</p>
-        <p>Regards,<br>RIPPLE 2K25 Team</p>
-    </body>
-    </html>
-    `;
+    const qrCodeData = {
+        ticketId: ticketId,
+        attendeeName: student.name,
+        eventName: eventDoc.eventName,
+    };
 
-    const options = { format: 'A4' };
-    const file = { content: htmlContent };
-    const pdfBuffer = await pdf.generatePdf(file, options);
-    return pdfBuffer;
+    try {
+        const formattedDate = formatEventDate(eventDoc.date);
+
+        // Generate QR code as a Base64 string
+        const qrCodeBase64 = await qrcode.toDataURL(JSON.stringify(qrCodeData));
+
+        // HTML content with proper alignment and provided images
+        const htmlContent = `
+            <html>
+            <head>
+            <style>
+                body { font-family: Arial, sans-serif; margin: 20px; }
+                h1 { color: #333; text-align: center; }
+                .header img { max-width: 100%; height: auto; margin-bottom: 20px; }
+                p { font-size: 14px; color: #555; }
+                .details { margin-top: 20px; }
+                .details span { font-weight: bold; }
+                .footer { margin-top: 30px; font-size: 12px; color: #777; text-align: center; }
+                .table-container { margin-top: 20px; }
+                table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+                th, td { border: 1px solid #ccc; padding: 10px; text-align: left; }
+                th { background-color: #f4f4f4; font-weight: bold; }
+                .qr-code { text-align: center; margin-top: 20px; }
+            </style>
+            </head>
+            <body>
+            <!-- Image at the top -->
+            <div class="header">
+                <img src="https://res.cloudinary.com/dvlqrld7w/image/upload/v1736397468/jswwej08j9aeua4lh4zf.jpg" alt="Event Header">
+            </div>
+
+            <h1>Event Ticket - ${eventDoc.eventName}</h1>
+
+            <div class="table-container">
+                <table>
+                <tr>
+                    <th>Name</th>
+                    <td>${student.name}</td>
+                </tr>
+                <tr>
+                    <th>Registration ID</th>
+                    <td>${student.registrationId}</td>
+                </tr>
+                <tr>
+                    <th>Ticket ID</th>
+                    <td>${ticketId}</td>
+                </tr>
+                <tr>
+                    <th>Date</th>
+                    <td>${formattedDate}</td>
+                </tr>
+                <tr>
+                    <th>Time</th>
+                    <td>${eventDoc.startTime} - ${eventDoc.endTime}</td>
+                </tr>
+                <tr>
+                    <th>Venue</th>
+                    <td>${eventDoc.location}</td>
+                </tr>
+                </table>
+            </div>
+            <div class="qr-code">
+                <img src="${qrCodeBase64}" alt="QR Code">
+            </div>
+
+            <p class="footer">Regards,<br>CONCURRENCE 2K25 Team</p>
+            </body>
+            </html>
+        `;
+
+        const options = { format: 'A4' };
+        const file = { content: htmlContent };
+        const pdfBuffer = await pdf.generatePdf(file, options);
+        return pdfBuffer;
+    } catch (error) {
+        console.error('Error generating event ticket:', error);
+        throw error;
+    }
 };
+
 
 
 const transporter = nodemailer.createTransport({
@@ -254,22 +324,24 @@ const transporter = nodemailer.createTransport({
     },
 });
 
-const sendEmail = async (student, event, paymentReceipt, eventTicket) => {
+const sendEmail = async (student, event, paymentReceipt, eventTicket, ticketId) => {
     const receiptPath = path.join(__dirname, `PaymentReceipt_${student.registrationId}.pdf`);
     const ticketPath = path.join(__dirname, `EventTicket_${student.registrationId}.pdf`);
     try {
         await fs.promises.writeFile(receiptPath, paymentReceipt);
-await fs.promises.writeFile(ticketPath, eventTicket);
+        await fs.promises.writeFile(ticketPath, eventTicket);
         const mailOptions = {
             to: student.email,
             from: process.env.EMAIL,
             subject: 'CONCURRENCE 2K25 Registration Confirmation',
             html: `
-            <h1>Registration Successful!</h1>
-            <p>Dear${student.name},</p>
-            <p>Thank you for registering for the event <strong>${event.eventName}</strong>.</p>
-            <p>Your event ticket is attached below.</p>
-            <p>Regards,<br>RIPPLE 2K25 Team</p>
+            <h1>Registration Successful for ${event.eventName}!</h1>
+            <p>Dear ${student.name},</p>
+            <p>We're thrilled to confirm your registration for the upcoming event, <strong>${event.eventName}</strong>!</p>
+            <p>Your unique ticket ID for this event is <strong>${ticketId}</strong>. Please retain this ID for future reference.</p>
+            <p>Attached to this email, you'll find a copy of your payment receipt and event ticket. The payment receipt acknowledges your successful payment of ₹${event.registrationFee} for the event registration.</p>
+            <p>We look forward to seeing you at the event! Don't hesitate to reach out to us if you have any questions.</p>
+            <p>Regards,<br>The CONCURRENCE 2K25 Team</p>
         `,
             attachments: [
                 {

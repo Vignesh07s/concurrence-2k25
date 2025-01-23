@@ -24,6 +24,7 @@ const RegistrationModal = ({ closeModal, eventName, qrimg }) => {
   const colleges = [
     { value: "ALITS", label: "Anantha Lakshmi Institute of Technology and Sciences (ALITS)" },
     { value: "Ashoka Women's Engineering College", label: "Ashoka Women's Engineering College" },
+    { value: "BITS", label: "Bheema Institute of technology & Science (BITS)" },
     { value: "BRNK", label: "Brindavan Institute of Technology and Science (BRNK)" },
     { value: "CBIT", label: "Chaitanya Bharathi Institute of Technology (CBIT)" },
     { value: 'KVSRIT', label: 'Dr.K.V.Subba Reddy Institute of Technology (KVSRIT)' },
@@ -38,6 +39,7 @@ const RegistrationModal = ({ closeModal, eventName, qrimg }) => {
     { value: "RUCE", label: "Rayalaseema University college of Engineering (RUCE)" },
     { value: "CVRT", label: "SIR C.V RAMAN INSTITUTE OF TECHNOLOGY SCIENCES (CVRT)" },
     { value: 'SVREC', label: 'SVR Engineering College (SVREC)' },
+    { value: "SJCET", label: "St.Johns College of Engineering and Technology (SJCET)"},
     { value: "SSSE", label: "Sanskrithi School of Engineering (SSSE)" },
     { value: 'SREC', label: 'Santhiram Engineering College (SREC)' },
     { value: "SKUCET", label: "Sri Krishnadevaraya University College of Engineering and Technology (SKUCET)" },
