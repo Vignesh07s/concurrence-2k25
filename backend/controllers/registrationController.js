@@ -4,7 +4,8 @@ const Transaction = require('../models/Transaction');
 const mongoose = require('mongoose');
 const pdf = require('html-pdf-node');
 const nodemailer = require('nodemailer');
-
+const fs = require('fs');
+const path = require('path');
 
 // Validate if the student exists and is registered for the event
 const validateStudent = async (req, res) => {
@@ -77,13 +78,13 @@ const validateStudent = async (req, res) => {
 
 // Confirm registration and proceed with student registration
 const confirmRegistration = async (req, res) => {
-    const { registrationId, transactionId, event } = req.body;
+    const { registrationId, transactionId, event, paymentScreenshotUrl } = req.body;
     const session = await mongoose.startSession();
 
     try {
         session.startTransaction();
         // Validate input and fetch event/student
-        if (!registrationId || !transactionId || !event) {
+        if (!registrationId || !transactionId || !event || !paymentScreenshotUrl) {
             return res.status(400).json({ message: 'All fields are required' });
         }
         const eventDoc = await Event.findOne({ eventName: { $regex: new RegExp(`^${event}$`, 'i') } });
@@ -94,12 +95,31 @@ const confirmRegistration = async (req, res) => {
         if (existingTransaction) throw new Error('Duplicate Transaction');
         if (!student) throw new Error('Student not found');
 
+        const formattedDate = new Intl.DateTimeFormat('en-IN', {
+            weekday: 'long', // Full weekday name
+            day: '2-digit',  // Day with 2 digits
+            month: 'long',   // Full month name
+            year: 'numeric', // Full year
+            hour: '2-digit', // Hour with 2 digits
+            minute: '2-digit', // Minute with 2 digits
+            second: '2-digit', // Second with 2 digits
+            hour12: true,     // AM/PM
+            timeZone: 'Asia/Kolkata',  // IST timezone
+        }).format(new Date());
+
         // Update student, event, and save transaction
         const ticketId = `${eventDoc.eventName.slice(0, 3).toUpperCase()}-${student.registrationId.slice(0, 2)}`;
         student.events.push({ eventId: eventDoc._id, transactionId, ticketId });
         eventDoc.participants.push(student._id);
         eventDoc.registrationCount += 1;
-        const transaction = new Transaction({ transactionId, studentId: student._id, eventId: eventDoc._id, amount: eventDoc.registrationFee });
+        const transaction = new Transaction({ 
+            transactionId, 
+            studentId: student._id, 
+            eventId: eventDoc._id, 
+            amount: eventDoc.registrationFee, 
+            paymentScreenshotUrl, 
+            createdAt: formattedDate,
+        });
 
         await student.save({ session });
         await eventDoc.save({ session });
@@ -124,7 +144,7 @@ const confirmRegistration = async (req, res) => {
 
 // Function to generate the payment receipt
 const generatePaymentReceipt = async (student, eventDoc, transaction) => {
-    const formattedDate = new Date(transaction.createdAt).toString().split('GMT')[0].trim();
+    
     const htmlContent = `
     <html>
     <head>
@@ -174,7 +194,7 @@ const generatePaymentReceipt = async (student, eventDoc, transaction) => {
                 </tr>
                 <tr>
                     <th>Payment Date</th>
-                    <td>${formattedDate}</td>
+                    <td>${transaction.createdAt}</td>
                 </tr>
                 <tr>
                     <th>Event Name</th>
@@ -235,41 +255,43 @@ const transporter = nodemailer.createTransport({
 });
 
 const sendEmail = async (student, event, paymentReceipt, eventTicket) => {
-    const mailOptions = {
-        to: student.email,
-        from: process.env.EMAIL,
-        subject: 'CONCURRENCE 2K25 Registration Confirmation',
-        html: `
+    const receiptPath = path.join(__dirname, `PaymentReceipt_${student.registrationId}.pdf`);
+    const ticketPath = path.join(__dirname, `EventTicket_${student.registrationId}.pdf`);
+    try {
+        await fs.promises.writeFile(receiptPath, paymentReceipt);
+await fs.promises.writeFile(ticketPath, eventTicket);
+        const mailOptions = {
+            to: student.email,
+            from: process.env.EMAIL,
+            subject: 'CONCURRENCE 2K25 Registration Confirmation',
+            html: `
             <h1>Registration Successful!</h1>
-            <p>Dear ${student.name},</p>
+            <p>Dear${student.name},</p>
             <p>Thank you for registering for the event <strong>${event.eventName}</strong>.</p>
             <p>Your event ticket is attached below.</p>
             <p>Regards,<br>RIPPLE 2K25 Team</p>
         `,
-        attachments: [
-            {
-                content: paymentReceipt.toString('base64'),
-                filename: `PaymentReceipt_${student.registrationId}.pdf`,
-                type: 'application/pdf',
-                disposition: 'attachment',
-            },
-            {
-                content: eventTicket.toString('base64'),
-                filename: `EventTicket_${student.registrationId}.pdf`,
-                type: 'application/pdf',
-                disposition: 'attachment',
-            }
-        ],
-    };
-
-
-    try {
+            attachments: [
+                {
+                    filename: `PaymentReceipt_${student.registrationId}.pdf`,
+                    path: receiptPath,
+                    contentType: 'application/pdf',
+                },
+                {
+                    filename: `EventTicket_${student.registrationId}.pdf`,
+                    path: ticketPath,
+                    contentType: 'application/pdf',
+                }
+            ],
+        };
         // Send email with Nodemailer
         await transporter.sendMail(mailOptions);
-        console.log('Email sent successfully');
     } catch (error) {
         console.error('Error sending email:', error);
         throw new Error('Failed to send email');
+    } finally {
+        if (fs.existsSync(receiptPath)) await fs.promises.unlink(receiptPath);
+        if (fs.existsSync(ticketPath)) await fs.promises.unlink(ticketPath);
     }
 };
 

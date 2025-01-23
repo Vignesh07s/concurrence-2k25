@@ -13,6 +13,7 @@ const RegistrationModal = ({ closeModal, eventName, qrimg }) => {
     college: '',
     department: '',
     transactionId: '',
+    paymentScreenshot: null,
   });
 
   const [showPaymentStep, setShowPaymentStep] = useState(false);
@@ -21,27 +22,27 @@ const RegistrationModal = ({ closeModal, eventName, qrimg }) => {
   const [loading, setLoading] = useState(false);
 
   const colleges = [
-    { value: "ALITS", label: "Anantha Lakshmi Institute of Technology and Sciences (ALITS)"},
-    { value: "Ashoka Women's Engineering College", label: "Ashoka Women's Engineering College"},
-    { value: "BRNK", label: "Brindavan Institute of Technology and Science (BRNK)"},
-    { value: "CBIT", label: "Chaitanya Bharathi Institute of Technology (CBIT)"},
+    { value: "ALITS", label: "Anantha Lakshmi Institute of Technology and Sciences (ALITS)" },
+    { value: "Ashoka Women's Engineering College", label: "Ashoka Women's Engineering College" },
+    { value: "BRNK", label: "Brindavan Institute of Technology and Science (BRNK)" },
+    { value: "CBIT", label: "Chaitanya Bharathi Institute of Technology (CBIT)" },
     { value: 'KVSRIT', label: 'Dr.K.V.Subba Reddy Institute of Technology (KVSRIT)' },
     { value: 'GPREC', label: 'G Pulla Reddy Engineering College (GPREC)' },
     { value: 'GPCET', label: 'G. Pullaiah College of Engineering and Technology (GPCET)' },
-    { value: "GATE", label: "GATES Institute of Technology (GATE)"},
-    { value: "GITAMW", label: "Gouthami Institute of Technology and Management for Women (GITAMW)"},
-    { value: "KSRMCE", label: "KSRM College Of Engineering (KSRMCE)"},
+    { value: "GATE", label: "GATES Institute of Technology (GATE)" },
+    { value: "GITAMW", label: "Gouthami Institute of Technology and Management for Women (GITAMW)" },
+    { value: "KSRMCE", label: "KSRM College Of Engineering (KSRMCE)" },
     { value: 'RGMCET', label: 'Rajeev Gandhi Memorial College of Engineering and Technology (RGMCET)' },
-    { value: "RECW", label: "Ravindra College of Engineering for Women (RECW)"},
-    { value: "Rayalaseema University", label: "Rayalaseema University"},
-    { value: "RUCE", label: "Rayalaseema University college of Engineering (RUCE)"},
-    { value: "CVRT", label: "SIR C.V RAMAN INSTITUTE OF TECHNOLOGY SCIENCES (CVRT)"},
+    { value: "RECW", label: "Ravindra College of Engineering for Women (RECW)" },
+    { value: "Rayalaseema University", label: "Rayalaseema University" },
+    { value: "RUCE", label: "Rayalaseema University college of Engineering (RUCE)" },
+    { value: "CVRT", label: "SIR C.V RAMAN INSTITUTE OF TECHNOLOGY SCIENCES (CVRT)" },
     { value: 'SVREC', label: 'SVR Engineering College (SVREC)' },
-    { value: "SSSE", label: "Sanskrithi School of Engineering (SSSE)"},
+    { value: "SSSE", label: "Sanskrithi School of Engineering (SSSE)" },
     { value: 'SREC', label: 'Santhiram Engineering College (SREC)' },
-    { value: "SKUCET", label: "Sri Krishnadevaraya University College of Engineering and Technology (SKUCET)"},
-    { value: "SRIT", label: "Srinivasa Ramanujan Institute of Technology (SRIT)"},
-    { value: "TEC", label: "Tadipatri Engineering College (TEC)"},
+    { value: "SKUCET", label: "Sri Krishnadevaraya University College of Engineering and Technology (SKUCET)" },
+    { value: "SRIT", label: "Srinivasa Ramanujan Institute of Technology (SRIT)" },
+    { value: "TEC", label: "Tadipatri Engineering College (TEC)" },
   ];
 
   const departments = [
@@ -57,6 +58,22 @@ const RegistrationModal = ({ closeModal, eventName, qrimg }) => {
   ];
 
 
+  const handleFileChange = async (e) => {
+    const file = e.target.files[0];
+    if (!file.type.startsWith('image/')) {
+      setErrorMessage('Please upload a valid image.');
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) { // 5MB limit
+      setErrorMessage('File size exceeds the 5MB limit.');
+      return;
+    }
+        
+    if (file) {
+      setFormData({ ...formData, paymentScreenshot: file });
+    }
+  };
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -68,6 +85,33 @@ const RegistrationModal = ({ closeModal, eventName, qrimg }) => {
   const handleDepartmentChange = (selectedOption) => {
     setFormData({ ...formData, department: selectedOption });
   };
+
+  const handleImageUpload = async (file) => {
+    const imageData = new FormData();
+    const customFileName = `${eventName}_${formData.registrationId}`;
+    imageData.append('file', file);
+    imageData.append('upload_preset', 'PaymentScreenshots');
+    imageData.append('cloud_name', 'dvfb9n5h5');
+    imageData.append('public_id', `payments/${customFileName}`);
+
+    try {
+      const response = await fetch(`https://api.cloudinary.com/v1_1/dvfb9n5h5/upload`, {
+        method: 'POST',
+        body: imageData,
+      });
+      const data = await response.json();
+
+      if (response.ok) {
+        return data.secure_url;
+      } else {
+        throw new Error('Failed to upload image');
+      }
+    } catch (error) {
+      setErrorMessage('Error uploading image. Please try again.');
+      return null;
+    }
+  };
+
 
   const handleProceedToPayment = async (e) => {
     e.preventDefault();
@@ -108,9 +152,18 @@ const RegistrationModal = ({ closeModal, eventName, qrimg }) => {
     setErrorMessage('');
     setLoading(true);
     try {
+      let uploadedImageUrl = await handleImageUpload(formData.paymentScreenshot);
+
+      if (!uploadedImageUrl) {
+        setErrorMessage('Payment screenshot upload failed.');
+        setLoading(false);
+        return;
+      }
+
       const payload = {
         registrationId: formData.registrationId.toUpperCase(),
         transactionId: formData.transactionId,
+        paymentScreenshotUrl: uploadedImageUrl, // Use the uploaded image URL
         event: eventName.replace("-", " "),
       };
       const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/register/confirm`, {
@@ -331,6 +384,17 @@ const RegistrationModal = ({ closeModal, eventName, qrimg }) => {
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-500"
                 />
               </div>
+              <div>
+                <label className="block text-gray-700 font-medium">Upload Payment Screenshot</label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFileChange}
+                  required
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-500"
+                />
+              </div>
+
               <div className="mt-6 flex justify-center">
                 <button
                   type="submit"

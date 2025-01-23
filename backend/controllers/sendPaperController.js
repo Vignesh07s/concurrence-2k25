@@ -20,8 +20,8 @@ const sendPaper = async (req, res) => {
   try {
     // Construct email message
     const msg = {
-      to: "kanikecharan23@gmail.com", // Organizer's email
-      from: process.env.EMAIL, // Sender email from SendGrid
+      to: ["kanikecharan23@gmail.com", "abhignamadisetty@gmail.com"],
+      from: process.env.EMAIL,
       subject: `Paper Submission from ${name}`,
       html: `
         <h1>Paper Submission Details</h1>
