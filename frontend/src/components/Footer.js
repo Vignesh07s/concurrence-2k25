@@ -25,15 +25,19 @@ const Footer = () => {
           </a>
         </div>
 
+        {/* RGMCET Branding */}
+        <p className="font-semibold text-gray-200">
+          <a href="https://www.rgmcet.edu.in/" target="_blank" rel="noreferrer">RGMCET</a>
+           - 
+          <a href="https://www.rgmcet.edu.in/department-of-cse" target="_blank" rel="noreferrer">CSE Department</a>
+        </p>
+
         {/* Copyright Message */}
         <p className="text-sm text-gray-300">
           © {new Date().getFullYear()} RIPPLE 2K25. All rights reserved.
         </p>
 
-        {/* RGMCET Branding */}
-        <p className="font-semibold text-gray-200">
-          RGMCET - CSE Department
-        </p>
+        
       </div>
     </footer>
   );

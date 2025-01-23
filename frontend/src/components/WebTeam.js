@@ -12,7 +12,7 @@ const studentData = [
         instagram: "https://instagram.com/johndoe",
     },
     {
-        name: "Pippalla Bharath Reddy",
+        name: "P Bharath Kumar Reddy",
         email: "bpippalla@gmail.com",
         phone: "7569716620",
         image: "https://res.cloudinary.com/dvlqrld7w/image/upload/v1737045942/WhatsApp_Image_2025-01-16_at_08.19.40_f5c7f8bf_a47k3p.jpg",
