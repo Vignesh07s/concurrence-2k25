@@ -11,14 +11,12 @@ import Contact from "./components/Contact";
 import About from "./components/About";
 import Dashboard from "./components/Dashboard";
 import {Analytics} from '@vercel/analytics/react'
-import usePageTracking from "./PageTracking";
 
 export default function App() {
 
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
       <Router>
-      {usePageTracking()}
         <NavBar />
           <Routes>
             <Route path="/" element={<Home />} />
