@@ -9,10 +9,13 @@ import Schedule from "./components/Schedule";
 import Gallery from "./components/Gallery";
 import Contact from "./components/Contact";
 import About from "./components/About";
+import Dashboard from "./components/Dashboard";
 import {Analytics} from '@vercel/analytics/react'
+import usePageTracking from "./PageTracking";
 
 export default function App() {
   
+  usePageTracking();
 
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
@@ -26,6 +29,7 @@ export default function App() {
             <Route path="/gallery" element={<Gallery/>} />
             <Route path="/schedule" element={<Schedule/>} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/dashboard" element={<Dashboard/>} />
             <Route path="/about" element={<About />} />
           </Routes>
           <Analytics/>

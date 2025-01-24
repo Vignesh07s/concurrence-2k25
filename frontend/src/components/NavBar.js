@@ -51,6 +51,7 @@ export default function NavBar() {
                             {darkMode ? "☀️" : "🌙"}
                         </button>
                     </li>
+                    <li><a href="/dashboard" className="hover:text-gray-300 dark:hover:text-gray-400">Dashboard</a></li>
                     <li><a href="/" className="hover:text-gray-300 dark:hover:text-gray-400">Home</a></li>
                     <li><a href="/about" className="hover:text-gray-300 dark:hover:text-gray-400">About</a></li>
                     <li><Link to="/events" className="hover:text-gray-300 dark:hover:text-gray-400">Events</Link></li>
