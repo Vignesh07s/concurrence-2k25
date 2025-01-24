@@ -14,8 +14,6 @@ import {Analytics} from '@vercel/analytics/react'
 import usePageTracking from "./PageTracking";
 
 export default function App() {
-  
-  usePageTracking();
 
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
