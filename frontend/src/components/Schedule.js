@@ -10,9 +10,9 @@ const Schedule = () => {
       events: [
         {
           time: "09:00 AM",
-          title: "Registration starts",
-          description: "Venue: Welcome desk",
-          image: "https://via.placeholder.com/50",
+          title: "Help Desk and Spot Registration",
+          description: "Venue: beside Account Section",
+          image: "https://res.cloudinary.com/de1zmxpb7/image/upload/v1737740260/helpdesk_hnibkx.png",
         },
         {
           time: "10:00 AM - 10:30 AM",
@@ -24,7 +24,7 @@ const Schedule = () => {
           time: "10:30 AM - 11:00 AM",
           title: "Tea Break and Stalls Open",
           description: "Venue: TBA",
-          image: "https://via.placeholder.com/50",
+          image: "https://res.cloudinary.com/de1zmxpb7/image/upload/v1737739535/Break_jne2ut.jpg",
         },
         {
           time: "11:00 AM - 01:00 PM",
@@ -64,9 +64,9 @@ const Schedule = () => {
       events: [
         {
           time: "09:00 AM",
-          title: "Registration starts",
-          description: "Venue: Welcome desk",
-          image: "https://via.placeholder.com/50",
+          title: "Help Desk and Spot Registration",
+          description: "Venue: beside Account Section",
+          image: "https://res.cloudinary.com/de1zmxpb7/image/upload/v1737740260/helpdesk_hnibkx.png",
         },
         {
           time: "09:30 AM - 10:40 AM",
@@ -96,7 +96,7 @@ const Schedule = () => {
           time: "04:00 PM - 04:30 PM",
           title: "Flash Mob",
           description: "Venue: In front of PG Block",
-          image: "https://via.placeholder.com/50",
+          image: "https://res.cloudinary.com/de1zmxpb7/image/upload/v1737739740/flashmob_sojyfc.jpg",
         },
       ],
     },
@@ -106,9 +106,9 @@ const Schedule = () => {
       events: [
         {
           time: "09:00 AM",
-          title: "Registration starts",
-          description: "Venue: Welcome desk",
-          image: "https://via.placeholder.com/50",
+          title: "Help Desk and Spot Registration",
+          description: "Venue: beside Account Section",
+          image: "https://res.cloudinary.com/de1zmxpb7/image/upload/v1737740260/helpdesk_hnibkx.png",
         },
         {
           time: "09:30 AM - 01:00 PM",
@@ -132,13 +132,13 @@ const Schedule = () => {
           time: "03:00 PM - 04:30 PM",
           title: "Valedictory Function & Prize Distribution",
           description: "Venue: Main Hall",
-          image: "https://via.placeholder.com/50",
+          image: "https://res.cloudinary.com/de1zmxpb7/image/upload/v1737740018/prize_bz4fa4.jpg",
         },
         {
           time: "04:30 PM - 04:50 PM",
           title: "Certificate Distribution",
           description: "Venue: Registration Counter",
-          image: "https://via.placeholder.com/50",
+          image: "https://res.cloudinary.com/de1zmxpb7/image/upload/v1737739841/certificate_mahatq.jpg",
         },
       ],
     },
@@ -147,13 +147,7 @@ const Schedule = () => {
       date: "February 21, 2025",
       events: [
         {
-          time: "09:00 AM - 09:30 AM",
-          title: "Registration and Team Formation",
-          venue: "Registration Desk",
-          image: "https://res.cloudinary.com/dvlqrld7w/image/upload/v1737096262/image-removebg-preview_6_h9mnto.png",
-        },
-        {
-          time: "09:30 AM - 10:00 AM",
+          time: "09:00 AM - 10:00 AM",
           title: "Inaugural Address and Problem Statement Announcement",
           venue: "MECH GALLERY",
           image: "https://res.cloudinary.com/dvlqrld7w/image/upload/v1737096262/image-removebg-preview_6_h9mnto.png",
@@ -174,7 +168,7 @@ const Schedule = () => {
           time: "01:00 PM - 02:00 PM",
           title: "Lunch Break",
           venue: "TBA",
-          image: "https://via.placeholder.com/50",
+          image: "https://res.cloudinary.com/de1zmxpb7/image/upload/v1737740406/lunch_d0wedz.png",
         },
         {
           time: "02:00 PM - 04:00 PM",
@@ -192,7 +186,7 @@ const Schedule = () => {
           time: "07:00 PM - 08:00 PM",
           title: "Dinner Break",
           venue: "TBA",
-          image: "https://via.placeholder.com/50",
+          image: "https://res.cloudinary.com/de1zmxpb7/image/upload/v1737740406/lunch_d0wedz.png",
         },
         {
           time: "08:00 PM - 10:30 PM",
@@ -240,7 +234,7 @@ const Schedule = () => {
           time: "09:00 AM - 10:00 AM",
           title: "Breakfast Break",
           venue: "TBA",
-          image: "https://via.placeholder.com/50",
+          image: "https://res.cloudinary.com/de1zmxpb7/image/upload/v1737740406/lunch_d0wedz.png",
         },
         {
           time: "10:00 AM - 12:00 PM",
@@ -252,7 +246,7 @@ const Schedule = () => {
           time: "12:00 PM - 01:00 PM",
           title: "Lunch Break",
           venue: "TBA",
-          image: "https://via.placeholder.com/50",
+          image: "https://res.cloudinary.com/de1zmxpb7/image/upload/v1737740406/lunch_d0wedz.png",
         },
         {
           time: "01:00 PM - 03:00 PM",
@@ -270,13 +264,13 @@ const Schedule = () => {
           time: "04:30 PM - 05:30 PM",
           title: "Prize Distribution Ceremony",
           venue: "MECH GALLERY",
-          image: "https://res.cloudinary.com/dvlqrld7w/image/upload/v1737096262/image-removebg-preview_6_h9mnto.png",
+          image: "https://res.cloudinary.com/de1zmxpb7/image/upload/v1737740018/prize_bz4fa4.jpg",
         },
         {
           time: "05:30 PM - 06:00 PM",
           title: "Closing Remarks and Thank You Note",
           venue: "MECH GALLERY",
-          image: "https://res.cloudinary.com/dvlqrld7w/image/upload/v1737096262/image-removebg-preview_6_h9mnto.png",
+          image: "https://res.cloudinary.com/de1zmxpb7/image/upload/v1737740625/thankyou_fuwyj8.jpg",
         },
       ],
     },

@@ -91,42 +91,57 @@ export default function NavBar() {
 
                         <ul className="space-y-4">
                             <li>
-                                <Link to="/" className="block text-xl font-semibold hover:text-gray-300 dark:hover:text-gray-400 pl-3">
+                                <Link
+                                    to="/"
+                                    className="block text-xl font-semibold hover:text-gray-300 dark:hover:text-gray-400 pl-3"
+                                    onClick={toggleMenu} // Close menu on link click
+                                >
                                     Home
                                 </Link>
                                 <hr className="my-2 border-gray-400 dark:border-gray-600" />
                             </li>
                             <li>
-                                <Link to="/about" className="block text-xl font-semibold hover:text-gray-300 dark:hover:text-gray-400 pl-3">
+                                <Link
+                                    to="/about"
+                                    className="block text-xl font-semibold hover:text-gray-300 dark:hover:text-gray-400 pl-3"
+                                    onClick={toggleMenu} // Close menu on link click
+                                >
                                     About
                                 </Link>
                                 <hr className="my-2 border-gray-400 dark:border-gray-600" />
                             </li>
                             <li>
-                                <Link to="/events" className="block text-xl font-semibold hover:text-gray-300 dark:hover:text-gray-400 pl-3">
+                                <Link
+                                    to="/events"
+                                    className="block text-xl font-semibold hover:text-gray-300 dark:hover:text-gray-400 pl-3"
+                                    onClick={toggleMenu} // Close menu on link click
+                                >
                                     Events
                                 </Link>
                                 <hr className="my-2 border-gray-400 dark:border-gray-600" />
                             </li>
                             <li>
-                                <Link to="/schedule" className="block text-xl font-semibold hover:text-gray-300 dark:hover:text-gray-400 pl-3">
+                                <Link
+                                    to="/schedule"
+                                    className="block text-xl font-semibold hover:text-gray-300 dark:hover:text-gray-400 pl-3"
+                                    onClick={toggleMenu} // Close menu on link click
+                                >
                                     Schedule
                                 </Link>
                                 <hr className="my-2 border-gray-400 dark:border-gray-600" />
                             </li>
                             <li>
-                                <Link to="/gallery" className="block text-xl font-semibold hover:text-gray-300 dark:hover:text-gray-400 pl-3">
+                                <Link
+                                    to="/gallery"
+                                    className="block text-xl font-semibold hover:text-gray-300 dark:hover:text-gray-400 pl-3"
+                                    onClick={toggleMenu} // Close menu on link click
+                                >
                                     Gallery
                                 </Link>
                                 <hr className="my-2 border-gray-400 dark:border-gray-600" />
                             </li>
-                            {/* <li>
-                                <Link to="/contact" className="block text-xl font-semibold hover:text-gray-300 dark:hover:text-gray-400 pl-3">
-                                    Contact
-                                </Link>
-                                <hr className="my-2 border-gray-400 dark:border-gray-600" />
-                            </li> */}
                         </ul>
+
 
                         {/* Dark Mode Toggle */}
                         <button
