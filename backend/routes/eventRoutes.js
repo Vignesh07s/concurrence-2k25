@@ -1,5 +1,5 @@
 const express = require('express');
-const { createEvent, getEvents, getEvent, registrationCount } = require('../controllers/eventController');
+const { createEvent, getEvents, getEvent, getAllEventRegistrationCounts } = require('../controllers/eventController');
 
 const router = express.Router();
 
@@ -13,6 +13,6 @@ router.get('/getEvents', getEvents);
 router.get('/getEvent/:eventName', getEvent);
 
 //registrationCount
-router.get('/registrationCount/:eventName', registrationCount);
+router.get('/getAllEventRegistrationCounts', getAllEventRegistrationCounts);
 
 module.exports = router;

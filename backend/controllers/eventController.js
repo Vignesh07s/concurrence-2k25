@@ -144,25 +144,21 @@ const getEvent = async (req, res) => {
     }
 };
 
-const registrationCount = async (req, res) => {
-    const { eventName } = req.params;
+const getAllEventRegistrationCounts = async (req, res) => {
     try {
-        // Use MongoDB aggregation to get the registration count
-        const event = await Event.aggregate([
-            { $match: { eventName } },
-            { $project: { registrationCount: { $size: "$participants" } } },
-        ]);
+        // Fetch all events and select only the relevant fields
+        const events = await Event.find({}, 'eventName registrationCount');
 
-        // If the event is not found, return a 404 error
-        if (!event.length) {
-            return res.status(404).json({ message: 'Event not found.' });
+        // If no events are found, return a 404 response
+        if (!events.length) {
+            return res.status(404).json({ message: 'No events found.' });
         }
 
-        // Send only the registration count
-        res.status(200).json({ registrationCount: event[0].registrationCount });
+        // Return the list of events with their registration counts
+        res.status(200).json(events);
     } catch (error) {
-        console.error('Error fetching registration count:', error);
-        res.status(500).json({ message: 'Error fetching registration count', error });
+        console.error('Error fetching registration counts:', error);
+        res.status(500).json({ message: 'Error fetching registration counts', error });
     }
 };
 
@@ -170,4 +166,5 @@ const registrationCount = async (req, res) => {
 
 
 
-module.exports = { createEvent, getEvents, getEvent, registrationCount };
+
+module.exports = { createEvent, getEvents, getEvent, getAllEventRegistrationCounts };

@@ -1,34 +1,30 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios"; // Axios for API calls
 
 const Dashboard = () => {
   const [events, setEvents] = useState([]);
   const [totalRegistrations, setTotalRegistrations] = useState(0);
   const [loading, setLoading] = useState(true);
 
-  // Simulate fetching event data
+  // Fetch event data from the backend
   useEffect(() => {
     const fetchEvents = async () => {
       try {
         setLoading(true);
-        const response = await new Promise((resolve) =>
-          setTimeout(() => {
-            resolve([
-              { name: "Coding Contest", registrations: 120 },
-              { name: "Poster Presentation", registrations: 80 },
-              { name: "Workshop", registrations: 150 },
-              { name: "Paper Presentation", registrations: 90 },
-              { name: "Technical Quiz", registrations: 100 },
-              { name: "Bug Fixing", registrations: 70 },
-              { name: "Web Designing", registrations: 110 },
-              { name: "Climb to Victory", registrations: 60 },
-              { name: "Hackathon", registrations: 130 },
-            ]);
-          }, 1000)
+
+        // API call to fetch registration counts for all events
+        const response = await axios.get(
+          "http://localhost:5000/api/v1/events/getAllEventRegistrationCounts"
         );
 
-        setEvents(response);
-        const total = response.reduce(
-          (sum, event) => sum + event.registrations,
+        const eventsData = response.data;
+
+        // Update state with the fetched data
+        setEvents(eventsData);
+
+        // Calculate total registrations
+        const total = eventsData.reduce(
+          (sum, event) => sum + event.registrationCount,
           0
         );
         setTotalRegistrations(total);
@@ -43,9 +39,7 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div
-      className="p-8 min-h-screen transition-colors duration-300 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100"
-    >
+    <div className="p-8 min-h-screen transition-colors duration-300 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100">
       {/* Header */}
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold">Event Dashboard</h1>
@@ -76,11 +70,11 @@ const Dashboard = () => {
                 key={index}
                 className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-5 border-l-4 border-blue-500 dark:border-blue-400 hover:shadow-lg transition-shadow"
               >
-                <h3 className="text-xl font-bold">{event.name}</h3>
+                <h3 className="text-xl font-bold">{event.eventName}</h3>
                 <p className="mt-2">
                   Registrations:{" "}
                   <span className="text-2xl font-bold text-blue-600 dark:text-blue-400">
-                    {event.registrations}
+                    {event.registrationCount}
                   </span>
                 </p>
               </div>
