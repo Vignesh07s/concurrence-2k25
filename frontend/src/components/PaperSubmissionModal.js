@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const PaperSubmissionModal = ({ closeModal }) => {
+const PaperSubmissionModal = ({ closeModal, wlink }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
