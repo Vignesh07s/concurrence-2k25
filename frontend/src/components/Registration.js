@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Select from 'react-select';
 
-const RegistrationModal = ({ closeModal, eventName, qrimg }) => {
+const RegistrationModal = ({ closeModal, eventName, qrimg, wlink }) => {
   const [formData, setFormData] = useState({
     name: '',
     registrationId: '',
@@ -417,6 +417,14 @@ const RegistrationModal = ({ closeModal, eventName, qrimg }) => {
             <p className="text-gray-700 text-center mb-4">
               Thank you for registering. Please check your email for confirmation details.
             </p>
+            <a
+                href={wlink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-6 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg shadow-md mb-4"
+            >
+              Join the WhatsApp Group
+            </a>
             <button
               onClick={closeModal}
               className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-md"
