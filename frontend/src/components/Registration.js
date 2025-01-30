@@ -422,21 +422,12 @@ const RegistrationModal = ({ closeModal, eventName, qrimg, wlink }) => {
               Thank you for registering. Please check your email for confirmation details.
             </p>
             <a
-<<<<<<< HEAD
-              href={wlink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-3 sm:px-6 py-3 text-xs text-blue-700 underline"
-            >
-              Join the WhatsApp Group for further updates
-=======
                 href={wlink}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-6 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg shadow-md mb-4"
             >
               Join the WhatsApp Group
->>>>>>> 6ebc884189b7b0bbcabd9a49d720beecf8e856ee
             </a>
             <button
               onClick={closeModal}
