@@ -290,11 +290,11 @@ function EventDetails() {
       </div>
 
       {/* Registration Modal */}
-      {isModalOpen && <RegistrationModal closeModal={closeModal} eventName={eventName} qrimg={event.qrimage} />
+      {isModalOpen && <RegistrationModal closeModal={closeModal} eventName={eventName} qrimg={event.qrimage} wlink={event.wlink} />
       }
 
       {/* Paper Submission Modal */}
-      {isPaperModalOpen && <PaperSubmissionModal closeModal={closeModal} />}
+      {isPaperModalOpen && <PaperSubmissionModal closeModal={closeModal} wlink={event.wlink} />}
 
     </div>
   );

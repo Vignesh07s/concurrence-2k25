@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const PaperSubmissionModal = ({ closeModal }) => {
+const PaperSubmissionModal = ({ closeModal, wlink }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -167,6 +167,14 @@ const PaperSubmissionModal = ({ closeModal }) => {
             <div className="bg-white p-6 rounded-lg shadow-lg w-80 sm:w-96 text-center">
               <h2 className="text-2xl font-bold text-green-600 mb-4">Success!</h2>
               <p className="text-sm">Your paper has been successfully submitted.</p>
+              <a
+                href={wlink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-3 sm:px-6 py-3 text-xs text-blue-700 underline"
+              >
+                Join the WhatsApp Group for further updates
+              </a>
               <button
                 onClick={closeSuccessModal}
                 className="mt-4 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-md"
@@ -176,10 +184,9 @@ const PaperSubmissionModal = ({ closeModal }) => {
             </div>
           </div>
         )}
-
-          </div>
       </div>
-      );
+    </div>
+  );
 };
 
-      export default PaperSubmissionModal;
+export default PaperSubmissionModal;

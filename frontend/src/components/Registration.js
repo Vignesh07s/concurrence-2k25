@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Select from 'react-select';
 
-const RegistrationModal = ({ closeModal, eventName, qrimg }) => {
+const RegistrationModal = ({ closeModal, eventName, qrimg, wlink }) => {
   const [formData, setFormData] = useState({
     name: '',
     registrationId: '',
@@ -20,7 +20,6 @@ const RegistrationModal = ({ closeModal, eventName, qrimg }) => {
   const [errorMessage, setErrorMessage] = useState('');
   const [isSuccessShow, setIsSuccessShow] = useState(false);
   const [loading, setLoading] = useState(false);
-
   const colleges = [
     { value: "ALITS", label: "Anantha Lakshmi Institute of Technology and Sciences (ALITS)" },
     { value: "Ashoka Women's Engineering College", label: "Ashoka Women's Engineering College" },
@@ -33,18 +32,22 @@ const RegistrationModal = ({ closeModal, eventName, qrimg }) => {
     { value: "GATE", label: "GATES Institute of Technology (GATE)" },
     { value: "GITAMW", label: "Gouthami Institute of Technology and Management for Women (GITAMW)" },
     { value: "KSRMCE", label: "KSRM College Of Engineering (KSRMCE)" },
+    { value: "KITS", label: "Kandula Obul Reddy Memorial College of Engineering (KITS)" },
+    { value: "PVKKIT", label: "P.V.K.K Institute of Technology College (PVKKIT)" },
     { value: 'RGMCET', label: 'Rajeev Gandhi Memorial College of Engineering and Technology (RGMCET)' },
     { value: "RECW", label: "Ravindra College of Engineering for Women (RECW)" },
     { value: "Rayalaseema University", label: "Rayalaseema University" },
     { value: "RUCE", label: "Rayalaseema University college of Engineering (RUCE)" },
     { value: "CVRT", label: "SIR C.V RAMAN INSTITUTE OF TECHNOLOGY SCIENCES (CVRT)" },
     { value: 'SVREC', label: 'SVR Engineering College (SVREC)' },
-    { value: "SJCET", label: "St.Johns College of Engineering and Technology (SJCET)"},
+    { value: "SJCET", label: "St.Johns College of Engineering and Technology (SJCET)" },
     { value: "SSSE", label: "Sanskrithi School of Engineering (SSSE)" },
     { value: 'SREC', label: 'Santhiram Engineering College (SREC)' },
     { value: "SKUCET", label: "Sri Krishnadevaraya University College of Engineering and Technology (SKUCET)" },
+    { value: "SVIT", label: "Sri Venkateswara Institute of Tchnology(SVIT)" },
     { value: "SRIT", label: "Srinivasa Ramanujan Institute of Technology (SRIT)" },
     { value: "TEC", label: "Tadipatri Engineering College (TEC)" },
+    { value: "other", label: "Other" }
   ];
 
   const departments = [
@@ -57,6 +60,7 @@ const RegistrationModal = ({ closeModal, eventName, qrimg }) => {
     { value: 'ECE', label: 'Electronics and Communication Engineering (ECE)' },
     { value: 'EEE', label: 'Electrical and Electronics Engineering (EEE)' },
     { value: 'ME', label: 'Mechanical Engineering (ME)' },
+    { value: "other", label: "Other" }
   ];
 
 
@@ -70,7 +74,7 @@ const RegistrationModal = ({ closeModal, eventName, qrimg }) => {
       setErrorMessage('File size exceeds the 5MB limit.');
       return;
     }
-        
+
     if (file) {
       setFormData({ ...formData, paymentScreenshot: file });
     }
@@ -417,6 +421,14 @@ const RegistrationModal = ({ closeModal, eventName, qrimg }) => {
             <p className="text-gray-700 text-center mb-4">
               Thank you for registering. Please check your email for confirmation details.
             </p>
+            <a
+              href={wlink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-3 sm:px-6 py-3 text-xs text-blue-700 underline"
+            >
+              Join the WhatsApp Group for further updates
+            </a>
             <button
               onClick={closeModal}
               className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-md"

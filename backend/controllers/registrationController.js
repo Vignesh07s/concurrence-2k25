@@ -217,14 +217,6 @@ const generatePaymentReceipt = async (student, eventDoc, transaction) => {
     return pdfBuffer;
 };
 
-const formatEventDate = (dateString) => {
-    const eventDate = new Date(dateString);
-
-    // Format as "Month Date, Year"
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    return eventDate.toLocaleDateString('en-US', options);
-};
-
 
 // Function to generate the event ticket
 const generateEventTicket = async (student, eventDoc, ticketId) => {
@@ -235,7 +227,14 @@ const generateEventTicket = async (student, eventDoc, ticketId) => {
     };
 
     try {
-        const formattedDate = formatEventDate(eventDoc.date);
+        const eventDateUTC = new Date(eventDoc.date); // MongoDB date in UTC
+        const formattedDate = eventDateUTC.toLocaleString('en-IN', {
+            timeZone: 'Asia/Kolkata',
+            weekday: 'long',
+            day: '2-digit',
+            month: 'short',
+            year: 'numeric',
+        });
 
         // Generate QR code as a Base64 string
         const qrCodeBase64 = await qrcode.toDataURL(JSON.stringify(qrCodeData));
