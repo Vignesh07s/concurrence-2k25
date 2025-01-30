@@ -141,6 +141,16 @@ export default function NavBar() {
                                 </Link>
                                 <hr className="my-2 border-gray-400 dark:border-gray-600" />
                             </li>
+                            <li>
+                                <Link
+                                    to="/dashboard"
+                                    className="block text-xl font-semibold hover:text-gray-300 dark:hover:text-gray-400 pl-3"
+                                    onClick={toggleMenu} // Close menu on link click
+                                >
+                                    Dashboard
+                                </Link>
+                                <hr className="my-2 border-gray-400 dark:border-gray-600" />
+                            </li>
                         </ul>
 
 
