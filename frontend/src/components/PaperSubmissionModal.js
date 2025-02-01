@@ -167,14 +167,14 @@ const PaperSubmissionModal = ({ closeModal, wlink }) => {
             <div className="bg-white p-6 rounded-lg shadow-lg w-80 sm:w-96 text-center">
               <h2 className="text-2xl font-bold text-green-600 mb-4">Success!</h2>
               <p className="text-sm">Your paper has been successfully submitted.</p>
-          <a
+              <a
                 href={wlink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-6 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg shadow-md mb-4"
-            >
-              Join the WhatsApp Group for further updates
-            </a>
+                className="px-3 sm:px-6 py-2 mb-4 text-blue-700 underline"
+              >
+                Join the WhatsApp Group
+              </a>
               <button
                 onClick={closeSuccessModal}
                 className="mt-4 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-md"

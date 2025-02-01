@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Select from 'react-select';
 
 const RegistrationModal = ({ closeModal, eventName, qrimg, wlink }) => {
@@ -19,7 +19,11 @@ const RegistrationModal = ({ closeModal, eventName, qrimg, wlink }) => {
   const [showPaymentStep, setShowPaymentStep] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [isSuccessShow, setIsSuccessShow] = useState(false);
+  const [idErrorMessage, setIdErrorMessage] = useState(false);
+  const [PhoneNumberErrorMessage, setPhoneNumberErrorMessage] = useState(false);
   const [loading, setLoading] = useState(false);
+  const registrationIdRef = useRef(null);
+  const phoneNumberRef = useRef(null);
   const colleges = [
     { value: "ALITS", label: "Anantha Lakshmi Institute of Technology and Sciences (ALITS)" },
     { value: "Ashoka Women's Engineering College", label: "Ashoka Women's Engineering College" },
@@ -121,6 +125,26 @@ const RegistrationModal = ({ closeModal, eventName, qrimg, wlink }) => {
 
   const handleProceedToPayment = async (e) => {
     e.preventDefault();
+    const idRegex = /^[A-Za-z0-9]{10}$/;
+    const phoneRegex = /^[6-9]\d{9}$/;
+
+    setIdErrorMessage(false);
+    setPhoneNumberErrorMessage(false);
+    if (!idRegex.test(formData.registrationId)) {
+      setIdErrorMessage("ID must be exactly 10 characters");
+      registrationIdRef.current.focus();
+      return;
+    }
+
+    if (!phoneRegex.test(formData.phoneNumber)) {
+      setPhoneNumberErrorMessage("Enter valid Indian phone number");
+      phoneNumberRef.current.focus();
+      return;
+    }
+
+
+    setIdErrorMessage(false);
+
     setErrorMessage('');
     setLoading(true);
     try {
@@ -236,8 +260,12 @@ const RegistrationModal = ({ closeModal, eventName, qrimg, wlink }) => {
                   onChange={handleChange}
                   required
                   placeholder="Enter your college registration number"
+                  ref={registrationIdRef}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-500"
                 />
+                {idErrorMessage && (
+                  <p className="text-red-500 text-xs">{idErrorMessage}</p>
+                )}
               </div>
               {/* Phone Number */}
               <div>
@@ -249,8 +277,12 @@ const RegistrationModal = ({ closeModal, eventName, qrimg, wlink }) => {
                   onChange={handleChange}
                   required
                   placeholder="Enter your phone number"
+                  ref={phoneNumberRef}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-500"
                 />
+                {PhoneNumberErrorMessage && (
+                  <p className="text-red-500 text-xs">{PhoneNumberErrorMessage}</p>
+                )}
               </div>
               {/* Email Address */}
               <div>
@@ -422,10 +454,10 @@ const RegistrationModal = ({ closeModal, eventName, qrimg, wlink }) => {
               Thank you for registering. Please check your email for confirmation details.
             </p>
             <a
-                href={wlink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-6 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg shadow-md mb-4"
+              href={wlink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-3 sm:px-6 py-2 mb-4 text-blue-700 underline"
             >
               Join the WhatsApp Group
             </a>
