@@ -15,6 +15,7 @@ const eventSchema = new mongoose.Schema({
     registrationCount: { type: Number, default: 0 },
     image: { type: String, required: true },
     qrimage: { type: String, required: true },
+    wlink : {type: String},
     coordinators: [{
         name: { type: String, required: true },
         contact: { type: String, required: true }

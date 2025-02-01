@@ -339,6 +339,7 @@ const sendEmail = async (student, event, paymentReceipt, eventTicket, ticketId) 
             <p>We're thrilled to confirm your registration for the upcoming event, <strong>${event.eventName}</strong>!</p>
             <p>Your unique ticket ID for this event is <strong>${ticketId}</strong>. Please retain this ID for future reference.</p>
             <p>Attached to this email, you'll find a copy of your payment receipt and event ticket. The payment receipt acknowledges your successful payment of ₹${event.registrationFee} for the event registration.</p>
+            <p>Join the WhatsApp group for updates: <a href="${event.wlink}">Click here</a></p>
             <p>We look forward to seeing you at the event! Don't hesitate to reach out to us if you have any questions.</p>
             <p>Regards,<br>The CONCURRENCE 2K25 Team</p>
         `,
