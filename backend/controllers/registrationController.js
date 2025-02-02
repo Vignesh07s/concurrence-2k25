@@ -93,7 +93,9 @@ const confirmRegistration = async (req, res) => {
         const student = await Student.findOne({ registrationId });
 
         if (!eventDoc) throw new Error('Event not found');
-        if (existingTransaction) throw new Error('Duplicate Transaction');
+        if (existingTransaction) {
+            return res.status(400).json({ error: "Duplicate Transaction ID" });
+        }
         if (!student) throw new Error('Student not found');
 
         const formattedDate = new Intl.DateTimeFormat('en-IN', {
