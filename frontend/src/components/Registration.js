@@ -205,7 +205,7 @@ const RegistrationModal = ({ closeModal, eventName, qrimg, wlink }) => {
       if (response.ok) {
         setIsSuccessShow(true);
       } else {
-        setErrorMessage(data.message || 'Confirmation failed.');
+        setErrorMessage(data.message || data.error || 'Confirmation failed.');
       }
     } catch (error) {
       setErrorMessage('Error connecting to server.');
