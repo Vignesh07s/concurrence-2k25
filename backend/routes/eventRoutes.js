@@ -9,13 +9,14 @@ router.post('/createEvent', createEvent);
 // Get Events
 router.get('/', getEvents);
 
-// Get event by name
-router.get('/:eventName', getEvent);
-
-//participants-count
-router.get('/participants-count', getAllEventRegistrationCounts);
+//registrationCount
+router.get('/participantsCount', getAllEventRegistrationCounts);
 
 //participants
 router.get('/:eventName/participants', getParticipants);
+
+// Get event by name
+router.get('/:eventName', getEvent);
+
 
 module.exports = router;

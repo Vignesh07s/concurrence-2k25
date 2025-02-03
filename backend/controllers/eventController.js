@@ -163,7 +163,6 @@ const getAllEventRegistrationCounts = async (req, res) => {
 };
 
 
-
 const getParticipants = async (req, res) => {
     const { eventName } = req.params;
 
@@ -222,17 +221,16 @@ const getParticipants = async (req, res) => {
                 }
             }
         ]);
-
         if (eventDetails.length === 0) {
             return res.status(404).json({ message: 'No registration details found for this event.' });
         }
-
         res.status(200).json(eventDetails);
     } catch (error) {
         console.error('Error fetching registration details:', error);
         res.status(500).json({ message: 'Error fetching registration details', error });
     }
 };
+
 
 
 module.exports = { createEvent, getEvents, getEvent, getAllEventRegistrationCounts, getParticipants };
