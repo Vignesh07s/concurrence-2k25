@@ -21,6 +21,7 @@ const sendPaper = async (req, res) => {
     // Construct email message
     const msg = {
       to: ["21091a0530@rgmcet.edu.in", "21091a05h1@rgmcet.edu.in", "vnitesha123@gmail.com"],
+      // to: "vigneshwarareddys@gmail.com",
       from: process.env.EMAIL,
       subject: `Paper Submission from ${name}`,
       html: `

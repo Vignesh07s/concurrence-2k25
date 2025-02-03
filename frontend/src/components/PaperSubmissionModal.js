@@ -9,8 +9,8 @@ const PaperSubmissionModal = ({ closeModal, wlink }) => {
     paperFile: null,
   });
   const [error, setError] = useState('');
-  const [isLoading, setIsLoading] = useState(false); // Loading state for the main modal
-  const [isSuccessShow, setIsSuccessShow] = useState(false); // Single state for success and modal visibility
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSuccessShow, setIsSuccessShow] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -19,11 +19,11 @@ const PaperSubmissionModal = ({ closeModal, wlink }) => {
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
-    if (file && file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
+    if (file && (file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' || file.type === 'application/pdf')) {
       setFormData({ ...formData, paperFile: file });
       setError(''); // Clear any previous error on valid file selection
     } else {
-      setError('Please upload a valid Word document.');
+      setError('Only .docx or .pdf files are accepted.');
     }
   };
 
@@ -146,7 +146,7 @@ const PaperSubmissionModal = ({ closeModal, wlink }) => {
                   type="file"
                   id="paperFile"
                   name="paperFile"
-                  accept=".docx"
+                  accept=".docx, .pdf"
                   onChange={handleFileChange}
                   className="w-full p-2 border border-gray-300 rounded mt-1"
                 />
