@@ -164,7 +164,75 @@ const getAllEventRegistrationCounts = async (req, res) => {
 
 
 
+const getParticipants = async (req, res) => {
+    const { eventName } = req.params;
+
+    try {
+        // Perform the aggregation query to fetch student and transaction details for the given event
+        const eventDetails = await Event.aggregate([
+            {
+                $match: { eventName } // Match the event by eventName
+            },
+            {
+                $lookup: {
+                    from: 'students', // Join the students collection
+                    localField: 'participants', // Reference field in Event model
+                    foreignField: '_id', // Reference field in Student model
+                    as: 'studentDetails'
+                }
+            },
+            {
+                $unwind: '$studentDetails' // Unwind the student details array to process each student
+            },
+            {
+                $lookup: {
+                    from: 'transactions', // Join the transactions collection
+                    let: { studentId: '$studentDetails._id', eventId: '$_id' },
+                    pipeline: [
+                        {
+                            $match: {
+                                $expr: {
+                                    $and: [
+                                        { $eq: ['$studentId', '$$studentId'] }, // Match by student ID
+                                        { $eq: ['$eventId', '$$eventId'] } // Match by event ID
+                                    ]
+                                }
+                            }
+                        }
+                    ],
+                    as: 'transactionDetails'
+                }
+            },
+            {
+                $unwind: '$transactionDetails' // Unwind the transaction details array
+            },
+            {
+                $project: {
+                    'name': '$studentDetails.name',
+                    'email': '$studentDetails.email',
+                    'registrationId': '$studentDetails.registrationId',
+                    'phoneNumber': '$studentDetails.phoneNumber',
+                    'gender': '$studentDetails.gender',
+                    'yearSem': '$studentDetails.yearSem',
+                    'college': '$studentDetails.college',
+                    'department': '$studentDetails.department',
+                    'transactionId': { $toString: '$transactionDetails.transactionId' },
+                    'paymentScreenshotUrl': '$transactionDetails.paymentScreenshotUrl',
+                    _id: 0
+                }
+            }
+        ]);
+
+        if (eventDetails.length === 0) {
+            return res.status(404).json({ message: 'No registration details found for this event.' });
+        }
+
+        res.status(200).json(eventDetails);
+    } catch (error) {
+        console.error('Error fetching registration details:', error);
+        res.status(500).json({ message: 'Error fetching registration details', error });
+    }
+};
 
 
-
-module.exports = { createEvent, getEvents, getEvent, getAllEventRegistrationCounts };
+module.exports = { createEvent, getEvents, getEvent, getAllEventRegistrationCounts, getParticipants };
