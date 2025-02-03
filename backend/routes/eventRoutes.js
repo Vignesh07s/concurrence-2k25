@@ -7,12 +7,12 @@ const router = express.Router();
 router.post('/createEvent', createEvent);
 
 // Get Events
-router.get('/getEvents', getEvents);
+router.get('/', getEvents);
 
 // Get event by name
-router.get('/getEvent/:eventName', getEvent);
+router.get('/:eventName', getEvent);
 
 //registrationCount
-router.get('/getAllEventRegistrationCounts', getAllEventRegistrationCounts);
+router.get('/participants-count', getAllEventRegistrationCounts);
 
 module.exports = router;

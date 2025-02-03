@@ -14,7 +14,7 @@ const Dashboard = () => {
 
         // API call to fetch registration counts for all events
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/api/v1/events/getAllEventRegistrationCounts`
+          `${process.env.REACT_APP_API_URL}/api/v1/events/participants-count`
         );
 
         const eventsData = response.data;

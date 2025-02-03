@@ -21,7 +21,7 @@ function EventDetails() {
     decodedEventName.replace("-", ' ');
     const fetchEventDetails = async () => {
       try {
-        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/events/getEvent/${decodedEventName}`);
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/events/${decodedEventName}`);
         if (!response.ok) {
           throw new Error('Event not found');
         }
