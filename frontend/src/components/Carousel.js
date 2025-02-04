@@ -2,11 +2,12 @@ import React, { useRef } from "react";
 import Slider from "react-slick";
 
 const images = [
-  '/images/event1.jpg',
-  '/images/event2.jpg',
-  '/images/event3.jpg',
-  '/images/event4.jpg',
-  '/images/event5.jpg',
+  'https://res.cloudinary.com/dq32ieeyv/image/upload/v1737049226/Gallery/t4zrz9ayaeze5fvg3zgg.jpg',
+  "https://res.cloudinary.com/dpld8yjdt/image/upload/v1738685764/f6810205-f6da-498d-b0a4-cc5428fe5b3c.png",
+  'https://res.cloudinary.com/dpld8yjdt/image/upload/v1738684531/20240404_152126_beqktd.jpg',
+  "https://res.cloudinary.com/dpld8yjdt/image/upload/v1738684768/12_20240404_151708_gqbppd.jpg",
+  'https://res.cloudinary.com/dq32ieeyv/image/upload/v1737049235/Gallery/tg8dfdk41yikrudnrvl6.jpg',
+
 ];
 
 const Carousel = () => {

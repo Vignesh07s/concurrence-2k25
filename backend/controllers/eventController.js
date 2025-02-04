@@ -85,7 +85,7 @@ const createEvent = async (req, res) => {
             description,
             rulesAndGuidelines: rulesAndGuidelines || [],
             rounds: rounds || [],
-            date: eventDate, 
+            date: eventDate,
             startTime,
             endTime,
             location,
@@ -111,7 +111,7 @@ const getEvents = async (req, res) => {
     try {
         // Fetch all events, only selecting the required fields
         const events = await Event.find({}, 'eventName date startTime endTime location image');
-        
+
         if (!events.length) {
             return res.status(404).json({ message: 'No events found.' });
         }
@@ -174,49 +174,67 @@ const getParticipants = async (req, res) => {
             },
             {
                 $lookup: {
-                    from: 'students', // Join the students collection
-                    localField: 'participants', // Reference field in Event model
-                    foreignField: '_id', // Reference field in Student model
-                    as: 'studentDetails'
+                    from: "students",
+                    localField: "participants",
+                    foreignField: "_id",
+                    as: "studentDetails"
                 }
             },
             {
-                $unwind: '$studentDetails' // Unwind the student details array to process each student
+                $unwind: "$studentDetails"
             },
             {
                 $lookup: {
-                    from: 'transactions', // Join the transactions collection
-                    let: { studentId: '$studentDetails._id', eventId: '$_id' },
+                    from: "transactions",
+                    let: { studentId: "$studentDetails._id", eventId: "$_id" },
                     pipeline: [
                         {
                             $match: {
                                 $expr: {
                                     $and: [
-                                        { $eq: ['$studentId', '$$studentId'] }, // Match by student ID
-                                        { $eq: ['$eventId', '$$eventId'] } // Match by event ID
+                                        { $eq: ["$studentId", "$$studentId"] },
+                                        { $eq: ["$eventId", "$$eventId"] }
                                     ]
                                 }
                             }
                         }
                     ],
-                    as: 'transactionDetails'
+                    as: "transactionDetails"
                 }
             },
             {
-                $unwind: '$transactionDetails' // Unwind the transaction details array
+                $unwind: "$transactionDetails"
+            },
+            {
+                $addFields: {
+                    ticketInfo: {
+                        $arrayElemAt: [
+                            {
+                                $filter: {
+                                    input: "$studentDetails.events",
+                                    as: "event",
+                                    cond: { $eq: ["$$event.eventId", "$_id"] }
+                                }
+                            },
+                            0
+                        ]
+                    }
+                }
             },
             {
                 $project: {
-                    'name': '$studentDetails.name',
-                    'email': '$studentDetails.email',
-                    'registrationId': '$studentDetails.registrationId',
-                    'phoneNumber': '$studentDetails.phoneNumber',
-                    'gender': '$studentDetails.gender',
-                    'yearSem': '$studentDetails.yearSem',
-                    'college': '$studentDetails.college',
-                    'department': '$studentDetails.department',
-                    'transactionId': { $toString: '$transactionDetails.transactionId' },
-                    'paymentScreenshotUrl': '$transactionDetails.paymentScreenshotUrl',
+                    "ticketId": "$ticketInfo.ticketId",
+                    "name": "$studentDetails.name",
+                    "email": "$studentDetails.email",
+                    "registrationId": "$studentDetails.registrationId",
+                    "phoneNumber": "$studentDetails.phoneNumber",
+                    "gender": "$studentDetails.gender",
+                    "yearSem": "$studentDetails.yearSem",
+                    "college": "$studentDetails.college",
+                    "department": "$studentDetails.department",
+                    "transactionId": "$transactionDetails.transactionId",
+                    "createdAt": "$transactionDetails.createdAt",
+                    "paymentScreenshotUrl": "$transactionDetails.paymentScreenshotUrl",
                     _id: 0
                 }
             }

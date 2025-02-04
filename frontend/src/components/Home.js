@@ -68,7 +68,7 @@ const Home = () => {
     }, 4000); // Set to 7 seconds for quicker transitions
 
     return () => {
-      clearInterval(messageInterval); // Cleanup on unmount
+      clearInterval(messageInterval);
     };
   }, []);
 
@@ -76,6 +76,7 @@ const Home = () => {
 
   return (
     <div className="min-h-screen text-white">
+      
 
       <HeroSection />
       <Countdown />
