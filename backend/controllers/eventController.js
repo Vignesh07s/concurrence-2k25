@@ -237,7 +237,10 @@ const getParticipants = async (req, res) => {
                     "paymentScreenshotUrl": "$transactionDetails.paymentScreenshotUrl",
                     _id: 0
                 }
-            }
+            },
+            {
+                $sort: { "ticketId": 1 }
+            },
         ]);
         if (eventDetails.length === 0) {
             return res.status(404).json({ message: 'No registration details found for this event.' });
