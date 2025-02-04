@@ -11,7 +11,7 @@ const Schedule = () => {
         {
           time: "09:00 AM",
           title: "Help Desk and Spot Registration",
-          description: "Venue: beside Account Section",
+          description: "Venue: Beside Account Section",
           image: "https://res.cloudinary.com/de1zmxpb7/image/upload/v1737740260/helpdesk_hnibkx.png",
         },
         {
@@ -45,9 +45,9 @@ const Schedule = () => {
           image: "https://res.cloudinary.com/dvlqrld7w/image/upload/v1736577945/ekzgxcdpbun0ofuoqlnt.png",
         },
         {
-          time: "02:30 PM - 04:30 PM",
+          time: "02:00 PM - 04:30 PM",
           title: "Poster Presentation",
-          description: "Venue: PG 2160/2170",
+          description: "Venue: PG Block",
           image: "https://res.cloudinary.com/dvlqrld7w/image/upload/v1737095949/ylifai9nq5ri1sm6zeqc.png",
         },
         {
@@ -65,7 +65,7 @@ const Schedule = () => {
         {
           time: "09:00 AM",
           title: "Help Desk and Spot Registration",
-          description: "Venue: beside Account Section",
+          description: "Venue: Beside Account Section",
           image: "https://res.cloudinary.com/de1zmxpb7/image/upload/v1737740260/helpdesk_hnibkx.png",
         },
         {
@@ -75,13 +75,13 @@ const Schedule = () => {
           image: "https://res.cloudinary.com/dvlqrld7w/image/upload/v1737096015/Paper_presentation_axgiqk.png",
         },
         {
-          time: "09:30 AM - 01:00 PM",
+          time: "09:15 AM - 12:30 PM",
           title: "Technical Quiz",
           description: "Venue: MECH GALLERY",
           image: "https://res.cloudinary.com/dvlqrld7w/image/upload/v1737095856/Technical_quiz_xl6x7n.png",
         },
         {
-          time: "02:00 PM - 04:00 PM",
+          time: "01:30 PM - 04:00 PM",
           title: "Bug Fixing",
           description: "Venue: CSE LABs",
           image: "https://res.cloudinary.com/dvlqrld7w/image/upload/v1736529671/shxoartqpcv4eumtf5zx.png",
@@ -95,7 +95,7 @@ const Schedule = () => {
         {
           time: "04:00 PM - 04:30 PM",
           title: "Flash Mob",
-          description: "Venue: In front of PG Block",
+          description: "Venue: Infront of PG Block",
           image: "https://res.cloudinary.com/de1zmxpb7/image/upload/v1737739740/flashmob_sojyfc.jpg",
         },
       ],
@@ -107,7 +107,7 @@ const Schedule = () => {
         {
           time: "09:00 AM",
           title: "Help Desk and Spot Registration",
-          description: "Venue: beside Account Section",
+          description: "Venue: Beside Account Section",
           image: "https://res.cloudinary.com/de1zmxpb7/image/upload/v1737740260/helpdesk_hnibkx.png",
         },
         {
@@ -123,19 +123,13 @@ const Schedule = () => {
           image: "https://res.cloudinary.com/dvlqrld7w/image/upload/v1737109407/Climb_to_Victory_z6du9g.png",
         },
         {
-          time: "02:10 PM - 04:00 PM",
-          title: "Paper Presentation Tracks Continued",
-          description: "Venue: Gallery / Class Rooms",
-          image: "https://res.cloudinary.com/dvlqrld7w/image/upload/v1737096015/Paper_presentation_axgiqk.png",
-        },
-        {
-          time: "03:00 PM - 04:30 PM",
+          time: "02:30 PM - 04:00 PM",
           title: "Valedictory Function & Prize Distribution",
           description: "Venue: Main Hall",
           image: "https://res.cloudinary.com/de1zmxpb7/image/upload/v1737740018/prize_bz4fa4.jpg",
         },
         {
-          time: "04:30 PM - 04:50 PM",
+          time: "04:00 PM - 04:30 PM",
           title: "Certificate Distribution",
           description: "Venue: Registration Counter",
           image: "https://res.cloudinary.com/de1zmxpb7/image/upload/v1737739841/certificate_mahatq.jpg",
@@ -153,7 +147,13 @@ const Schedule = () => {
           image: "https://res.cloudinary.com/dvlqrld7w/image/upload/v1737096262/image-removebg-preview_6_h9mnto.png",
         },
         {
-          time: "10:00 AM - 11:30 AM",
+          time: "10:00 AM - 10:40 AM",
+          title: "Instruction Sessions & Problem Statement Brief",
+          venue: "MECH GALLERY",
+          image: "https://res.cloudinary.com/dvlqrld7w/image/upload/v1737096262/image-removebg-preview_6_h9mnto.png",
+        },
+        {
+          time: "11:00 AM - 11:30 AM",
           title: "Ideathon: Idea Brainstorming and Submission",
           venue: "MECH GALLERY",
           image: "https://res.cloudinary.com/dvlqrld7w/image/upload/v1737096262/image-removebg-preview_6_h9mnto.png",
@@ -177,28 +177,28 @@ const Schedule = () => {
           image: "https://res.cloudinary.com/dvlqrld7w/image/upload/v1737096262/image-removebg-preview_6_h9mnto.png",
         },
         {
-          time: "04:00 PM - 07:00 PM",
+          time: "04:30 PM - 07:30 PM",
           title: "Kick-off: Problem Analysis and Prototype Planning",
           venue: "CSE LABS",
           image: "https://res.cloudinary.com/dvlqrld7w/image/upload/v1737096262/image-removebg-preview_6_h9mnto.png",
         },
         {
-          time: "07:00 PM - 08:00 PM",
+          time: "07:30 PM - 08:30 PM",
           title: "Dinner Break",
           venue: "TBA",
           image: "https://res.cloudinary.com/de1zmxpb7/image/upload/v1737740406/lunch_d0wedz.png",
         },
         {
-          time: "08:00 PM - 10:30 PM",
+          time: "08:30 PM - 10:30 PM",
           title: "Code Sprint 1: Initial Development",
           venue: "CSE LABS",
           image: "https://res.cloudinary.com/dvlqrld7w/image/upload/v1737096262/image-removebg-preview_6_h9mnto.png",
         },
         {
           time: "10:30 PM - 12:00 AM",
-          title: "Fun Activity: Midnight Treasure Hunt",
+          title: "Fun Activities",
           venue: "MECH GALLERY and Surroundings",
-          image: "https://via.placeholder.com/50",
+          image: "https://res.cloudinary.com/dvlqrld7w/image/upload/v1738677475/download_byrnyl.png",
         },
       ],
     },
@@ -213,31 +213,19 @@ const Schedule = () => {
           image: "https://res.cloudinary.com/dvlqrld7w/image/upload/v1737096262/image-removebg-preview_6_h9mnto.png",
         },
         {
-          time: "02:00 AM - 06:00 AM",
+          time: "02:00 AM - 07:00 AM",
           title: "Overnight Development and Debugging",
           venue: "CSE LABS",
           image: "https://res.cloudinary.com/dvlqrld7w/image/upload/v1737096262/image-removebg-preview_6_h9mnto.png",
         },
         {
-          time: "06:00 AM - 07:00 AM",
-          title: "Sunrise Yoga and Refreshments",
-          venue: "TBA",
-          image: "https://via.placeholder.com/50",
-        },
-        {
-          time: "07:00 AM - 09:00 AM",
-          title: "Morning Development Sprint",
-          venue: "CSE LABS",
-          image: "https://res.cloudinary.com/dvlqrld7w/image/upload/v1737096262/image-removebg-preview_6_h9mnto.png",
-        },
-        {
-          time: "09:00 AM - 10:00 AM",
+          time: "07:00 AM - 08:00 AM",
           title: "Breakfast Break",
-          venue: "TBA",
+          venue: "CSE LABS",
           image: "https://res.cloudinary.com/de1zmxpb7/image/upload/v1737740406/lunch_d0wedz.png",
         },
         {
-          time: "10:00 AM - 12:00 PM",
+          time: "8:00 AM - 12:00 PM",
           title: "Final Development and Testing",
           venue: "CSE LABS",
           image: "https://res.cloudinary.com/dvlqrld7w/image/upload/v1737096262/image-removebg-preview_6_h9mnto.png",
@@ -249,32 +237,38 @@ const Schedule = () => {
           image: "https://res.cloudinary.com/de1zmxpb7/image/upload/v1737740406/lunch_d0wedz.png",
         },
         {
-          time: "01:00 PM - 03:00 PM",
+          time: "12:00 PM - 03:00 PM",
           title: "Model Presentation and Technical Demonstration",
           venue: "MECH GALLERY",
           image: "https://res.cloudinary.com/dvlqrld7w/image/upload/v1737096262/image-removebg-preview_6_h9mnto.png",
         },
         {
-          time: "03:00 PM - 04:30 PM",
+          time: "03:00 PM - 04:00 PM",
           title: "Final Evaluation and Judge’s Feedback",
           venue: "MECH GALLERY",
           image: "https://res.cloudinary.com/dvlqrld7w/image/upload/v1737096262/image-removebg-preview_6_h9mnto.png",
         },
         {
-          time: "04:30 PM - 05:30 PM",
+          time: "04:00 PM - 05:00 PM",
           title: "Prize Distribution Ceremony",
           venue: "MECH GALLERY",
           image: "https://res.cloudinary.com/de1zmxpb7/image/upload/v1737740018/prize_bz4fa4.jpg",
         },
-        {
-          time: "05:30 PM - 06:00 PM",
-          title: "Closing Remarks and Thank You Note",
-          venue: "MECH GALLERY",
-          image: "https://res.cloudinary.com/de1zmxpb7/image/upload/v1737740625/thankyou_fuwyj8.jpg",
-        },
       ],
     },
   ];
+
+
+  const downloadPDF = () => {
+    const pdfUrl = "https://drive.google.com/uc?export=download&id=1Rd5rDl-r5WjlsDxslqqkIklB5ZBs2cVi";
+    const link = document.createElement("a");
+    link.href = pdfUrl;
+    link.setAttribute("download", "concurrence-schedule.pdf");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+  
 
 
   return (
@@ -283,6 +277,16 @@ const Schedule = () => {
         <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-200 text-center pb-4">
           EVENT SCHEDULE
         </h2>
+
+        <div className="flex justify-center mb-4">
+          <button
+            onClick={downloadPDF}
+            className="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-blue-700 transition duration-300"
+          >
+            Download Schedule
+          </button>
+        </div>
+
 
         {/* Tabs for Day Selection */}
         <div className="grid grid-cols-3 gap-4 md:grid-cols-5 justify-center">
@@ -299,6 +303,11 @@ const Schedule = () => {
             </button>
           ))}
         </div>
+
+        {/* Disclaimer Message */}
+        <p className="text-center text-red-600 font-semibold mb-6">
+          *Timing and venues are subject to change without prior notice.
+        </p>
 
         {/* Event Details */}
         <div className="mt-8">
