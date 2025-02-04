@@ -225,18 +225,18 @@ const getParticipants = async (req, res) => {
                 $project: {
                     "ticketId": "$ticketInfo.ticketId",
                     "name": "$studentDetails.name",
-                    "email": "$studentDetails.email",
                     "registrationId": "$studentDetails.registrationId",
+                    "email": "$studentDetails.email",
                     "phoneNumber": "$studentDetails.phoneNumber",
                     "gender": "$studentDetails.gender",
                     "yearSem": "$studentDetails.yearSem",
                     "college": "$studentDetails.college",
                     "department": "$studentDetails.department",
                     "transactionId": "$transactionDetails.transactionId",
-                    "createdAt": "$transactionDetails.createdAt",
                     "paymentScreenshotUrl": "$transactionDetails.paymentScreenshotUrl",
                     _id: 0
                 }
+                
             },
             {
                 $sort: { "ticketId": 1 }
