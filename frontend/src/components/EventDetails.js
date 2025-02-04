@@ -138,7 +138,7 @@ function EventDetails() {
                 {(event.eventName === 'Paper Presentation') && (
                   <div className="mt-2">
                     <a
-                      href="https://drive.google.com/drive/folders/1BEcIoBt_zK4nDBQ2ZDrE-I65z1lkSRxB?usp=drive_link"
+                      href="https://drive.google.com/drive/folders/1uuqw0HiRRnG6jZN3dv6_dOvpJ-1b5EVr"
                       target='_blank'
                       rel='noreferrer'
                       className='underline text-blue-500'
