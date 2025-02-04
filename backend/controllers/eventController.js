@@ -147,7 +147,7 @@ const getEvent = async (req, res) => {
 const getAllEventRegistrationCounts = async (req, res) => {
     try {
         // Fetch all events and select only the relevant fields
-        const events = await Event.find({}, 'eventName registrationCount');
+        const events = await Event.find({}, 'eventName registrationCount maxParticipants');
 
         // If no events are found, return a 404 response
         if (!events.length) {
