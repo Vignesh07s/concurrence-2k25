@@ -112,9 +112,8 @@ const confirmRegistration = async (req, res) => {
 
         // Update student, event, and save transaction
         const eventPrefix = eventDoc.eventName.toUpperCase().slice(0, 3);
-        const regIdPrefix = student.registrationId.slice(0, 2);
         const paddedCount = String(eventDoc.registrationCount + 1).padStart(3, '0'); // Zero-padding
-        const ticketId = `${eventPrefix}-${regIdPrefix}${paddedCount}`; // Optional: Add a random string here
+        const ticketId = `${eventPrefix}-${paddedCount}`; // Optional: Add a random string here
         student.events.push({ eventId: eventDoc._id, transactionId, ticketId });
         eventDoc.participants.push(student._id);
         eventDoc.registrationCount += 1;
