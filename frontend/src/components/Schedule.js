@@ -289,7 +289,7 @@ const Schedule = () => {
 
 
         {/* Tabs for Day Selection */}
-        <div className="grid grid-cols-3 gap-4 md:grid-cols-5 justify-center">
+        <div className="grid grid-cols-3 gap-4 md:grid-cols-5 justify-center px-2">
           {eventDays.map((day, index) => (
             <button
               key={index}
@@ -310,7 +310,7 @@ const Schedule = () => {
         </p>
 
         {/* Event Details */}
-        <div className="mt-8">
+        <div className="mt-8 px-2">
           {eventDays.map((day, index) => (
             <div
               key={index}
