@@ -168,7 +168,7 @@ export default function NavBar() {
 
                 </>
             )}
-            <Marquee className="text-yellow-400 dark:text-yellow-300 bg-blue-900 font-bold" speed={120}>Registrations are live - <Link to="/events" className='hover:underline'>Click here to register</Link></Marquee>
+            <Marquee className="text-yellow-400 dark:text-yellow-300 bg-blue-900 font-bold" pauseOnHover={true} speed={120}>Registrations are live - <Link to="/events" className='hover:underline'>Click here to register</Link></Marquee>
         </header>
         
     );

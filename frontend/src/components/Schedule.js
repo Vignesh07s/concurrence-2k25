@@ -304,7 +304,7 @@ const Schedule = () => {
           ))}
         </div>
 
-        {/* Disclaimer Message */}
+        {/* Notice */}
         <p className="text-center text-red-600 font-semibold mb-6">
           *Timing and venues are subject to change without prior notice.
         </p>

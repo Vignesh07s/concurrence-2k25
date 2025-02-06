@@ -14,7 +14,7 @@ function EventCard({ image, eventName, date, startTime, endTime, location }) {
   return (
     <button
       onClick={handleClick}
-      className="bg-white dark:bg-gray-800 shadow-lg rounded-md overflow-hidden cursor-pointer hover:shadow-xl transition-shadow duration-300 dark:text-white transition-transform duration-300 hover:scale-105"
+      className="bg-white dark:bg-gray-800 shadow-lg rounded-md overflow-hidden cursor-pointer hover:shadow-xl dark:text-white transition-transform duration-300 hover:scale-105"
       aria-label={`View details for ${eventName}`}
     >
       {/* Event Image */}
