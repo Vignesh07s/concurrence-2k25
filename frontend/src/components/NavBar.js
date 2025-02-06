@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import Marquee from "react-fast-marquee";
 
 export default function NavBar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);  // Track menu state
@@ -167,6 +168,8 @@ export default function NavBar() {
 
                 </>
             )}
+            <Marquee className="text-yellow-400 dark:text-yellow-300 bg-blue-900 font-bold" pauseOnHover={true} speed={120}>Registrations are live - <Link to="/events" className='hover:underline'>Click here to register</Link></Marquee>
         </header>
+        
     );
 }

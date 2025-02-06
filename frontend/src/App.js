@@ -10,7 +10,7 @@ import Gallery from "./components/Gallery";
 import Contact from "./components/Contact";
 import About from "./components/About";
 import Dashboard from "./components/Dashboard";
-import Marquee from "react-fast-marquee";
+
 
 export default function App() {
 
@@ -18,7 +18,7 @@ export default function App() {
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
       <Router>
         <NavBar />
-        <Marquee className="text-red-700 font-bold dark:text-white" pauseOnHover={true} speed={120}>Registrations are live - Click here to register</Marquee>
+        
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/events" element={<Events />} />

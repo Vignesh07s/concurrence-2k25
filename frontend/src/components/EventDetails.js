@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import RegistrationModal from './Registration';
 import PaperSubmissionModal from './PaperSubmissionModal';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faClock, faCalendarDay, faLocationDot } from '@fortawesome/free-solid-svg-icons';
+
 
 function EventDetails() {
   const { eventName } = useParams(); // Extract eventName from the URL
@@ -96,27 +99,17 @@ function EventDetails() {
 
                 {/* Date and Time */}
                 <div className="flex items-center">
-                  <svg
-                    className="w-5 h-5 text-gray-500 dark:text-gray-400 mr-2"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-                    <line x1="16" y1="2" x2="16" y2="6" />
-                    <line x1="8" y1="2" x2="8" y2="6" />
-                    <line x1="3" y1="10" x2="21" y2="10" />
-                  </svg>
-                  <span>{`${new Date(event.date).toLocaleDateString('en-GB')} ${`| ${event.startTime} - ${event.endTime}`}`}</span>
+                  <FontAwesomeIcon icon={faCalendarDay} className='pr-3'/>
+                  <span>{`${new Date(event.date).toLocaleDateString('en-GB')}`}</span>
                 </div>
-                <p>
-                  <i className="fas fa-map-marker-alt mr-2 pr-2"></i>
+                <div>
+                  <FontAwesomeIcon icon={faClock} className='pr-3'/>
+                  <span>{event.startTime} - {event.endTime}</span>
+                </div>
+                <div>
+                <FontAwesomeIcon icon={faLocationDot} className='pr-4'/>
                   {event.location}
-                </p>
+                </div>
                 <p>
                   <i className="fas fa-wallet text-green-500 mr-2"></i>
                   <strong>Registration Fee:</strong> ₹{event.registrationFee}
@@ -148,9 +141,6 @@ function EventDetails() {
                   </div>
                 )}
               </div>
-
-
-
 
               {/* Register Button */}
               <div className="mt-3 text-center hidden sm:block">
@@ -290,7 +280,7 @@ function EventDetails() {
       </div>
 
       {/* Registration Modal */}
-      {isModalOpen && <RegistrationModal closeModal={closeModal} eventName={eventName} qrimg={event.qrimage} wlink={event.wlink}/>
+      {isModalOpen && <RegistrationModal closeModal={closeModal} eventName={eventName} qrimg={event.qrimage} wlink={event.wlink} />
       }
 
       {/* Paper Submission Modal */}
