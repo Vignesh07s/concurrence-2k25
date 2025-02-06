@@ -64,6 +64,7 @@ const RegistrationModal = ({ closeModal, eventName, qrimg, wlink }) => {
     { value: 'ECE', label: 'Electronics and Communication Engineering (ECE)' },
     { value: 'EEE', label: 'Electrical and Electronics Engineering (EEE)' },
     { value: 'ME', label: 'Mechanical Engineering (ME)' },
+    { value: 'MCA', label: 'MCA'},
     { value: "other", label: "Other" }
   ];
 

@@ -20,7 +20,7 @@ const Carousel = () => {
     slidesToScroll: 1,
     centerMode: true,
     centerPadding: "0",
-    autoplay: true, // Enable autoplay
+    autoplay: true,
     autoplaySpeed: 3000,
     arrows: false,
     responsive: [
@@ -41,7 +41,6 @@ const Carousel = () => {
 
   return (
     <div className="container mx-auto px-4 py-8 relative overflow-hidden">
-      {/* Slider */}
       <Slider ref={sliderRef} {...settings}>
         {images.map((image, index) => (
           <div key={index} className="p-4">
@@ -56,17 +55,13 @@ const Carousel = () => {
         ))}
       </Slider>
 
-      {/* Navigation Buttons */}
       <div className="flex justify-center space-x-4 mt-4">
-        {/* Previous Button */}
         <button
           onClick={() => sliderRef.current.slickPrev()}
           className="bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-600 transition"
         >
           Previous
         </button>
-
-        {/* Next Button */}
         <button
           onClick={() => sliderRef.current.slickNext()}
           className="bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-600 transition"
