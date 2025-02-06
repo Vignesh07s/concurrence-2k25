@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import EventCard from './EventCard';
+import Loader from './Loader';
 
 function EventsPage() {
   const [events, setEvents] = useState([]);
@@ -33,9 +34,7 @@ function EventsPage() {
 
   if (loading) {
     return (
-      <div id="preloder" className="fixed inset-0 flex justify-center items-center bg-gray-100">
-        <div className="loader border-t-4 border-blue-500 rounded-full w-16 h-16 animate-spin"></div>
-      </div>
+      <Loader/>
     );
   }
 

@@ -34,7 +34,7 @@ const Footer = () => {
 
         {/* Copyright Message */}
         <p className="text-sm text-gray-300">
-          © {new Date().getFullYear()} RIPPLE 2K25. All rights reserved.
+          © {new Date().getFullYear()} CONCURRENCE 2K25. All rights reserved.
         </p>
 
         

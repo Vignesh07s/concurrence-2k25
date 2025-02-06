@@ -1,27 +1,25 @@
-import React from 'react';
+import React from "react";
 
 const Contact = () => {
-    const eventCoordinators = [
-        { event: 'Hackathon', coordinators: [
-            { name: 'John Doe', role: 'Coordinator', email: 'john@example.com', phone: '+1234567890' },
-            { name: 'Jane Smith', role: 'Coordinator', email: 'jane@example.com', phone: '+0987654321' },
-        ] },
-        { event: 'Technical Quiz', coordinators: [
-            { name: 'Sam Wilson', role: 'Coordinator', email: 'sam@example.com', phone: '+1122334455' },
-            { name: 'Alex Turner', role: 'Coordinator', email: 'alex@example.com', phone: '+5544332211' },
-        ] },
-        // Add other events similarly
+    const studentSecretaries = [
+        { name: "Pinnapuram Varun", role: "Student Secretary", email: "varunroyalvk@gmail.com", phone: "8985523278" },
+        { name: "P Lakshmi Vardhan Reddy", role: "Student Secretary", email: "plakshmivardhanreddy@gmail.com", phone: "6301894349" },
     ];
 
-    const overallCoordinators = [
-        { name: 'Event Head', role: 'Overall Coordinator', email: 'head@example.com', phone: '+1230987654' },
-        { name: 'Event Co-Head', role: 'Co-Overall Coordinator', email: 'cohead@example.com', phone: '+4321098765' },
+    const studentCoordinators = [
+        { name: "G. Venkata Sandeep Reddy", role: "Coordinator", email: "gummireddysandeepreddy@gmail.com", phone: "9951747977" },
+        { name: "Sura Sura Nagendra Babu", role: "Coordinator", email: "surasuranagendrababu@gmail.com", phone: "9398402419" },
+    ];
+
+    const technicalAssistants = [
+        { name: "S Vigneshwara Reddy", role: "Technical Support", email: "vigneshwarareddys@gmail.com", phone: "8096343600" },
+        { name: "K Pujith Kumar Reddy", role: "Technical Support", email: "pujithkalluru@gmail.com", phone: "8328221830" },
+        { name: "P Bharath Kumar Reddy", role: "Technical Support", email: "bpippalla@gmail.com", phone: "7569716620" },
     ];
 
     return (
         <>
-            {/* Header Section */}
-            <section className="py-12 bg-gradient-to-r from-blue-600 to-green-500 text-white text-center">
+            <section className="py-12 bg-gradient-to-r from-blue-600 to-green-500 text-white text-center dark:from-gray-500 dark:to-gray-900">
                 <div className="container mx-auto px-6">
                     <h1 className="text-4xl font-bold mb-4">Contact Us</h1>
                     <p className="text-lg">
@@ -30,122 +28,47 @@ const Contact = () => {
                 </div>
             </section>
 
-            {/* General Contact Information */}
-            <section className="py-12 bg-gray-50">
-                <div className="container mx-auto px-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div className="text-center md:text-left">
-                            <h2 className="text-2xl font-bold mb-4 text-blue-600">Get in Touch</h2>
-                            <p className="mb-4">
-                                📞 <strong>Event Hotline:</strong> +91-9876543210
-                            </p>
-                            <p className="mb-4">
-                                📧 <strong>Email:</strong> ripple2k25@cse.rgmcet.edu
-                            </p>
-                            <p className="mb-4">
-                                📍 <strong>Address:</strong> RGMCET Campus, CSE Department
-                            </p>
-                        </div>
-                        <div className="flex flex-col items-center justify-center">
-                            <h2 className="text-2xl font-bold mb-4 text-blue-600">Follow Us</h2>
-                            <div className="flex space-x-6">
-                                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
-                                    <img src="/icons/instagram.svg" alt="Instagram" className="h-8 w-8 hover:scale-110 transition" />
-                                </a>
-                                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
-                                    <img src="/icons/facebook.svg" alt="Facebook" className="h-8 w-8 hover:scale-110 transition" />
-                                </a>
-                                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
-                                    <img src="/icons/linkedin.svg" alt="LinkedIn" className="h-8 w-8 hover:scale-110 transition" />
-                                </a>
-                            </div>
+            <section className="py-12 bg-gray-50 dark:bg-gray-800">
+                <div className="container mx-auto px-3">
+
+                    <div>
+                        <h3 className="text-2xl font-bold text-blue-500 dark:text-white mb-4">Technical Assistance</h3>
+                        <p className="text-gray-700 dark:text-gray-300 mb-4">
+                            For any website-related issues, registration problems, or payment screenshot upload difficulties, feel free to reach out to our technical assistance team.
+                        </p>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-4">
+                            {technicalAssistants.map((contact, index) => (
+                                <ContactCard key={index} contact={contact} />
+                            ))}
                         </div>
                     </div>
-                </div>
-            </section>
 
-            {/* Event Coordinators */}
-            <section className="py-12 bg-gray-100">
-                <div className="container mx-auto px-6">
-                    <h2 className="text-3xl font-bold text-center text-blue-600 mb-8">Event Coordinators</h2>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {eventCoordinators.map((event, index) => (
-                            <div key={index} className="bg-white shadow-lg rounded-lg p-6 text-center">
-                                <h4 className="font-bold text-lg">{event.event}</h4>
-                                {event.coordinators.map((coordinator, idx) => (
-                                    <div key={idx} className="mt-4">
-                                        <p>{coordinator.name} ({coordinator.role})</p>
-                                        <p>📧 <a href={`mailto:${coordinator.email}`} className="text-blue-500">{coordinator.email}</a></p>
-                                        <p>📞 <a href={`tel:${coordinator.phone}`} className="text-blue-500">{coordinator.phone}</a></p>
-                                    </div>
-                                ))}
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
 
-            {/* Overall Event Coordinators */}
-            <section className="py-12 bg-gray-50">
-                <div className="container mx-auto px-6">
-                    <h2 className="text-3xl font-bold text-center text-blue-600 mb-8">Overall Event Coordinators</h2>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8">
-                        {overallCoordinators.map((coordinator, index) => (
-                            <div key={index} className="bg-white shadow-lg rounded-lg p-6 text-center">
-                                <h4 className="font-bold text-lg">{coordinator.role}</h4>
-                                <p>{coordinator.name}</p>
-                                <p>📧 <a href={`mailto:${coordinator.email}`} className="text-blue-500">{coordinator.email}</a></p>
-                                <p>📞 <a href={`tel:${coordinator.phone}`} className="text-blue-500">{coordinator.phone}</a></p>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* Contact Form */}
-            <section className="py-16 bg-white">
-                <div className="container mx-auto px-6">
-                    <h2 className="text-3xl font-bold text-center text-blue-600 mb-8">Send Us a Message</h2>
-                    <form className="max-w-2xl mx-auto bg-gray-50 shadow-lg rounded-lg p-6 space-y-4">
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <input
-                                type="text"
-                                placeholder="Your Name"
-                                className="border p-3 rounded focus:ring-2 focus:ring-blue-500 w-full"
-                                required
-                            />
-                            <input
-                                type="email"
-                                placeholder="Your Email"
-                                className="border p-3 rounded focus:ring-2 focus:ring-blue-500 w-full"
-                                required
-                            />
+                    <div className="mb-12">
+                        <h3 className="text-2xl font-bold text-blue-500 dark:text-white mb-4">Student Secretaries</h3>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                            {studentSecretaries.map((contact, index) => (
+                                <ContactCard key={index} contact={contact} />
+                            ))}
                         </div>
-                        <input
-                            type="text"
-                            placeholder="Subject"
-                            className="border p-3 rounded focus:ring-2 focus:ring-blue-500 w-full"
-                            required
-                        />
-                        <textarea
-                            placeholder="Your Message"
-                            className="border p-3 rounded focus:ring-2 focus:ring-blue-500 w-full h-32"
-                            required
-                        ></textarea>
-                        <button
-                            type="submit"
-                            className="bg-gradient-to-r from-blue-600 to-green-500 text-white px-6 py-3 rounded-lg w-full font-bold hover:opacity-90 transition"
-                        >
-                            Submit
-                        </button>
-                    </form>
+                    </div>
+
+                    <div className="mb-12">
+                        <h3 className="text-2xl font-bold text-blue-500 dark:text-white mb-4">Student Coordinators</h3>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                            {studentCoordinators.map((contact, index) => (
+                                <ContactCard key={index} contact={contact} />
+                            ))}
+                        </div>
+                    </div>
+
+
                 </div>
             </section>
 
-            {/* Google Maps Integration */}
-            <section className="py-16">
+            <section className="py-16 bg-white dark:bg-gray-900">
                 <div className="container mx-auto px-6">
-                    <h2 className="text-3xl font-bold text-center text-blue-600 mb-8">Find Us Here</h2>
+                    <h2 className="text-3xl font-bold text-center text-blue-600 dark:text-white mb-8">Find Us Here</h2>
                     <div className="overflow-hidden rounded-lg shadow-lg">
                         <iframe
                             title="Map showing RGMCET campus location"
@@ -159,13 +82,16 @@ const Contact = () => {
                     </div>
                 </div>
             </section>
-
-            {/* Footer */}
-            <footer className="py-8 bg-blue-600 text-white text-center">
-                <p>&copy; {new Date().getFullYear()} RIPPLE 2K25 | All Rights Reserved</p>
-            </footer>
         </>
     );
 };
+
+const ContactCard = ({ contact }) => (
+    <div className="bg-white dark:bg-gray-700 shadow-lg rounded-lg p-3 h-28 w-68">
+        <h4 className="font-bold text-lg text-gray-800 dark:text-white">{contact.name}</h4>
+        <p>📧 <a href={`mailto:${contact.email}`} className="text-blue-500">{contact.email}</a></p>
+        <p>📞 <a href={`tel:${contact.phone}`} className="text-blue-500">{contact.phone}</a></p>
+    </div>
+);
 
 export default Contact;

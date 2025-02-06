@@ -27,6 +27,5 @@ yarn-error.log*
 
 
 #Private Folders
-/Mail Data
-/Excel Data
+/data
 /backend/Send Mails

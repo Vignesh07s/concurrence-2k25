@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import Select from 'react-select';
+import Loader from './Loader';
 
 const RegistrationModal = ({ closeModal, eventName, qrimg, wlink }) => {
   const [formData, setFormData] = useState({
@@ -218,9 +219,7 @@ const RegistrationModal = ({ closeModal, eventName, qrimg, wlink }) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 sm:p-6 md:p-8 lg:p-10 backdrop-blur-sm">
       {loading && (
-        <div id="preloder" className="fixed inset-0 flex justify-center items-center bg-gray-100 bg-opacity-75 z-50">
-          <div className="loader border-t-4 border-blue-500 rounded-full w-16 h-16 animate-spin"></div>
-        </div>
+        <Loader/>
       )}
       <div className="p-4 sm:p-6 md:p-8 lg:p-10  bg-white rounded-lg shadow-lg w-[400px] sm:w-[80%] md:w-[60%] lg:w-[50%] max-h-[90vh] overflow-auto relative my-4">
         <button

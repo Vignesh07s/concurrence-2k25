@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 import Marquee from "react-fast-marquee";
 
 export default function NavBar() {
-    const [isMenuOpen, setIsMenuOpen] = useState(false);  // Track menu state
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
     const storedDarkMode = localStorage.getItem("darkMode") === "true";
     const [darkMode, setDarkMode] = useState(storedDarkMode);
 
     const toggleMenu = () => {
-        setIsMenuOpen(!isMenuOpen);  // Toggle the menu state on button click
+        setIsMenuOpen(!isMenuOpen);
     };
 
     useEffect(() => {
@@ -52,13 +52,13 @@ export default function NavBar() {
                             {darkMode ? "☀️" : "🌙"}
                         </button>
                     </li>
-                    <li><a href="/dashboard" className="hover:text-gray-300 dark:hover:text-gray-400">Dashboard</a></li>
-                    <li><a href="/" className="hover:text-gray-300 dark:hover:text-gray-400">Home</a></li>
-                    <li><a href="/about" className="hover:text-gray-300 dark:hover:text-gray-400">About</a></li>
+                    <li><Link to="/dashboard" className="hover:text-gray-300 dark:hover:text-gray-400">Dashboard</Link></li>
+                    <li><Link to="/" className="hover:text-gray-300 dark:hover:text-gray-400">Home</Link></li>
+                    <li><Link to="/about" className="hover:text-gray-300 dark:hover:text-gray-400">About</Link></li>
                     <li><Link to="/events" className="hover:text-gray-300 dark:hover:text-gray-400">Events</Link></li>
                     <li><Link to="/schedule" className="hover:text-gray-300 dark:hover:text-gray-400">Schedule</Link></li>
                     <li><Link to="/gallery" className="hover:text-gray-300 dark:hover:text-gray-400">Gallery</Link></li>
-                    {/* <li><Link to="/contact" className="hover:text-gray-300 dark:hover:text-gray-400">Contact</Link></li> */}
+                    <li><Link to="/contact" className="hover:text-gray-300 dark:hover:text-gray-400">Contact</Link></li>
                 </ul>
 
                 {/* Hamburger icon */}
@@ -80,7 +80,6 @@ export default function NavBar() {
                         onClick={toggleMenu}
                     ></div>
                     <div className="fixed top-0 right-0 w-3/5 sm:w-2/5 bg-blue-600 text-white z-50 shadow-xl transform transition-transform duration-300 dark:bg-gray-800 h-full">
-                        {/* Close Button */}
                         <button
                             className="text-white text-2xl font-bold w-full text-right p-3"
                             onClick={toggleMenu}
@@ -96,7 +95,7 @@ export default function NavBar() {
                                 <Link
                                     to="/"
                                     className="block text-xl font-semibold hover:text-gray-300 dark:hover:text-gray-400 pl-3"
-                                    onClick={toggleMenu} // Close menu on link click
+                                    onClick={toggleMenu}
                                 >
                                     Home
                                 </Link>
@@ -106,7 +105,7 @@ export default function NavBar() {
                                 <Link
                                     to="/about"
                                     className="block text-xl font-semibold hover:text-gray-300 dark:hover:text-gray-400 pl-3"
-                                    onClick={toggleMenu} // Close menu on link click
+                                    onClick={toggleMenu}
                                 >
                                     About
                                 </Link>
@@ -116,7 +115,7 @@ export default function NavBar() {
                                 <Link
                                     to="/events"
                                     className="block text-xl font-semibold hover:text-gray-300 dark:hover:text-gray-400 pl-3"
-                                    onClick={toggleMenu} // Close menu on link click
+                                    onClick={toggleMenu}
                                 >
                                     Events
                                 </Link>
@@ -126,7 +125,7 @@ export default function NavBar() {
                                 <Link
                                     to="/schedule"
                                     className="block text-xl font-semibold hover:text-gray-300 dark:hover:text-gray-400 pl-3"
-                                    onClick={toggleMenu} // Close menu on link click
+                                    onClick={toggleMenu}
                                 >
                                     Schedule
                                 </Link>
@@ -136,7 +135,7 @@ export default function NavBar() {
                                 <Link
                                     to="/gallery"
                                     className="block text-xl font-semibold hover:text-gray-300 dark:hover:text-gray-400 pl-3"
-                                    onClick={toggleMenu} // Close menu on link click
+                                    onClick={toggleMenu}
                                 >
                                     Gallery
                                 </Link>
@@ -144,9 +143,19 @@ export default function NavBar() {
                             </li>
                             <li>
                                 <Link
+                                    to="/contact"
+                                    className="block text-xl font-semibold hover:text-gray-300 dark:hover:text-gray-400 pl-3"
+                                    onClick={toggleMenu}
+                                >
+                                    Contact
+                                </Link>
+                                <hr className="my-2 border-gray-400 dark:border-gray-600" />
+                            </li>
+                            <li>
+                                <Link
                                     to="/dashboard"
                                     className="block text-xl font-semibold hover:text-gray-300 dark:hover:text-gray-400 pl-3"
-                                    onClick={toggleMenu} // Close menu on link click
+                                    onClick={toggleMenu}
                                 >
                                     Dashboard
                                 </Link>

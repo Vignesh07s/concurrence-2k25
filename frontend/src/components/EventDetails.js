@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import RegistrationModal from './Registration';
 import PaperSubmissionModal from './PaperSubmissionModal';
+import Loader from './Loader';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClock, faCalendarDay, faLocationDot } from '@fortawesome/free-solid-svg-icons';
 
@@ -53,9 +54,7 @@ function EventDetails() {
 
   if (loading) {
     return (
-      <div id="preloder" className="fixed inset-0 flex justify-center items-center bg-gray-100">
-        <div className="loader border-t-4 border-blue-500 rounded-full w-16 h-16 animate-spin"></div>
-      </div>
+      <Loader/>
     )
   }
 
@@ -77,12 +76,12 @@ function EventDetails() {
   }
 
   return (
-    <div className="bg-gradient-to-r bg-blue-100 min-h-screen pb-2 sm:pt-2 px-6 sm:px-8">
+    <div className="bg-gradient-to-r from-blue-100 to-blue-200 dark:from-gray-900 dark:to-gray-900 min-h-screen pb-2 sm:pt-2 px-6 sm:px-8">
       <div className="max-w-screen-xl mx-auto">
-        <div className="md:bg-white p-0 sm:p-6 sm:py-3 rounded-lg md:shadow-lg">
+        <div className="md:bg-white dark:bg-gray-800 p-0 sm:p-6 sm:py-3 rounded-lg md:shadow-lg">
           {/* Event Name */}
-          <h1 className="text-4xl font-bold text-blue-700 text-center mb-3">{event.eventName}</h1>
-          <hr className="border-t-2 border-blue-200 my-4" />
+          <h1 className="text-4xl font-bold text-blue-700 dark:text-blue-300 text-center mb-3">{event.eventName}</h1>
+          <hr className="border-t-2 border-blue-200 dark:border-gray-700 my-4" />
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-0">
             {/* First Column */}
             <div className="space-y-6 mx-auto">
@@ -95,7 +94,7 @@ function EventDetails() {
                 className=" object-cover rounded-lg shadow-sm shadow-black"
               />
               {/* Location, Date, and Registration Fee */}
-              <div className="text-gray-700">
+              <div className="text-gray-700 dark:text-gray-300">
 
                 {/* Date and Time */}
                 <div className="flex items-center">
@@ -186,16 +185,16 @@ function EventDetails() {
             <div className="space-y-6">
               {/* About */}
               <div>
-                <h2 className="text-2xl font-bold text-blue-700 mb-2">About the Event</h2>
-                <p className="text-gray-600">{event.description}</p>
+                <h2 className="text-2xl font-bold text-blue-700 dark:text-blue-300 mb-2">About the Event</h2>
+                <p className="text-gray-600 dark:text-gray-300">{event.description}</p>
               </div>
               {/* Rules & Guidelines */}
               <div>
-                <h3 className="text-xl font-bold text-blue-700 mb-2">Rules & Guidelines</h3>
-                <ul className="text-gray-600 space-y-1">
+                <h3 className="text-xl font-bold text-blue-700 dark:text-blue-300 mb-2">Rules & Guidelines</h3>
+                <ul className="text-gray-600 dark:text-gray-300 space-y-1">
                   {event.rulesAndGuidelines.map((item, index) => (
                     <li key={index} className="flex items-start">
-                      <span className="text-blue-500 mr-2">
+                      <span className="text-blue-500 dark:text-blue-400 mr-2">
                         <i className="fas fa-check"></i>
                       </span>
                       <span>{item}</span>
@@ -206,8 +205,8 @@ function EventDetails() {
               {/* Event Rounds */}
               {event.rounds.length > 0 && (
                 <div>
-                  <h3 className="text-xl font-bold text-blue-700 mb-2">Event Rounds</h3>
-                  <ul className="text-gray-600 space-y-1">
+                  <h3 className="text-xl font-bold text-blue-700 dark:text-blue-300 mb-2">Event Rounds</h3>
+                  <ul className="text-gray-600 dark:text-gray-300 space-y-1">
                     {event.rounds.map((round, index) => (
                       <li key={index}>
                         <span className="mr-2 text-green-500">🎯</span>
@@ -219,13 +218,13 @@ function EventDetails() {
               )}
               {/* Prizes */}
               <div>
-                <h3 className="text-xl font-bold text-blue-700 mb-2">Prizes</h3>
-                <p className="text-gray-600">TBA</p>
+                <h3 className="text-xl font-bold text-blue-700 dark:text-blue-300 mb-2">Prizes</h3>
+                <p className="text-gray-600 dark:text-gray-300">TBA</p>
               </div>
               {/* Coordinators */}
               <div>
-                <h3 className="text-xl font-bold text-blue-700 mb-1">Coordinators</h3>
-                <ul className="list-none text-gray-600">
+                <h3 className="text-xl font-bold text-blue-700 dark:text-blue-300 mb-1">Coordinators</h3>
+                <ul className="list-none text-gray-600 dark:text-gray-300">
                   {event.coordinators.map((coordinator, index) => (
                     <li key={index}>
                       <strong>{coordinator.name}</strong> - Contact: {coordinator.contact}
