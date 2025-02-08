@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import RegistrationModal from './Registration';
+import Loader from './Loader';
 
 const PaperPayment = () => {
 
-const eventName = 'Paper Presentation';
-const [event, setEvent] = useState(null);
+    const eventName = 'Paper Presentation';
+    const [event, setEvent] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchEventDetails = async () => {
@@ -15,18 +17,26 @@ const [event, setEvent] = useState(null);
                 }
                 const data = await response.json();
                 setEvent(data);
-                console.log(data);
             } catch (err) {
+                console.error(err);
+            } finally {
+                setLoading(false);
             }
         };
 
         fetchEventDetails();
-    }, [eventName]);
+    }, []);
+
+    if (loading) {
+        return (
+            <Loader />
+        )
+    }
 
     return (
         <div>
             {event ? (
-                <RegistrationModal closeModal={() => {}} eventName={eventName} qrimg={event.qrimage} wlink={event.wlink} />
+                <RegistrationModal closeModal={() => { }} eventName={eventName} qrimg={event.qrimage} wlink={event.wlink} />
             ) : (
                 <div className="text-white">Payment Page Loading... Please wait</div>
             )}
