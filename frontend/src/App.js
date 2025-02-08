@@ -10,7 +10,6 @@ import Gallery from "./components/Gallery";
 import Contact from "./components/Contact";
 import About from "./components/About";
 import Dashboard from "./components/Dashboard";
-import PaperPayment from "./components/PaperPayment";
 
 
 export default function App() {
@@ -24,7 +23,6 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/events" element={<Events />} />
           <Route path="/events/:eventName" element={<EventDetails />} />
-          <Route path="/events/paper-presentation/payment" element={<PaperPayment/>} />
           <Route path="*" element={<NotFound />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/schedule" element={<Schedule />} />
