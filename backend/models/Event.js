@@ -5,6 +5,7 @@ const eventSchema = new mongoose.Schema({
     description: { type: String, required: true },
     rulesAndGuidelines: { type: [String], default: [] },
     rounds: { type: [String], default: [] },
+    years: { type: [String], default: [], required: true },
     date: { type: Date, required: true },
     startTime: { type: String, required: true },
     endTime: { type: String, required: true },

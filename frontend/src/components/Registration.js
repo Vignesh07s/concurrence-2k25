@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import Select from 'react-select';
 import Loader from './Loader';
 
-const RegistrationModal = ({ closeModal, eventName, qrimg, wlink }) => {
+const RegistrationModal = ({ years, closeModal, eventName, qrimg, wlink }) => {
   const [formData, setFormData] = useState({
     name: '',
     registrationId: '',
@@ -65,9 +65,17 @@ const RegistrationModal = ({ closeModal, eventName, qrimg, wlink }) => {
     { value: 'ECE', label: 'Electronics and Communication Engineering (ECE)' },
     { value: 'EEE', label: 'Electrical and Electronics Engineering (EEE)' },
     { value: 'ME', label: 'Mechanical Engineering (ME)' },
-    { value: 'MCA', label: 'MCA'},
+    { value: 'MCA', label: 'MCA' },
     { value: "other", label: "Other" }
   ];
+
+  const yearMappings = {
+    I: "1st Year",
+    II: "2nd Year",
+    III: "3rd Year",
+    IV: "4th Year"
+  };
+  
 
 
   const handleFileChange = async (e) => {
@@ -219,7 +227,7 @@ const RegistrationModal = ({ closeModal, eventName, qrimg, wlink }) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 sm:p-6 md:p-8 lg:p-10 backdrop-blur-sm">
       {loading && (
-        <Loader/>
+        <Loader />
       )}
       <div className="p-4 sm:p-6 md:p-8 lg:p-10  bg-white rounded-lg shadow-lg w-[400px] sm:w-[80%] md:w-[60%] lg:w-[50%] max-h-[90vh] overflow-auto relative my-4">
         <button
@@ -324,10 +332,9 @@ const RegistrationModal = ({ closeModal, eventName, qrimg, wlink }) => {
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-500"
                   >
                     <option value="" disabled>Select Year</option>
-                    <option value="I">1st Year</option>
-                    <option value="II">2nd Year</option>
-                    <option value="III">3rd Year</option>
-                    <option value="IV">4th Year</option>
+                    {years.map((year) => (
+                      <option key={year} value={year}>{yearMappings[year]}</option>
+                    ))}
                   </select>
                 </div>
                 <div>
