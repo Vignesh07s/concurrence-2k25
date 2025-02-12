@@ -30,7 +30,7 @@ export default function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/about" element={<About />} />
-          <Route path="/details" element={<StudentEvents />} />
+          <Route path="/count/details" element={<StudentEvents />} />
         </Routes>
       </Router>
     </div>

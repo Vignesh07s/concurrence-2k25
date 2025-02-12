@@ -65,9 +65,10 @@ const StudentEvents = () => {
           <div className="mt-4 text-left"> {/* Left-aligned content */}
             <h3 className="text-lg font-medium">
               {eventCount > 0
-                ? `Registered for ${eventCount} event(s):`
+                ? `Registered for ${eventCount} event${eventCount > 1 ? "s" : ""}`
                 : "Not registered for any events."}
             </h3>
+
 
             {eventCount > 0 && (
               <ol className="mt-2 list-decimal list-inside"> {/* Ordered List */}
