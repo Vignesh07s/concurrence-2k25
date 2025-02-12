@@ -24,6 +24,8 @@ app.use(bodyParser.json());
 // Registration and Route routes
 app.use('/api/v1/register', require('./routes/registrationRoutes'));
 app.use('/api/v1/events', require('./routes/eventRoutes'));
+app.use('/api/v1/studentDetails', require('./routes/countRoutes'));
+
 
 app.get('/api/v1/gallery', async (req, res) => {
     try {

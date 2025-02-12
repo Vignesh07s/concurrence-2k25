@@ -10,6 +10,7 @@ import Gallery from "./components/Gallery";
 import Contact from "./components/Contact";
 import About from "./components/About";
 import Dashboard from "./components/Dashboard";
+import StudentEvents from "./components/StudentEvents";
 
 
 export default function App() {
@@ -29,6 +30,7 @@ export default function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/about" element={<About />} />
+          <Route path="/details" element={<StudentEvents />} />
         </Routes>
       </Router>
     </div>
