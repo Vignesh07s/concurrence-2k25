@@ -171,7 +171,6 @@ function EventDetails() {
                         onClick={openModal}
                         className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-md cursor-pointer"
                         aria-label="Register for the event"
-                        disabled
                       >
                         Register Now
                       </button>
