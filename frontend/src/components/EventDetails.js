@@ -76,9 +76,9 @@ function EventDetails() {
   }
 
   return (
-    <div className="bg-gradient-to-r from-blue-100 to-blue-200 dark:from-gray-900 dark:to-gray-900 min-h-screen pb-2 sm:pt-2 px-6 sm:px-8">
+    <div className="bg-gradient-to-r from-blue-100 to-blue-200 dark:from-gray-900 dark:to-gray-900 min-h-screen pb-2 sm:pt-2 px-2 sm:px-8">
       <div className="max-w-screen-xl mx-auto">
-        <div className="md:bg-white dark:bg-gray-800 p-0 sm:p-6 sm:py-3 rounded-lg md:shadow-lg">
+        <div className="md:bg-white dark:bg-gray-800 p-4 sm:p-6 sm:py-3 rounded-lg md:shadow-lg">
           {/* Event Name */}
           <h1 className="text-4xl font-bold text-blue-700 dark:text-blue-300 text-center mb-3">{event.eventName}</h1>
           <hr className="border-t-2 border-blue-200 dark:border-gray-700 my-4" />
@@ -148,10 +148,11 @@ function EventDetails() {
                   <div className="mt-4">
                     <button
                       onClick={paperModal}
-                      className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-md"
+                      className="px-6 py-3 bg-blue-200 text-gray-500 rounded-lg shadow-md cursor-not-allowed"
                       aria-label="Register for the event"
+                      disabled
                     >
-                      Submit Paper
+                      Submissions closed
                     </button>
                   </div>
                 ) : (
@@ -242,10 +243,11 @@ function EventDetails() {
               <div className="mt-4">
                 <button
                   onClick={paperModal}
-                  className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-md"
+                  className="px-6 py-3 bg-blue-200 text-gray-500 rounded-lg shadow-md cursor-not-allowed"
                   aria-label="Register for the event"
+                  disabled
                 >
-                  Submit Paper
+                  Submissions closed
                 </button>
               </div>
             ) : (
