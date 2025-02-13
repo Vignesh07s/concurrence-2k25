@@ -70,11 +70,13 @@ const Dashboard = () => {
                 key={index}
                 className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-5 border-l-4 border-blue-500 dark:border-blue-400 hover:shadow-lg transition-shadow"
               >
-                <h3 className="text-xl font-bold">{event.eventName}</h3>
+                <h3 className="text-xl font-bold">{event.eventName} {event.registrationCount === event.maxParticipants ? <span role="img" aria-label="lock">🔒</span> : ""}</h3>
                 <p className="mt-2">
                   Registrations:{" "}
                   <span className="text-2xl font-bold text-blue-600 dark:text-blue-400">
-                    {event.registrationCount}/{event.maxParticipants}
+                    {event.eventName.toLowerCase() === "paper presentation"
+                      ? event.registrationCount
+                      : `${event.registrationCount}/${event.maxParticipants}`}
                   </span>
                 </p>
               </div>

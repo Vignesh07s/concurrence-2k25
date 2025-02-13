@@ -54,7 +54,7 @@ function EventDetails() {
 
   if (loading) {
     return (
-      <Loader/>
+      <Loader />
     )
   }
 
@@ -98,15 +98,15 @@ function EventDetails() {
 
                 {/* Date and Time */}
                 <div className="flex items-center">
-                  <FontAwesomeIcon icon={faCalendarDay} className='pr-3'/>
+                  <FontAwesomeIcon icon={faCalendarDay} className='pr-3' />
                   <span>{`${new Date(event.date).toLocaleDateString('en-GB')}`}</span>
                 </div>
                 <div>
-                  <FontAwesomeIcon icon={faClock} className='pr-3'/>
+                  <FontAwesomeIcon icon={faClock} className='pr-3' />
                   <span>{event.startTime} - {event.endTime}</span>
                 </div>
                 <div>
-                <FontAwesomeIcon icon={faLocationDot} className='pr-4'/>
+                  <FontAwesomeIcon icon={faLocationDot} className='pr-4' />
                   {event.location}
                 </div>
                 <p>
@@ -160,12 +160,14 @@ function EventDetails() {
                   <div className="mt-3 text-center">
                     {event.registrationCount >= event.maxParticipants ? (
                       <button
-                        className="px-6 py-3 bg-gray-400 text-white rounded-lg shadow-md cursor-not-allowed"
-                        aria-label="Registration Closed"
+                        className="px-6 py-3 rounded-lg shadow-md cursor-not-allowed 
+                                 bg-gray-500 text-white dark:bg-gray-700 dark:text-gray-300 transition-colors"
+                        aria-label="Registrations Locked"
                         disabled
                       >
-                        Registration Closed
+                        Registrations Locked <span role="img" aria-label="lock">🔒</span>
                       </button>
+
                     ) : (
                       <button
                         onClick={openModal}
@@ -254,11 +256,12 @@ function EventDetails() {
               <div className="mt-3 text-center">
                 {event.registrationCount >= event.maxParticipants ? (
                   <button
-                    className="px-6 py-3 bg-gray-400 text-white rounded-lg shadow-md cursor-not-allowed"
-                    aria-label="Registration Closed"
+                    className="px-6 py-3 rounded-lg shadow-md cursor-not-allowed 
+                           bg-gray-500 text-white dark:bg-gray-700 dark:text-gray-300 transition-colors"
+                    aria-label="Registrations Locked"
                     disabled
                   >
-                    Registration Closed
+                    Registrations Locked <span role="img" aria-label="lock">🔒</span>
                   </button>
                 ) : (
                   <button
