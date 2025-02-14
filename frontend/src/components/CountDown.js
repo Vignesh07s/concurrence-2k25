@@ -8,8 +8,10 @@ const Countdown = () => {
     seconds: 0,
   });
 
+  const [eventLive, setEventLive] = useState(false)
+
   useEffect(() => {
-    const targetDate = new Date("2025-02-18T00:00:00"); // Replace with your event date
+    const targetDate = new Date("2025-02-18T09:30:00+05:30");
 
     const updateCountdown = () => {
       const now = new Date();
@@ -24,11 +26,12 @@ const Countdown = () => {
         setTimeLeft({ days, hours, minutes, seconds });
       } else {
         setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+        setEventLive(true);
       }
     };
 
-    const intervalId = setInterval(updateCountdown, 1000); // Update every second
-    return () => clearInterval(intervalId); // Cleanup interval on component unmount
+    const intervalId = setInterval(updateCountdown, 1000);
+    return () => clearInterval(intervalId);
   }, []);
 
   return (
@@ -40,20 +43,20 @@ const Countdown = () => {
         backgroundPosition: "center",
       }}
     >
-      {/* Background Overlay */}
+      
       <div className="absolute inset-0 bg-black opacity-60"></div>
 
       <div className="container relative z-10 mx-auto flex flex-col md:flex-row items-center justify-center gap-8 text-center">
-        {/* Text Section */}
+        
         <div className="text-center md:text-left">
           <h2 className="text-xl sm:text-5xl font-extrabold text-yellow-400">
-            Countdown to the Big Tech Event<span className="hidden sm:inline"> 🚀</span>
+          {eventLive ? "Event is live now!" : "Countdown to the Big Tech Event"}<span className="hidden sm:inline"> 🚀</span>
           </h2>
         </div>
 
         {/* Countdown Timer Section */}
         <div className="flex gap-3 sm:gap-6 mt-6 md:mt-0 flex-wrap justify-center">
-          {/* Box for each time element */}
+          
           <div className="text-center bg-blue-800 p-3 rounded-lg shadow-lg w-16 sm:w-24 md:w-28">
             <span className="block text-3xl sm:text-5xl font-bold text-yellow-400">
               {timeLeft.days}
