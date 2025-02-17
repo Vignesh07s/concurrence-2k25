@@ -7,6 +7,13 @@ export default function NavBar() {
     const storedDarkMode = localStorage.getItem("darkMode") === "true";
     const [darkMode, setDarkMode] = useState(storedDarkMode);
 
+    const updates = [
+        "Registrations are closed for all events except hackathon",
+        "Spot registrations are available for some events",
+        "Contact event coordinators regarding accommodation",
+        "Download the schedule from the schedule page",
+        ];
+
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
@@ -177,8 +184,17 @@ export default function NavBar() {
 
                 </>
             )}
-            <Marquee className="text-yellow-400 dark:text-yellow-300 bg-blue-900 font-bold" pauseOnHover={true} speed={120}>Registrations are live - <Link to="/events" className='hover:underline'>Click here to register</Link></Marquee>
+            
+
+            <Marquee className="text-yellow-400 dark:text-yellow-300 bg-blue-900 font-bold" pauseOnHover={true} speed={120}>
+                {updates.map((update, index) => (
+                    <span key={index} className="mx-6">
+                        {update}
+                    </span>
+                ))}
+            </Marquee>
+
         </header>
-        
+
     );
 }

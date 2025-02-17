@@ -74,9 +74,7 @@ const Dashboard = () => {
                 <p className="mt-2">
                   Registrations:{" "}
                   <span className="text-2xl font-bold text-blue-600 dark:text-blue-400">
-                    {event.eventName.toLowerCase() === "paper presentation"
-                      ? event.registrationCount
-                      : `${event.registrationCount}/${event.maxParticipants}`}
+                    {event.registrationCount}
                   </span>
                 </p>
               </div>
