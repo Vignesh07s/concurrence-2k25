@@ -11,7 +11,7 @@ const Countdown = () => {
   const [eventLive, setEventLive] = useState(false)
 
   useEffect(() => {
-    const targetDate = new Date("2025-02-18T10:45:05+05:30");
+    const targetDate = new Date("2025-02-18T10:52:05+05:30");
 
     const updateCountdown = () => {
       const now = new Date();
