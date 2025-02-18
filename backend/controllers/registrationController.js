@@ -102,10 +102,10 @@ const confirmRegistration = async (req, res) => {
             weekday: 'long', // Full weekday name
             day: '2-digit',  // Day with 2 digits
             month: 'long',   // Full month name
-            year: 'numeric', // Full year
-            hour: '2-digit', // Hour with 2 digits
-            minute: '2-digit', // Minute with 2 digits
-            second: '2-digit', // Second with 2 digits
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
             hour12: true,     // AM/PM
             timeZone: 'Asia/Kolkata',  // IST timezone
         }).format(new Date());

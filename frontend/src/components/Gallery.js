@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
+import Loader from "./Loader";
 
 const Gallery = () => {
-  // State to store images from Cloudinary
+
   const [images, setImages] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(null);
   const imgRefs = useRef([]);
@@ -14,12 +15,12 @@ const Gallery = () => {
       const data = await response.json();
   
       if (Array.isArray(data)) {
-        setImages(data); // Directly set image URLs array
+        setImages(data);
       }
     } catch (error) {
       console.error("Error fetching images:", error);
     } finally {
-      setLoading(false); // Ensure loading is set to false when fetch finishes
+      setLoading(false);
     }
   };
   
@@ -30,16 +31,16 @@ const Gallery = () => {
 
   useEffect(() => {
     const options = {
-      root: null, // use the viewport as the root
+      root: null,
       rootMargin: "0px",
-      threshold: 0.1, // 10% of the image should be visible
+      threshold: 0.1,
     };
 
     const observer = new IntersectionObserver((entries, observer) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.src = entry.target.dataset.src;
-          observer.unobserve(entry.target); // stop observing once image is loaded
+          observer.unobserve(entry.target);
         }
       });
     }, options);
@@ -51,22 +52,22 @@ const Gallery = () => {
     return () => observer.disconnect();
   }, [images]);
 
-  // Open the image in full view
+  
   const handleImageClick = (index) => {
     setCurrentIndex(index);
   };
 
-  // Close the full view
+  
   const handleClose = () => {
     setCurrentIndex(null);
   };
 
-  // Navigate to the next image
+  
   const handleNext = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
   };
 
-  // Navigate to the previous image
+  
   const handlePrev = () => {
     setCurrentIndex((prevIndex) =>
       (prevIndex - 1 + images.length) % images.length
@@ -76,17 +77,17 @@ const Gallery = () => {
   return (
     <div className="container mx-auto py-10 px-4">
       {loading ? (
-        <div>Loading...</div> // A simple loading message
+        <Loader/>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {images.map((image, index) => (
             <img
               key={index}
-              ref={(el) => (imgRefs.current[index] = el)} // Add ref to each image
-              data-src={image} // Store the image URL in data-src for lazy loading
+              ref={(el) => (imgRefs.current[index] = el)}
+              data-src={image}
               alt={`Img ${index + 1}`}
               onClick={() => handleImageClick(index)}
-              loading="lazy" // Use native lazy loading
+              loading="lazy"
               className="w-full h-52 object-cover rounded-lg shadow-lg cursor-pointer"
             />
           ))}
@@ -97,9 +98,9 @@ const Gallery = () => {
       {currentIndex !== null && (
         <div
           className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50"
-          onClick={handleClose} // Handle click on the overlay
+          onClick={handleClose}
         >
-          {/* Close Button */}
+          
           <button
             onClick={handleClose}
             className="absolute top-4 right-4 text-white text-2xl z-50"
@@ -107,10 +108,10 @@ const Gallery = () => {
             &times;
           </button>
 
-          {/* Main Image */}
+          
           <div
             className="relative"
-            onClick={(e) => e.stopPropagation()} // Prevent closing when clicking on the image or buttons
+            onClick={(e) => e.stopPropagation()}
           >
             <img
               src={images[currentIndex]}
@@ -118,7 +119,7 @@ const Gallery = () => {
               className="sm:max-w-full max-h-[75vh] object-cover rounded-lg shadow-lg px-2"
             />
 
-            {/* Navigation Buttons below the image */}
+            
             <div className="flex justify-center items-center space-x-6 w-full mt-4">
               <button
                 onClick={(e) => {

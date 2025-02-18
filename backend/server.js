@@ -5,13 +5,10 @@ const bodyParser = require('body-parser');
 const connectDB = require('./config/db');
 const axios = require('axios');
 
-// Load environment variables
 dotenv.config();
 
-// Connect to the database
 connectDB();
 
-// Initialize the app
 const app = express();
 
 app.use(cors({
@@ -21,7 +18,7 @@ app.use(cors({
 
 app.use(bodyParser.json());
 
-// Registration and Route routes
+// Routes
 app.use('/api/v1/register', require('./routes/registrationRoutes'));
 app.use('/api/v1/events', require('./routes/eventRoutes'));
 app.use('/api/v1/studentDetails', require('./routes/countRoutes'));
@@ -30,7 +27,7 @@ app.use('/api/v1/studentDetails', require('./routes/countRoutes'));
 app.get('/api/v1/gallery', async (req, res) => {
     try {
         const response = await axios.get(
-            `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/resources/image?prefix=Gallery/&type=upload&max_results=70`,
+            `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/resources/image?prefix=concurrence-2k24/&type=upload&max_results=70`,
             {
                 headers: {
                     Authorization: `Basic ${Buffer.from(
@@ -53,7 +50,6 @@ app.get('/', (req, res) => {
     res.send('Welcome to the Event Registration API');
 });
 
-// Start the server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
