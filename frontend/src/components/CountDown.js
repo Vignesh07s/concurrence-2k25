@@ -50,12 +50,13 @@ const Countdown = () => {
         
         <div className="text-center md:text-left">
           <h2 className="text-xl sm:text-5xl font-extrabold text-yellow-400">
-          {eventLive ? "Event is live now!" : "Countdown to the Big Tech Event"}<span className="hidden sm:inline"> 🚀</span>
+          {/* {eventLive ? "Event is live now!" : "Countdown to the Big Tech Event"}<span className="hidden sm:inline"> 🚀</span> */}
+          🎉 CONCURRENCE 2K25 Successfully Completed!
           </h2>
         </div>
 
         {/* Countdown Timer Section */}
-        <div className="flex gap-3 sm:gap-6 mt-6 md:mt-0 flex-wrap justify-center">
+        {/* <div className="flex gap-3 sm:gap-6 mt-6 md:mt-0 flex-wrap justify-center">
           
           <div className="text-center bg-blue-800 p-3 rounded-lg shadow-lg w-16 sm:w-24 md:w-28">
             <span className="block text-3xl sm:text-5xl font-bold text-yellow-400">
@@ -89,7 +90,7 @@ const Countdown = () => {
               Seconds
             </span>
           </div>
-        </div>
+        </div> */}
 
       </div>
     </section>
