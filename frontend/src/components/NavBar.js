@@ -8,11 +8,11 @@ export default function NavBar() {
     const [darkMode, setDarkMode] = useState(storedDarkMode);
 
     const updates = [
-        "Registrations are closed for all events except hackathon",
-        "Spot registrations are available for some events",
-        "Contact event coordinators regarding accommodation",
-        "Download the schedule from the schedule page",
-        ];
+        "Thank you for making CONCURRENCE 2K25 a grand success!",
+        "Stay tuned for our upcoming tech events and workshops",
+        "Follow us on Instagram @concurrence_rgmcet for highlights",
+    ];
+
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -184,7 +184,7 @@ export default function NavBar() {
 
                 </>
             )}
-            
+
 
             <Marquee className="text-yellow-400 dark:text-yellow-300 bg-blue-900 font-bold" pauseOnHover={true} speed={120}>
                 {updates.map((update, index) => (
